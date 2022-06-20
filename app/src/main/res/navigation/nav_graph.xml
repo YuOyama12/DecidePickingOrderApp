@@ -7,7 +7,25 @@
 
     <fragment
         android:id="@+id/mainFragment"
-        android:name="com.yuoyama12.decidepickingorderapp.MainFragment"
+        android:name="com.yuoyama12.decidepickingorderapp.fragment.MainFragment"
         android:label="fragment_main"
-        tools:layout="@layout/fragment_main" />
+        tools:layout="@layout/fragment_main" >
+        <action
+            android:id="@+id/action_mainFragment_to_listFragment"
+            app:destination="@id/listFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/listFragment"
+        android:name="com.yuoyama12.decidepickingorderapp.fragment.ListFragment"
+        android:label="fragment_list"
+        tools:layout="@layout/fragment_list" >
+        <action
+            android:id="@+id/action_listFragment_to_addMemberFragment"
+            app:destination="@id/addMemberFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/addMemberFragment"
+        android:name="com.yuoyama12.decidepickingorderapp.fragment.AddMemberFragment"
+        android:label="fragment_add_member"
+        tools:layout="@layout/fragment_add_member" />
 </navigation>

@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="MemberIdTextInputLayout" parent="android:Widget">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+    </style>
+
+    <style name="MemberNameTextInputLayout" parent="android:Widget">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+    </style>
+
+    <style name="MemberIdEditText" parent="android:Widget">
+        <item name="android:layout_width">@dimen/add_member_id_edit_text_layout_width</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:background">@color/transparent</item>
+        <item name="android:hint">@string/optional_member_id_hint</item>
+        <item name="android:inputType">number</item>
+        <item name="android:maxLength">9</item>
+        <item name="android:textSize">@dimen/add_member_text_size</item>
+    </style>
+
+    <style name="MemberNameEditText" parent="android:Widget">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:background">@color/transparent</item>
+        <item name="android:hint">@string/required_member_name_hint</item>
+        <item name="android:inputType">textPersonName</item>
+        <item name="android:textSize">@dimen/add_member_text_size</item>
+    </style>
+</resources>
