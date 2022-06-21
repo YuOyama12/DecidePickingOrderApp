@@ -1,5 +1,11 @@
+<!DOCTYPE resources[
+    <!ENTITY notificationColor "直前通知カラー">
+]>
+
 <resources>
     <string name="app_name">生徒当て順番決めアプリ</string>
+    <string name="list_action_bar_title">リスト一覧</string>
+    <string name="add_member_action_bar_title">メンバーの追加</string>
     <string name="start_picking_order_button">順番決め開始</string>
     <string name="show_list_button">リスト一覧表示</string>
     <string name="ascending_order_check_box">番号の小さい順に表示</string>
@@ -8,11 +14,16 @@
     <string name="import_from_excel_button">Excelデータから作成</string>
     <string name="member_list_header">選択グループリスト内メンバー一覧</string>
     <string name="optional_member_id_hint">
-        <font size = "24">番号(任意)</font>
+        <font size = "25">番号(任意)</font>
     </string>
     <string name="required_member_name_hint">
-        <font size = "24">氏名(必須)</font>
+        <font size = "25">氏名(必須)</font>
     </string>
-    <string name="how_many_members_you_can_add_text">3件までまとめて追加できます</string>
-    <string name="explanation_if_number_is_blank">「番号」部分が空白の場合、\n自動的に1から採番されます</string>
+    <string name="explanation_if_number_is_blank">・「番号」部分が空白の場合、自動的に採番されます</string>
+    <string name="what_notification_color_is_text">・&notificationColor;とは？</string>
+    <string name="what_notification_color_is_help_icon_desc">ヘルプ</string>
+    <string name="menu_add_member_cancel_title">キャンセル</string>
+    <string name="color_check_box_text">&notificationColor;を適用させる</string>
+    <string name="add_button_text">追加</string>
+
 </resources>

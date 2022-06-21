@@ -15,43 +15,19 @@
         android:textColor="@color/black"
         android:paddingHorizontal="@dimen/list_padding_horizontal"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"/>
-
-    <com.google.android.material.button.MaterialButton
-        android:id="@+id/create_new_group_list_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/create_new_group_list_button"
-        android:textSize="@dimen/list_button_text_size"
-        android:stateListAnimator="@null"
-        android:elevation="@dimen/main_button_text_elevation"
-        android:layout_marginHorizontal="@dimen/list_button_margin_horizontal"
-        app:layout_constraintTop_toBottomOf="@id/group_list_header"
-        app:layout_constraintEnd_toStartOf="@id/import_from_excel_button"
         app:layout_constraintStart_toStartOf="parent" />
-
-    <com.google.android.material.button.MaterialButton
-        android:id="@+id/import_from_excel_button"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:text="@string/import_from_excel_button"
-        android:textSize="@dimen/list_button_text_size"
-        android:stateListAnimator="@null"
-        android:elevation="@dimen/main_button_text_elevation"
-        android:layout_marginHorizontal="@dimen/list_button_margin_horizontal"
-        app:layout_constraintTop_toBottomOf="@id/group_list_header"
-        app:layout_constraintStart_toEndOf="@id/create_new_group_list_button"
-        app:layout_constraintEnd_toEndOf="parent"/>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/group_list_recycler_view"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/list_group_list_layout_height"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
         android:background="@drawable/border"
-        app:layout_constraintTop_toBottomOf="@id/create_new_group_list_button"
+        app:layout_constraintWidth_percent = "0.4"
+        app:layout_constraintTop_toBottomOf="@id/group_list_header"
+        app:layout_constraintBottom_toTopOf="@id/create_new_group_list_button"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"/>
+        app:layout_constraintEnd_toStartOf="@id/member_list_recycler_view"/>
+
 
     <com.google.android.material.textview.MaterialTextView
         android:id="@+id/member_list_header"
@@ -61,18 +37,44 @@
         android:textSize="@dimen/list_text_view_text_size"
         android:textColor="@color/black"
         android:paddingHorizontal="@dimen/list_padding_horizontal"
-        app:layout_constraintTop_toBottomOf="@id/group_list_recycler_view"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="@id/member_list_recycler_view"
         app:layout_constraintEnd_toEndOf="parent"/>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/member_list_recycler_view"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="0dp"
         android:background="@drawable/border"
+        app:layout_constraintWidth_percent = "0.6"
         app:layout_constraintTop_toBottomOf="@id/member_list_header"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/create_new_group_list_button"/>
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/create_new_group_list_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/list_button_margin_horizontal"
+        android:elevation="@dimen/main_button_text_elevation"
+        android:stateListAnimator="@null"
+        android:text="@string/create_new_group_list_button"
+        android:textSize="@dimen/list_button_text_size"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"/>
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/import_from_excel_button"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/list_button_margin_horizontal"
+        android:elevation="@dimen/main_button_text_elevation"
+        android:stateListAnimator="@null"
+        android:text="@string/import_from_excel_button"
+        android:textSize="@dimen/list_button_text_size"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/create_new_group_list_button"
+        app:layout_constraintBottom_toBottomOf="parent"/>
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

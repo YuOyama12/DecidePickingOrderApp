@@ -27,5 +27,11 @@
         android:id="@+id/addMemberFragment"
         android:name="com.yuoyama12.decidepickingorderapp.fragment.AddMemberFragment"
         android:label="fragment_add_member"
-        tools:layout="@layout/fragment_add_member" />
+        tools:layout="@layout/fragment_add_member" >
+        <action
+            android:id="@+id/action_addMemberFragment_to_listFragment"
+            app:destination="@id/listFragment"
+            app:popUpTo="@id/listFragment"
+            app:popUpToInclusive="true" />
+    </fragment>
 </navigation>

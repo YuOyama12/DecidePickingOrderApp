@@ -1,108 +1,92 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
-
-<androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:paddingHorizontal="@dimen/add_member_padding_horizontal"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:orientation="vertical"
     tools:context=".fragment.AddMemberFragment">
 
     <com.google.android.material.textview.MaterialTextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/how_many_members_you_can_add_text"
-        android:textSize="20sp"
-        android:textColor="@color/black"
-        android:paddingHorizontal="@dimen/add_member_text_padding_horizontal"/>
-
-    <com.google.android.material.textview.MaterialTextView
-        android:layout_width="match_parent"
+        android:id="@+id/explanation_if_number_is_blank"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/explanation_if_number_is_blank"
-        android:textSize="15sp"
-        android:paddingHorizontal="@dimen/add_member_text_padding_horizontal"/>
+        android:textSize="@dimen/add_member_sub_text_size"
+        android:paddingVertical="@dimen/add_member_text_padding_vertical"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/what_notification_color_is"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/what_notification_color_is_text"
+        android:textSize="@dimen/add_member_sub_text_size"
+        android:paddingVertical="@dimen/add_member_text_padding_vertical"
+        app:layout_constraintTop_toBottomOf="@id/explanation_if_number_is_blank"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/member_id_layout"/>
+
+    <ImageView
+        android:id="@+id/notification_color_help"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:src="@drawable/ic_help"
+        android:elevation="@dimen/add_member_image_elevation"
+        android:stateListAnimator="@null"
+        android:clickable="true"
+        android:focusable="true"
+        app:layout_constraintStart_toEndOf="@id/what_notification_color_is"
+        app:layout_constraintTop_toTopOf="@id/what_notification_color_is"
+        app:layout_constraintBottom_toBottomOf="@id/what_notification_color_is"
+        android:contentDescription="@string/what_notification_color_is_help_icon_desc" />
 
 
-    <com.google.android.material.divider.MaterialDivider
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/member_id_layout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingVertical="@dimen/add_member_text_padding_vertical"
+        app:layout_constraintTop_toBottomOf="@id/what_notification_color_is"
+        app:layout_constraintStart_toStartOf="parent">
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/member_id"
+            style="@style/MemberIdEditText" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.checkbox.MaterialCheckBox
+        android:id="@+id/member_color_check_box"
+        style="@style/MemberCheckBox"
+        app:layout_constraintStart_toEndOf="@id/member_id_layout"
+        app:layout_constraintTop_toTopOf="@id/member_id_layout"
+        app:layout_constraintBottom_toBottomOf="@id/member_id_layout"/>
+
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/member_name_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:dividerThickness="3dp"/>
-
-
-    <com.google.android.material.textfield.TextInputLayout
-        style="@style/MemberIdTextInputLayout">
+        android:paddingVertical="@dimen/add_member_text_padding_vertical"
+        app:layout_constraintTop_toBottomOf="@id/member_id_layout"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
         <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/first_member_id"
-            style="@style/MemberIdEditText"
-            android:paddingHorizontal="@dimen/add_member_padding_horizontal" />
+            android:id="@+id/member_name"
+            style="@style/MemberNameEditText" />
     </com.google.android.material.textfield.TextInputLayout>
 
-    <com.google.android.material.textfield.TextInputLayout
-        style="@style/MemberNameTextInputLayout">
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/first_member_name"
-            style="@style/MemberNameEditText"
-            android:paddingHorizontal="@dimen/add_member_padding_horizontal"/>
-    </com.google.android.material.textfield.TextInputLayout>
-
-
-    <com.google.android.material.divider.MaterialDivider
-        android:layout_width="match_parent"
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/add_button"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        app:dividerThickness="@dimen/add_member_divider_thickness"/>
+        android:text="@string/add_button_text"
+        android:stateListAnimator="@null"
+        android:elevation="@dimen/main_button_text_elevation"
+        android:paddingVertical="@dimen/main_button_vertical_padding"
+        app:layout_constraintTop_toBottomOf="@id/member_name_layout"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
 
-
-    <com.google.android.material.textfield.TextInputLayout
-        style="@style/MemberIdTextInputLayout">
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/second_member_id"
-            style="@style/MemberIdEditText"
-            android:paddingHorizontal="@dimen/add_member_padding_horizontal" />
-    </com.google.android.material.textfield.TextInputLayout>
-
-    <com.google.android.material.textfield.TextInputLayout
-        style="@style/MemberNameTextInputLayout">
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/second_member_name"
-            style="@style/MemberNameEditText"
-            android:paddingHorizontal="@dimen/add_member_padding_horizontal"/>
-    </com.google.android.material.textfield.TextInputLayout>
-
-
-    <com.google.android.material.divider.MaterialDivider
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:dividerThickness="@dimen/add_member_divider_thickness"/>
-
-
-    <com.google.android.material.textfield.TextInputLayout
-        style="@style/MemberIdTextInputLayout">
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/third_member_id"
-            style="@style/MemberIdEditText"
-            android:paddingHorizontal="@dimen/add_member_padding_horizontal" />
-    </com.google.android.material.textfield.TextInputLayout>
-
-    <com.google.android.material.textfield.TextInputLayout
-        style="@style/MemberNameTextInputLayout">
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/third_member_name"
-            style="@style/MemberNameEditText"
-            android:paddingHorizontal="@dimen/add_member_padding_horizontal"/>
-    </com.google.android.material.textfield.TextInputLayout>
-
-
-    <com.google.android.material.divider.MaterialDivider
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:dividerThickness="@dimen/add_member_divider_thickness"/>
-
-
-</androidx.appcompat.widget.LinearLayoutCompat>
-
-</ScrollView>
+</androidx.constraintlayout.widget.ConstraintLayout>
