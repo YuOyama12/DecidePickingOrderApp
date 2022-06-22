@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/list_item_member_id"
+        android:layout_width="@dimen/add_member_id_edit_text_layout_width"
+        android:layout_height="wrap_content"
+        android:textSize="14sp"
+        android:textColor="@color/black"
+        android:layout_marginHorizontal="@dimen/list_item_padding_margin"
+        android:paddingTop="3dp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/list_item_member_name"
+        android:maxLines="1"
+        android:ellipsize="end" />
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/list_item_member_name"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:textSize="@dimen/list_item_text_size"
+        android:textColor="@color/black"
+        android:layout_marginHorizontal="@dimen/list_item_padding_margin"
+        app:layout_constraintTop_toBottomOf="@id/list_item_member_id"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/list_item_member_check_box"
+        android:maxLines="1"
+        android:ellipsize="end" />
+
+    <com.google.android.material.checkbox.MaterialCheckBox
+        android:id="@+id/list_item_member_check_box"
+        android:layout_width="0dp"
+        android:layout_height="35dp"
+        android:text="@string/color_check_box_text"
+        android:textSize="@dimen/add_member_check_box_text_size"
+        android:textColor="@color/black"
+        android:layout_marginHorizontal="@dimen/list_item_padding_margin"
+        android:layoutDirection="rtl"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/list_item_member_name"/>
+
+    <com.google.android.material.divider.MaterialDivider
+        style="@style/ListItemDivider"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
