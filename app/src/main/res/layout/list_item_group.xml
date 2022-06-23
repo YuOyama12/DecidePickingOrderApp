@@ -9,7 +9,6 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:textSize="@dimen/list_item_text_size"
-        android:textColor="@color/black"
         android:paddingVertical="@dimen/list_item_padding_margin"
         android:layout_marginHorizontal="@dimen/list_item_padding_margin"
         app:layout_constraintTop_toTopOf="parent"
