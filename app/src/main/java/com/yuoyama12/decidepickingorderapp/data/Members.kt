@@ -5,3 +5,5 @@ data class Members(
     val name: String,
     val isChecked: Boolean
 )
+
+class MembersList: ArrayList<Members>()

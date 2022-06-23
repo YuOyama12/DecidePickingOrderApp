@@ -8,7 +8,7 @@ import com.yuoyama12.decidepickingorderapp.data.GroupDatabase
 import kotlinx.coroutines.launch
 
 class GroupViewModel(application: Application) : AndroidViewModel(application) {
-    val groupDao = GroupDatabase.getInstance(application).groupDao()
+    private val groupDao = GroupDatabase.getInstance(application).groupDao()
 
     fun insert(listName: String) {
         val group = Group(name = listName)

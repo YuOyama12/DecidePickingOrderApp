@@ -6,10 +6,9 @@ import androidx.room.PrimaryKey
 
 @Entity
 data class Group(
-    @PrimaryKey
-    @ColumnInfo(name = "group_id") val groupId: Int? = null,
+    @PrimaryKey(autoGenerate = true)
+    @ColumnInfo(name = "group_id")
+    val groupId: Int? = null,
     val name: String,
-
-    //TODO: TypeConverterの対応。
-    //val members: Members
+    val members: ArrayList<Members> = arrayListOf()
 )
