@@ -1,4 +1,4 @@
-package com.yuoyama12.decidepickingorderapp.fragment
+package com.yuoyama12.decidepickingorderapp.fragments
 
 import android.os.Bundle
 import android.view.*

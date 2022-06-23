@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/mainFragment"
-        android:name="com.yuoyama12.decidepickingorderapp.fragment.MainFragment"
+        android:name="com.yuoyama12.decidepickingorderapp.fragments.MainFragment"
         android:label="fragment_main"
         tools:layout="@layout/fragment_main" >
         <action
@@ -16,7 +16,7 @@
     </fragment>
     <fragment
         android:id="@+id/listFragment"
-        android:name="com.yuoyama12.decidepickingorderapp.fragment.ListFragment"
+        android:name="com.yuoyama12.decidepickingorderapp.fragments.ListFragment"
         android:label="fragment_list"
         tools:layout="@layout/fragment_list" >
         <action
@@ -25,7 +25,7 @@
     </fragment>
     <fragment
         android:id="@+id/addMemberFragment"
-        android:name="com.yuoyama12.decidepickingorderapp.fragment.AddMemberFragment"
+        android:name="com.yuoyama12.decidepickingorderapp.fragments.AddMemberFragment"
         android:label="fragment_add_member"
         tools:layout="@layout/fragment_add_member" >
         <action

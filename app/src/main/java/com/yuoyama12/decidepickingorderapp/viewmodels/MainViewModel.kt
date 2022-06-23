@@ -1,4 +1,4 @@
-package com.yuoyama12.decidepickingorderapp.viewmodel
+package com.yuoyama12.decidepickingorderapp.viewmodels
 
 import androidx.lifecycle.ViewModel
 

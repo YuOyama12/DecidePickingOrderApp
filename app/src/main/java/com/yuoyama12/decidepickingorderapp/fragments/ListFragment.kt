@@ -1,4 +1,4 @@
-package com.yuoyama12.decidepickingorderapp.fragment
+package com.yuoyama12.decidepickingorderapp.fragments
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import com.yuoyama12.decidepickingorderapp.R
 import com.yuoyama12.decidepickingorderapp.databinding.FragmentListBinding
+import com.yuoyama12.decidepickingorderapp.dialog.CreateNewGroupListDialog
 
 class ListFragment : Fragment() {
 
@@ -26,6 +27,14 @@ class ListFragment : Fragment() {
     ): View {
         _binding = FragmentListBinding.inflate(inflater,container,false)
         return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        binding.createNewGroupListButton.setOnClickListener {
+            val dialog = CreateNewGroupListDialog()
+            dialog.show(parentFragmentManager, null)
+        }
     }
 
     override fun onDestroy() {

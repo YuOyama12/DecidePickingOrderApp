@@ -1,4 +1,4 @@
-package com.yuoyama12.decidepickingorderapp.fragment
+package com.yuoyama12.decidepickingorderapp.fragments
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -9,7 +9,7 @@ import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import com.yuoyama12.decidepickingorderapp.R
 import com.yuoyama12.decidepickingorderapp.databinding.FragmentMainBinding
-import com.yuoyama12.decidepickingorderapp.viewmodel.MainViewModel
+import com.yuoyama12.decidepickingorderapp.viewmodels.MainViewModel
 
 class MainFragment : Fragment() {
 
