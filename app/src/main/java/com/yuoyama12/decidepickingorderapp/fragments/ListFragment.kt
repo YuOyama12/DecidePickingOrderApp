@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.activityViewModels
+import androidx.navigation.fragment.findNavController
 import com.yuoyama12.decidepickingorderapp.R
 import com.yuoyama12.decidepickingorderapp.adapters.GroupListAdapter
 import com.yuoyama12.decidepickingorderapp.databinding.FragmentListBinding
@@ -21,7 +22,13 @@ class ListFragment : Fragment() {
 
     private val groupViewModel : GroupViewModel by activityViewModels()
 
-    private val groupListAdapter = GroupListAdapter()
+    private val groupListAdapter = GroupListAdapter{ group ->
+        val listName = group.name
+        val id: Int = group.groupId
+        val action = ListFragmentDirections
+            .actionListFragmentToAddMemberFragment(listName, id)
+        findNavController().navigate(action)
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -32,6 +39,12 @@ class ListFragment : Fragment() {
         val actionBar = activity?.findViewById<androidx.appcompat.widget.Toolbar>(R.id.action_bar)
         actionBar?.title = getString(R.string.list_action_bar_title)
 
+        binding.groupListRecyclerView.adapter = groupListAdapter
+
+        groupViewModel.groupList.observe(viewLifecycleOwner){
+            groupListAdapter.submitList(it)
+        }
+
         return binding.root
     }
 
@@ -41,12 +54,6 @@ class ListFragment : Fragment() {
         binding.createNewGroupListButton.setOnClickListener {
             val dialog = CreateNewGroupListDialog()
             dialog.show(parentFragmentManager, null)
-        }
-
-        binding.groupListRecyclerView.adapter = groupListAdapter
-
-        groupViewModel.groupList.observe(viewLifecycleOwner){
-            groupListAdapter.submitList(it)
         }
 
     }

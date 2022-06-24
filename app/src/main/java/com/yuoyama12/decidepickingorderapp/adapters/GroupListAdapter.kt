@@ -8,7 +8,9 @@ import androidx.recyclerview.widget.RecyclerView
 import com.yuoyama12.decidepickingorderapp.data.Group
 import com.yuoyama12.decidepickingorderapp.databinding.ListItemGroupBinding
 
-class GroupListAdapter : ListAdapter<Group, GroupViewHolder>(diffCallback) {
+class GroupListAdapter(
+    val buttonClickedAction: (Group) -> Unit
+) : ListAdapter<Group, GroupListAdapter.GroupViewHolder>(diffCallback) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): GroupViewHolder {
         val layoutInflater = LayoutInflater.from(parent.context)
@@ -33,13 +35,18 @@ class GroupListAdapter : ListAdapter<Group, GroupViewHolder>(diffCallback) {
             }
         }
     }
-}
 
-class GroupViewHolder(
-    private val binding: ListItemGroupBinding
-) : RecyclerView.ViewHolder(binding.root) {
+    inner class GroupViewHolder(
+        private val binding: ListItemGroupBinding
+    ) : RecyclerView.ViewHolder(binding.root) {
 
-    fun bind(group: Group) {
-        binding.listItemGroupName.text = group.name
+        fun bind(group: Group) {
+            binding.listItemGroupName.text = group.name
+            binding.addMemberButton.setOnClickListener {
+                buttonClickedAction(group)
+            }
+        }
     }
+
 }
+

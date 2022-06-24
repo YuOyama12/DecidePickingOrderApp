@@ -14,9 +14,22 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/add_member_button"
         android:maxLines="1"
         android:ellipsize="end" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/add_member_button"
+        android:layout_width="50dp"
+        android:layout_height="wrap_content"
+        android:text="@string/add_member_button_text"
+        android:textSize="@dimen/list_item_text_size"
+        android:contentDescription="@string/add_member_button_content_desc"
+        android:layout_marginHorizontal="@dimen/list_item_padding_margin"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toEndOf="@id/list_item_group_name"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"/>
 
     <com.google.android.material.divider.MaterialDivider
         style="@style/ListItemDivider"

@@ -8,7 +8,7 @@ import androidx.room.PrimaryKey
 data class Group(
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = "group_id")
-    val groupId: Int? = null,
+    val groupId: Int = 0,
     val name: String,
     val members: ArrayList<Members> = arrayListOf()
 )

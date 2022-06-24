@@ -5,13 +5,15 @@
 <resources>
     <string name="app_name">生徒当て順番決めアプリ</string>
     <string name="list_action_bar_title">リスト一覧</string>
-    <string name="add_member_action_bar_title">メンバーの追加</string>
+    <string name="add_member_action_bar_title">%sのメンバー追加</string>
     <string name="start_picking_order_button">順番決め開始</string>
     <string name="show_list_button">リスト一覧表示</string>
     <string name="ascending_order_check_box">番号の小さい順に表示</string>
     <string name="group_list_header">グループリスト一覧</string>
     <string name="create_new_group_list_button">リスト新規作成</string>
     <string name="import_from_excel_button">Excelデータから作成</string>
+    <string name="add_member_button_text">+</string>
+    <string name="add_member_button_content_desc">追加</string>
     <string name="member_list_header">選択グループリスト内メンバー一覧</string>
     <string name="optional_member_id_hint">
         <font size = "25">番号(任意)</font>

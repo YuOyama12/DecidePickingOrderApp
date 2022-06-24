@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.*
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
 import com.yuoyama12.decidepickingorderapp.R
 import com.yuoyama12.decidepickingorderapp.databinding.FragmentAddMemberBinding
 
@@ -12,13 +13,15 @@ class AddMemberFragment : Fragment() {
     private var _binding : FragmentAddMemberBinding? = null
     private val binding get() = _binding!!
 
+    val args: AddMemberFragmentArgs by navArgs()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         setHasOptionsMenu(true)
 
         val actionBar = activity?.findViewById<androidx.appcompat.widget.Toolbar>(R.id.action_bar)
-        actionBar?.title = getString(R.string.add_member_action_bar_title)
+        actionBar?.title = getString(R.string.add_member_action_bar_title, args.listName)
     }
 
     override fun onCreateView(
