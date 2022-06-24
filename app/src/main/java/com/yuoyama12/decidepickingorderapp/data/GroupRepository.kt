@@ -11,4 +11,8 @@ class GroupRepository @Inject constructor(private val groupDao: GroupDao) {
     suspend fun insertGroup(group: Group) {
         groupDao.insertGroup(group)
     }
+
+    suspend fun insertMemberIntoGroup(group: Group) {
+        groupDao.insertMemberIntoGroup(group)
+    }
 }

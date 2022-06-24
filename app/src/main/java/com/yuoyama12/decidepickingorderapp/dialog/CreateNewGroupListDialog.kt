@@ -30,7 +30,7 @@ class CreateNewGroupListDialog : DialogFragment() {
                 .setPositiveButton(android.R.string.ok) { dialog, _ ->
                     val listName = binding.newGroupListName.text.toString().trim()
 
-                    if (listName.isNotEmpty()) groupViewModel.insert(listName)
+                    if (listName.isNotEmpty()) groupViewModel.insertGroup(listName)
                     else dialog.cancel()
                 }
                 .setNegativeButton(android.R.string.cancel) { dialog, _ ->
