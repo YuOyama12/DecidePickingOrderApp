@@ -28,6 +28,7 @@
     <string name="color_check_box_text">&notificationColor;を適用させる</string>
     <string name="add_button_text">追加</string>
     <string name="add_member_error_message">必須項目が入力されていません</string>
+    <string name="add_member_completed">追加しました</string>
     <string name="create_new_group_list_dialog_title">リストの新規作成</string>
     <string name="create_new_group_list_dialog_hint">リスト名を入力してください</string>
 

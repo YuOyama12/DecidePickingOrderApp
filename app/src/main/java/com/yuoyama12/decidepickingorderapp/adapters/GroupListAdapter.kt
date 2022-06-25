@@ -9,6 +9,7 @@ import com.yuoyama12.decidepickingorderapp.data.Group
 import com.yuoyama12.decidepickingorderapp.databinding.ListItemGroupBinding
 
 class GroupListAdapter(
+    val onItemClicked: (Group) -> Unit,
     val buttonClickedAction: (Group) -> Unit
 ) : ListAdapter<Group, GroupListAdapter.GroupViewHolder>(diffCallback) {
 
@@ -23,7 +24,6 @@ class GroupListAdapter(
         val item = getItem(position)
         holder.bind(item)
     }
-
 
     companion object{
         val diffCallback = object : DiffUtil.ItemCallback<Group>(){
@@ -42,6 +42,9 @@ class GroupListAdapter(
 
         fun bind(group: Group) {
             binding.listItemGroupName.text = group.name
+
+            itemView.setOnClickListener { onItemClicked(group) }
+
             binding.addMemberButton.setOnClickListener {
                 buttonClickedAction(group)
             }

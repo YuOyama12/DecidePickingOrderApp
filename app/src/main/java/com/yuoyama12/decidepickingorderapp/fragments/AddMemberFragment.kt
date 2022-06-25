@@ -61,6 +61,12 @@ class AddMemberFragment : Fragment() {
 
         if (memberName.isNotEmpty()) {
             groupViewModel.insertMemberIntoGroup(groupId, memberId, memberName, isChecked)
+
+            groupViewModel.groupList.observe(viewLifecycleOwner) {
+                val message = getString(R.string.add_member_completed)
+                Snackbar.make(binding.root, message, Snackbar.LENGTH_SHORT).show()
+            }
+
             resetAllInputFields()
         } else {
             val message = getString(R.string.add_member_error_message)

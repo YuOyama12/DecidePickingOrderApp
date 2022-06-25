@@ -1,9 +1,6 @@
 package com.yuoyama12.decidepickingorderapp.viewmodels
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.asLiveData
-import androidx.lifecycle.viewModelScope
+import androidx.lifecycle.*
 import com.yuoyama12.decidepickingorderapp.data.Group
 import com.yuoyama12.decidepickingorderapp.data.GroupRepository
 import com.yuoyama12.decidepickingorderapp.data.Members
@@ -18,8 +15,18 @@ class GroupViewModel @Inject constructor(
     private val groupRepository: GroupRepository
 ) : ViewModel() {
 
-    val groupList: LiveData<List<Group>> =
-        groupRepository.getAll().asLiveData()
+    val groupList = groupRepository.getAll().asLiveData()
+
+    private var _membersList = MutableLiveData<List<Members>>(listOf())
+    val membersList: MutableLiveData<List<Members>>
+        get() = _membersList
+
+    private fun getGroup(groupId: Int) = groupList.value!!.getGroupFrom(groupId)
+
+    private fun getGroupMembersList(groupId: Int): ArrayList<Members> {
+        val group = getGroup(groupId)
+        return group.members
+    }
 
     fun insertGroup(listName: String) {
         val group = Group(name = listName)
@@ -29,13 +36,13 @@ class GroupViewModel @Inject constructor(
     }
 
     fun insertMemberIntoGroup(groupId: Int, memberId: String, memberName: String, checked: Boolean) {
-        val group = groupList.value!!.getGroupFrom(groupId)
-        val membersList = group.members
+        val group = getGroup(groupId)
+        val membersList = getGroupMembersList(groupId)
         var autoNumberingMemberId = group.autoNumberingMemberId
 
         val preciseMemberId: Int =
             if (memberId.isEmpty()) {
-                ++autoNumberingMemberId
+                autoNumberingMemberId++
                 autoNumberingMemberId
             } else {
                 memberId.toInt()
@@ -45,10 +52,16 @@ class GroupViewModel @Inject constructor(
             Members(preciseMemberId, memberName, checked)
         )
 
+        val updatedGroup = group.copy(members = membersList, autoNumberingMemberId = autoNumberingMemberId)
+
         viewModelScope.launch {
-            groupRepository.insertMemberIntoGroup(
-                Group(group.groupId, group.name, membersList,autoNumberingMemberId)
-            )
+            groupRepository.insertMemberIntoGroup(updatedGroup)
         }
     }
+
+    fun setMembersListBy(groupId: Int) {
+        val membersList = getGroupMembersList(groupId)
+        _membersList.value = membersList
+    }
+
 }
