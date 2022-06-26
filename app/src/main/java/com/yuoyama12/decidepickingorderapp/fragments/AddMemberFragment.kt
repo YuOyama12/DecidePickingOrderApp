@@ -65,9 +65,12 @@ class AddMemberFragment : Fragment() {
             groupViewModel.groupList.observe(viewLifecycleOwner) {
                 val message = getString(R.string.add_member_completed)
                 Snackbar.make(binding.root, message, Snackbar.LENGTH_SHORT).show()
+
+                groupViewModel.setMembersListBy(groupId)
             }
 
             resetAllInputFields()
+
         } else {
             val message = getString(R.string.add_member_error_message)
             Snackbar.make(binding.root, message, Snackbar.LENGTH_SHORT).show()
@@ -79,7 +82,6 @@ class AddMemberFragment : Fragment() {
         binding.memberName.setText("")
         binding.memberColorCheckBox.isChecked = false
     }
-
 
     override fun onDestroy() {
         super.onDestroy()

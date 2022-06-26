@@ -4,7 +4,10 @@ import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
+import android.view.View.GONE
+import android.view.View.VISIBLE
 import android.view.ViewGroup
+import android.widget.TextView
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import com.yuoyama12.decidepickingorderapp.R
@@ -28,6 +31,7 @@ class ListFragment : Fragment() {
         { group -> showMembers(group)  },
         { group -> moveToAddMemberFragment(group)}
     )
+    private val membersListAdapter = MembersListAdapter()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -39,12 +43,29 @@ class ListFragment : Fragment() {
         actionBar?.title = getString(R.string.list_action_bar_title)
 
         binding.groupListRecyclerView.adapter = groupListAdapter
+        binding.memberListRecyclerView.adapter = membersListAdapter
 
         groupViewModel.groupList.observe(viewLifecycleOwner){
             groupListAdapter.submitList(it)
+            setNoItemNotificationTextState(it, binding.groupListNoItemText)
+        }
+
+        groupViewModel.membersList.observe(viewLifecycleOwner){
+            setNoItemNotificationTextState(it, binding.memberListNoItemText)
+            membersListAdapter.submitList(it)
         }
 
         return binding.root
+    }
+
+    private fun <E> setNoItemNotificationTextState(
+        list: List<E>,
+        noItemTextView: TextView
+    ) {
+        when (list.isEmpty()) {
+            true -> noItemTextView.visibility = VISIBLE
+            false -> noItemTextView.visibility = GONE
+        }
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -54,19 +75,11 @@ class ListFragment : Fragment() {
             val dialog = CreateNewGroupListDialog()
             dialog.show(parentFragmentManager, null)
         }
-
     }
 
     private fun showMembers(group: Group) {
         val groupId = group.groupId
-
         groupViewModel.setMembersListBy(groupId)
-
-        groupViewModel.membersList.observe(viewLifecycleOwner){
-            val adapter = MembersListAdapter()
-            binding.memberListRecyclerView.adapter = adapter
-            adapter.submitList(it)
-        }
     }
 
     private fun moveToAddMemberFragment(group: Group) {
