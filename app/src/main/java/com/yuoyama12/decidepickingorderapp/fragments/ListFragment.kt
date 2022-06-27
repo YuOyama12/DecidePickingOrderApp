@@ -16,6 +16,7 @@ import com.yuoyama12.decidepickingorderapp.adapters.MembersListAdapter
 import com.yuoyama12.decidepickingorderapp.data.Group
 import com.yuoyama12.decidepickingorderapp.databinding.FragmentListBinding
 import com.yuoyama12.decidepickingorderapp.dialog.CreateNewGroupListDialog
+import com.yuoyama12.decidepickingorderapp.viewmodels.GroupListViewModel
 import com.yuoyama12.decidepickingorderapp.viewmodels.GroupViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -26,12 +27,7 @@ class ListFragment : Fragment() {
     private val binding get() = _binding!!
 
     private val groupViewModel : GroupViewModel by activityViewModels()
-
-    private val groupListAdapter = GroupListAdapter(
-        { group -> showMembers(group)  },
-        { group -> moveToAddMemberFragment(group)}
-    )
-    private val membersListAdapter = MembersListAdapter()
+    private val groupListViewModel : GroupListViewModel by activityViewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -39,33 +35,30 @@ class ListFragment : Fragment() {
     ): View {
         _binding = FragmentListBinding.inflate(inflater,container,false)
 
+        val groupListAdapter = GroupListAdapter(
+            groupListViewModel,
+            { group -> showMembers(group)  },
+            { group -> moveToAddMemberFragment(group)}
+        )
+        val membersListAdapter = MembersListAdapter()
+
         val actionBar = activity?.findViewById<androidx.appcompat.widget.Toolbar>(R.id.action_bar)
         actionBar?.title = getString(R.string.list_action_bar_title)
 
         binding.groupListRecyclerView.adapter = groupListAdapter
         binding.memberListRecyclerView.adapter = membersListAdapter
 
-        groupViewModel.groupList.observe(viewLifecycleOwner){
+        groupViewModel.groupList.observe(viewLifecycleOwner) {
             groupListAdapter.submitList(it)
             setNoItemNotificationTextState(it, binding.groupListNoItemText)
         }
 
-        groupViewModel.membersList.observe(viewLifecycleOwner){
+        groupViewModel.membersList.observe(viewLifecycleOwner) {
             setNoItemNotificationTextState(it, binding.memberListNoItemText)
             membersListAdapter.submitList(it)
         }
 
         return binding.root
-    }
-
-    private fun <E> setNoItemNotificationTextState(
-        list: List<E>,
-        noItemTextView: TextView
-    ) {
-        when (list.isEmpty()) {
-            true -> noItemTextView.visibility = VISIBLE
-            false -> noItemTextView.visibility = GONE
-        }
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -88,6 +81,17 @@ class ListFragment : Fragment() {
         val action = ListFragmentDirections
             .actionListFragmentToAddMemberFragment(listName, id)
         findNavController().navigate(action)
+    }
+
+
+    private fun <E> setNoItemNotificationTextState(
+        list: List<E>,
+        noItemTextView: TextView
+    ) {
+        when (list.isEmpty()) {
+            true -> noItemTextView.visibility = VISIBLE
+            false -> noItemTextView.visibility = GONE
+        }
     }
 
     override fun onDestroy() {
