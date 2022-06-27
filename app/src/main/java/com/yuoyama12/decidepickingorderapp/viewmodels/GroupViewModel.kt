@@ -28,8 +28,8 @@ class GroupViewModel @Inject constructor(
         return group.members
     }
 
-    fun insertGroup(listName: String) {
-        val group = Group(name = listName)
+    fun insertGroup(groupName: String) {
+        val group = Group(name = groupName)
         viewModelScope.launch {
             groupRepository.insertGroup(group)
         }
@@ -55,7 +55,16 @@ class GroupViewModel @Inject constructor(
         val updatedGroup = group.copy(members = membersList, autoNumberingMemberId = autoNumberingMemberId)
 
         viewModelScope.launch {
-            groupRepository.insertMemberIntoGroup(updatedGroup)
+            groupRepository.updateGroup(updatedGroup)
+        }
+    }
+
+    fun updateGroupName(groupId: Int, groupName: String) {
+        val group = getGroup(groupId)
+        val updatedGroup = group.copy(name = groupName)
+
+        viewModelScope.launch {
+            groupRepository.updateGroup(updatedGroup)
         }
     }
 

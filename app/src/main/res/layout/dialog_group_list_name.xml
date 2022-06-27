@@ -10,7 +10,7 @@
         android:layout_height="wrap_content"
         android:inputType="text"
         android:maxLines="1"
-        android:hint="@string/create_new_group_list_dialog_hint"
+        android:hint="@string/group_list_name_dialog_hint"
         android:paddingHorizontal="12dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

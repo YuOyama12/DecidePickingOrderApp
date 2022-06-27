@@ -1,12 +1,10 @@
 package com.yuoyama12.decidepickingorderapp.fragments
 
 import android.os.Bundle
+import android.view.*
 import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
-import android.view.View
 import android.view.View.GONE
 import android.view.View.VISIBLE
-import android.view.ViewGroup
 import android.widget.TextView
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
@@ -15,7 +13,8 @@ import com.yuoyama12.decidepickingorderapp.adapters.GroupListAdapter
 import com.yuoyama12.decidepickingorderapp.adapters.MembersListAdapter
 import com.yuoyama12.decidepickingorderapp.data.Group
 import com.yuoyama12.decidepickingorderapp.databinding.FragmentListBinding
-import com.yuoyama12.decidepickingorderapp.dialog.CreateNewGroupListDialog
+import com.yuoyama12.decidepickingorderapp.dialogs.CreateNewGroupListDialog
+import com.yuoyama12.decidepickingorderapp.dialogs.RenameGroupListDialog
 import com.yuoyama12.decidepickingorderapp.viewmodels.GroupListViewModel
 import com.yuoyama12.decidepickingorderapp.viewmodels.GroupViewModel
 import dagger.hilt.android.AndroidEntryPoint
@@ -40,12 +39,15 @@ class ListFragment : Fragment() {
             { group -> showMembers(group)  },
             { group -> moveToAddMemberFragment(group)}
         )
+
         val membersListAdapter = MembersListAdapter()
 
         val actionBar = activity?.findViewById<androidx.appcompat.widget.Toolbar>(R.id.action_bar)
         actionBar?.title = getString(R.string.list_action_bar_title)
 
         binding.groupListRecyclerView.adapter = groupListAdapter
+        registerForContextMenu(binding.groupListRecyclerView)
+
         binding.memberListRecyclerView.adapter = membersListAdapter
 
         groupViewModel.groupList.observe(viewLifecycleOwner) {
@@ -67,6 +69,30 @@ class ListFragment : Fragment() {
         binding.createNewGroupListButton.setOnClickListener {
             val dialog = CreateNewGroupListDialog()
             dialog.show(parentFragmentManager, null)
+        }
+    }
+
+    override fun onCreateContextMenu(
+        menu: ContextMenu,
+        view: View,
+        menuInfo: ContextMenu.ContextMenuInfo?
+    ) {
+        super.onCreateContextMenu(menu, view, menuInfo)
+        val inflater = MenuInflater(requireContext())
+        inflater.inflate(R.menu.menu_group_list_item, menu)
+    }
+
+    override fun onContextItemSelected(item: MenuItem): Boolean {
+        return when (item.itemId) {
+            R.id.menu_group_list_rename -> {
+                val dialog = RenameGroupListDialog()
+                dialog.show(parentFragmentManager, null)
+                true
+            }
+            R.id.menu_group_list_delete-> {
+                true
+            }
+            else -> super.onContextItemSelected(item)
         }
     }
 

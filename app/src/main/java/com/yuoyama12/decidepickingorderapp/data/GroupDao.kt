@@ -15,5 +15,5 @@ interface GroupDao {
     suspend fun insertGroup(group: Group)
 
     @Update
-    suspend fun insertMemberIntoGroup(group: Group)
+    suspend fun updateGroup(group: Group)
 }

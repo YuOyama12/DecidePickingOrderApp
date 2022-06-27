@@ -12,7 +12,7 @@ class GroupRepository @Inject constructor(private val groupDao: GroupDao) {
         groupDao.insertGroup(group)
     }
 
-    suspend fun insertMemberIntoGroup(group: Group) {
-        groupDao.insertMemberIntoGroup(group)
+    suspend fun updateGroup(group: Group) {
+        groupDao.updateGroup(group)
     }
 }

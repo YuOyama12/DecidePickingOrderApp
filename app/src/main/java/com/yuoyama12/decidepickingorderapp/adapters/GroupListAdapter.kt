@@ -17,7 +17,7 @@ class GroupListAdapter(
 ) : ListAdapter<Group, GroupListAdapter.GroupViewHolder>(diffCallback) {
 
     private var selectedPosition: Int =
-        groupListViewModel.selectedPosition.value ?: -1
+        groupListViewModel.selectedPosition
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): GroupViewHolder {
         val layoutInflater = LayoutInflater.from(parent.context)
@@ -53,9 +53,19 @@ class GroupListAdapter(
 
             binding.listItemGroupName.text = group.name
 
-            itemView.setOnClickListener {
-                onItemClicked(group)
-                setSelectedPositionIfPossible(adapterPosition)
+            itemView.apply {
+                isLongClickable = true
+
+                setOnLongClickListener {
+                    groupListViewModel.setLongClickedGroupName(group.name)
+                    groupListViewModel.setLongClickedGroupId(group.groupId)
+                    false
+                }
+
+                setOnClickListener {
+                    onItemClicked(group)
+                    setSelectedPositionIfPossible(adapterPosition)
+                }
             }
 
             binding.addMemberButton.setOnClickListener {
@@ -77,10 +87,9 @@ class GroupListAdapter(
                 notifyDataSetChanged()
                 groupListViewModel.setSelectedPosition(adapterPosition)
 
-                selectedPosition = groupListViewModel.selectedPosition.value!!
+                selectedPosition = groupListViewModel.selectedPosition
             }
         }
-
     }
 
 }
