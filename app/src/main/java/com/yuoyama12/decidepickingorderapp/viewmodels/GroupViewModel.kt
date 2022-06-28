@@ -21,6 +21,8 @@ class GroupViewModel @Inject constructor(
     val membersList: MutableLiveData<List<Members>>
         get() = _membersList
 
+    val anyGroupsExist = MutableLiveData(false)
+
     private fun getGroup(groupId: Int) = groupList.value!!.getGroupFrom(groupId)
 
     private fun getGroupMembersList(groupId: Int): ArrayList<Members> {
