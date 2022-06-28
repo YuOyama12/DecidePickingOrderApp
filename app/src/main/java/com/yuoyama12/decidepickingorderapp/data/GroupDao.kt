@@ -1,9 +1,6 @@
 package com.yuoyama12.decidepickingorderapp.data
 
-import androidx.room.Dao
-import androidx.room.Insert
-import androidx.room.Query
-import androidx.room.Update
+import androidx.room.*
 import kotlinx.coroutines.flow.Flow
 
 @Dao
@@ -16,4 +13,7 @@ interface GroupDao {
 
     @Update
     suspend fun updateGroup(group: Group)
+
+    @Delete
+    suspend fun deleteGroup(group: Group)
 }

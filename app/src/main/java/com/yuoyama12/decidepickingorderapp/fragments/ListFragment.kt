@@ -14,6 +14,7 @@ import com.yuoyama12.decidepickingorderapp.adapters.MembersListAdapter
 import com.yuoyama12.decidepickingorderapp.data.Group
 import com.yuoyama12.decidepickingorderapp.databinding.FragmentListBinding
 import com.yuoyama12.decidepickingorderapp.dialogs.CreateNewGroupListDialog
+import com.yuoyama12.decidepickingorderapp.dialogs.DeleteConfirmationDialog
 import com.yuoyama12.decidepickingorderapp.dialogs.RenameGroupListDialog
 import com.yuoyama12.decidepickingorderapp.viewmodels.GroupListViewModel
 import com.yuoyama12.decidepickingorderapp.viewmodels.GroupViewModel
@@ -36,6 +37,7 @@ class ListFragment : Fragment() {
 
         val groupListAdapter = GroupListAdapter(
             groupListViewModel,
+            viewLifecycleOwner,
             { group -> showMembers(group)  },
             { group -> moveToAddMemberFragment(group)}
         )
@@ -90,6 +92,8 @@ class ListFragment : Fragment() {
                 true
             }
             R.id.menu_group_list_delete-> {
+                val dialog = DeleteConfirmationDialog()
+                dialog.show(parentFragmentManager, null)
                 true
             }
             else -> super.onContextItemSelected(item)

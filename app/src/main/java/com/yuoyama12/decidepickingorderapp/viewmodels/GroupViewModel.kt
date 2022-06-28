@@ -68,9 +68,22 @@ class GroupViewModel @Inject constructor(
         }
     }
 
+    fun deleteGroup(groupId: Int) {
+        val group = getGroup(groupId)
+
+        viewModelScope.launch {
+            groupRepository.deleteGroup(group)
+        }
+    }
+
     fun setMembersListBy(groupId: Int) {
         val membersList = getGroupMembersList(groupId)
         _membersList.value = membersList
     }
+
+    fun resetMembersList() {
+        _membersList.value = listOf()
+    }
+
 
 }

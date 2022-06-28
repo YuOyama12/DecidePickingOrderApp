@@ -15,4 +15,8 @@ class GroupRepository @Inject constructor(private val groupDao: GroupDao) {
     suspend fun updateGroup(group: Group) {
         groupDao.updateGroup(group)
     }
+
+    suspend fun deleteGroup(group: Group) {
+        groupDao.deleteGroup(group)
+    }
 }

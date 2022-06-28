@@ -1,11 +1,13 @@
 package com.yuoyama12.decidepickingorderapp.viewmodels
 
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 
 class GroupListViewModel : ViewModel() {
 
-    private var _selectedPosition = -1
-    val selectedPosition: Int
+    private var _selectedPosition = MutableLiveData(-1)
+    val selectedPosition: LiveData<Int>
         get() = _selectedPosition
 
     private var _longClickedGroupId = -1
@@ -18,7 +20,7 @@ class GroupListViewModel : ViewModel() {
 
 
     fun setSelectedPosition(position: Int) {
-        _selectedPosition = position
+        _selectedPosition.value = position
     }
 
     fun setLongClickedGroupId(id: Int) {
@@ -27,6 +29,10 @@ class GroupListViewModel : ViewModel() {
 
     fun setLongClickedGroupName(name: String) {
         _longClickedGroupName = name
+    }
+
+    fun resetSelectedPosition() {
+        _selectedPosition.value = -1
     }
 
 }

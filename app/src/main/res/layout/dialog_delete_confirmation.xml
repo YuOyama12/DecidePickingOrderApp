@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingHorizontal="25dp"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/delete_confirmation_message"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:textSize="@dimen/list_text_view_text_size"
+        android:paddingVertical="15dp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/never_show_dialog_again_checkbox" />
+
+    <com.google.android.material.checkbox.MaterialCheckBox
+        android:id="@+id/never_show_dialog_again_checkbox"
+        android:layout_width="wrap_content"
+        android:layout_height="30dp"
+        android:text="@string/never_show_dialog_again_checkbox_text"
+        android:textSize="@dimen/add_member_check_box_text_size"
+        app:layout_constraintTop_toBottomOf="@id/delete_confirmation_message"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/can_change_in_setting_text"/>
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/can_change_in_setting_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="end"
+        android:text="@string/can_change_in_setting_text"
+        android:textSize="@dimen/add_member_check_box_text_size"
+        app:layout_constraintTop_toBottomOf="@id/never_show_dialog_again_checkbox"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

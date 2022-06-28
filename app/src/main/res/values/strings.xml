@@ -32,9 +32,14 @@
     <string name="add_member_error_message">必須項目が入力されていません</string>
     <string name="add_member_completed">追加しました</string>
     <string name="create_new_group_list_dialog_title">リストの新規作成</string>
+    <string name="delete_dialog_title">削除確認</string>
     <string name="rename_group_list_dialog_title">リストの名前変更</string>
     <string name="group_list_name_dialog_hint">リスト名を入力してください</string>
     <string name="group_list_no_item_text">グループが存在しません</string>
     <string name="member_list_no_item_text">メンバーが存在しません</string>
+    <string name="delete_confirmation_dialog_message">%sを削除しますか？</string>
+    <string name="delete_completed">削除しました</string>
+    <string name="never_show_dialog_again_checkbox_text">このダイアログを再度表示しない</string>
+    <string name="can_change_in_setting_text">この設定は設定画面からも変更可能です</string>
 
 </resources>
