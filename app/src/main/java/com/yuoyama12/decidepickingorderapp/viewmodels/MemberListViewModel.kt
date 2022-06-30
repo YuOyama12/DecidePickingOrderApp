@@ -2,7 +2,7 @@ package com.yuoyama12.decidepickingorderapp.viewmodels
 
 import androidx.lifecycle.ViewModel
 
-class MembersListViewModel : ViewModel() {
+class MemberListViewModel : ViewModel() {
 
     private var _longClickedMemberPrimaryKey = ""
     val longClickedMemberPrimaryKey: String
@@ -20,7 +20,7 @@ class MembersListViewModel : ViewModel() {
     val longClickedMemberCheckBox: Boolean
         get() = _longClickedMemberCheckBox
 
-    fun setLongClickedPrimaryKeyId(memberPrimaryKey: String) {
+    fun setLongClickedMemberPrimaryKey(memberPrimaryKey: String) {
         _longClickedMemberPrimaryKey = memberPrimaryKey
     }
 

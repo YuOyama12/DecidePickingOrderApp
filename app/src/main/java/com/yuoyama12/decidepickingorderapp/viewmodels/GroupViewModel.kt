@@ -3,7 +3,7 @@ package com.yuoyama12.decidepickingorderapp.viewmodels
 import androidx.lifecycle.*
 import com.yuoyama12.decidepickingorderapp.data.Group
 import com.yuoyama12.decidepickingorderapp.data.GroupRepository
-import com.yuoyama12.decidepickingorderapp.data.Members
+import com.yuoyama12.decidepickingorderapp.data.Member
 import com.yuoyama12.decidepickingorderapp.data.getGroupFrom
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
@@ -16,9 +16,9 @@ class GroupViewModel @Inject constructor(
 
     val groupList = groupRepository.getAll().asLiveData()
 
-    private val _membersList = MutableLiveData<List<Members>>(listOf())
-    val membersList: LiveData<List<Members>>
-        get() = _membersList
+    private val _memberList = MutableLiveData<List<Member>>(listOf())
+    val memberList: LiveData<List<Member>>
+        get() = _memberList
 
     val hasAnyGroupsInGroupList = MutableLiveData(false)
 
@@ -26,7 +26,7 @@ class GroupViewModel @Inject constructor(
 
     private fun getGroup(memberPrimaryKey: String) = groupList.value!!.getGroupFrom(memberPrimaryKey)
 
-    private fun getGroupMembersList(groupId: Int): ArrayList<Members> {
+    private fun getGroupMemberList(groupId: Int): ArrayList<Member> {
         val group = getGroup(groupId)
         return group.members
     }
@@ -40,7 +40,7 @@ class GroupViewModel @Inject constructor(
 
     fun insertMemberIntoGroup(groupId: Int, memberId: String, memberName: String, checked: Boolean) {
         val insertedGroup = getGroup(groupId)
-        val membersList = getGroupMembersList(groupId)
+        val memberList = getGroupMemberList(groupId)
         val primaryKeyIdForMembers = getIncrementedPrimaryKeyIdForMembers(insertedGroup)
 
         val memberPrimaryKey = getMemberPrimaryKey(groupId, primaryKeyIdForMembers)
@@ -54,12 +54,12 @@ class GroupViewModel @Inject constructor(
                 memberId.toInt()
             }
 
-        membersList.add(
-            Members(memberPrimaryKey, preciseMemberId, memberName, checked)
+        memberList.add(
+            Member(memberPrimaryKey, preciseMemberId, memberName, checked)
         )
 
         val updatedGroup = insertedGroup.copy(
-            members = membersList,
+            members = memberList,
             autoNumberingMemberId = autoNumberingMemberId,
             primaryKeyIdForMembers = primaryKeyIdForMembers
         )
@@ -90,7 +90,7 @@ class GroupViewModel @Inject constructor(
         }
     }
 
-    fun updateMember(originalMember: Members, updatedMember: Members) {
+    fun updateMember(originalMember: Member, updatedMember: Member) {
         val group = getGroup(originalMember.memberPrimaryKey)
         /* 同じオブジェクトをListAdapter.DiffUtilに渡すとリストの更新処理が走らないため、
            型変換を行い、別オブジェクトとしている。*/
@@ -98,12 +98,12 @@ class GroupViewModel @Inject constructor(
         val position = members.indexOf(originalMember)
 
         members[position] = updatedMember
-        val updatedGroup = group.copy(members = members as ArrayList<Members>)
+        val updatedGroup = group.copy(members = members as ArrayList<Member>)
 
         viewModelScope.launch {
             groupRepository.updateGroup(updatedGroup)
         }
-        _membersList.value = members
+        _memberList.value = members
     }
 
     fun deleteGroup(groupId: Int) {
@@ -114,13 +114,13 @@ class GroupViewModel @Inject constructor(
         }
     }
 
-    fun setMembersListBy(groupId: Int) {
-        val membersList = getGroupMembersList(groupId)
-        _membersList.value = membersList
+    fun setMemberListBy(groupId: Int) {
+        val memberList = getGroupMemberList(groupId)
+        _memberList.value = memberList
     }
 
-    fun resetMembersList() {
-        _membersList.value = listOf()
+    fun resetMemberList() {
+        _memberList.value = listOf()
     }
 
 

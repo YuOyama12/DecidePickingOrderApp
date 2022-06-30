@@ -10,7 +10,7 @@ import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import com.yuoyama12.decidepickingorderapp.R
 import com.yuoyama12.decidepickingorderapp.adapters.GroupListAdapter
-import com.yuoyama12.decidepickingorderapp.adapters.MembersListAdapter
+import com.yuoyama12.decidepickingorderapp.adapters.MemberListAdapter
 import com.yuoyama12.decidepickingorderapp.data.Group
 import com.yuoyama12.decidepickingorderapp.databinding.FragmentListBinding
 import com.yuoyama12.decidepickingorderapp.dialogs.ChangeMemberInfoDialog
@@ -19,7 +19,7 @@ import com.yuoyama12.decidepickingorderapp.dialogs.DeleteConfirmationDialog
 import com.yuoyama12.decidepickingorderapp.dialogs.RenameGroupListDialog
 import com.yuoyama12.decidepickingorderapp.viewmodels.GroupListViewModel
 import com.yuoyama12.decidepickingorderapp.viewmodels.GroupViewModel
-import com.yuoyama12.decidepickingorderapp.viewmodels.MembersListViewModel
+import com.yuoyama12.decidepickingorderapp.viewmodels.MemberListViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -30,7 +30,7 @@ class ListFragment : Fragment() {
 
     private val groupViewModel : GroupViewModel by activityViewModels()
     private val groupListViewModel : GroupListViewModel by activityViewModels()
-    private val membersListViewModel : MembersListViewModel by activityViewModels()
+    private val memberListViewModel : MemberListViewModel by activityViewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -45,7 +45,7 @@ class ListFragment : Fragment() {
             { group -> moveToAddMemberFragment(group)}
         )
 
-        val membersListAdapter = MembersListAdapter(membersListViewModel)
+        val memberListAdapter = MemberListAdapter(memberListViewModel)
 
         val actionBar = activity?.findViewById<androidx.appcompat.widget.Toolbar>(R.id.action_bar)
         actionBar?.title = getString(R.string.list_action_bar_title)
@@ -53,7 +53,7 @@ class ListFragment : Fragment() {
         binding.groupListRecyclerView.adapter = groupListAdapter
         registerForContextMenu(binding.groupListRecyclerView)
 
-        binding.memberListRecyclerView.adapter = membersListAdapter
+        binding.memberListRecyclerView.adapter = memberListAdapter
         registerForContextMenu(binding.memberListRecyclerView)
 
         groupViewModel.groupList.observe(viewLifecycleOwner) {
@@ -61,9 +61,9 @@ class ListFragment : Fragment() {
             setNoItemNotificationTextState(it, binding.groupListNoItemText)
         }
 
-        groupViewModel.membersList.observe(viewLifecycleOwner) {
+        groupViewModel.memberList.observe(viewLifecycleOwner) {
             setNoItemNotificationTextState(it, binding.memberListNoItemText)
-            membersListAdapter.submitList(it)
+            memberListAdapter.submitList(it)
         }
 
         return binding.root
@@ -122,7 +122,7 @@ class ListFragment : Fragment() {
 
     private fun showMembers(group: Group) {
         val groupId = group.groupId
-        groupViewModel.setMembersListBy(groupId)
+        groupViewModel.setMemberListBy(groupId)
     }
 
     private fun moveToAddMemberFragment(group: Group) {

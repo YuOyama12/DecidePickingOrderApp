@@ -42,7 +42,7 @@ class DeleteConfirmationDialog : DialogFragment() {
                 .setPositiveButton(android.R.string.ok) { _, _ ->
                     groupViewModel.deleteGroup(groupId)
 
-                    groupViewModel.resetMembersList()
+                    groupViewModel.resetMemberList()
                     groupListViewModel.resetSelectedPosition()
 
                     val view = requireParentFragment().requireView()

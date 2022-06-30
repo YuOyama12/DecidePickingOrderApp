@@ -11,7 +11,7 @@ data class Group(
     @ColumnInfo(name = "group_id")
     val groupId: Int = 0,
     val name: String,
-    val members: ArrayList<Members> = arrayListOf(),
+    val members: ArrayList<Member> = arrayListOf(),
     val autoNumberingMemberId: Int = 0,
     val primaryKeyIdForMembers: Int = 0
 )

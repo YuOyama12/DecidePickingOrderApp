@@ -66,7 +66,7 @@ class AddMemberFragment : Fragment() {
                 val message = getString(R.string.add_member_completed)
                 Snackbar.make(binding.root, message, Snackbar.LENGTH_SHORT).show()
 
-                groupViewModel.setMembersListBy(groupId)
+                groupViewModel.setMemberListBy(groupId)
             }
 
             resetAllInputFields()

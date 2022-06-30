@@ -5,13 +5,13 @@ import com.google.gson.Gson
 
 class TypeConverter {
     @TypeConverter
-    fun convertMembersListToString(membersList: ArrayList<Members>): String?{
-        return Gson().toJson(membersList)
+    fun convertMemberListToString(memberList: ArrayList<Member>): String?{
+        return Gson().toJson(memberList)
     }
 
     @TypeConverter
-    fun convertStringToMembersList(value: String?): ArrayList<Members>?{
+    fun convertStringToMemberList(value: String?): ArrayList<Member>?{
         return if (value == null) null
-        else Gson().fromJson(value, MembersList::class.java)
+        else Gson().fromJson(value, MemberList::class.java)
     }
 }
