@@ -25,7 +25,7 @@
             android:paddingHorizontal="40dp"
             android:stateListAnimator="@null"
             android:layout_marginHorizontal="@dimen/main_button_layout_margin_horizontal"
-            android:enabled="@{groupViewModel.anyGroupsExist}"
+            android:enabled="@{groupViewModel.hasAnyGroupsInGroupList}"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"

@@ -9,7 +9,6 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
-
 @HiltViewModel
 class GroupViewModel @Inject constructor(
     private val groupRepository: GroupRepository
@@ -17,13 +16,15 @@ class GroupViewModel @Inject constructor(
 
     val groupList = groupRepository.getAll().asLiveData()
 
-    private var _membersList = MutableLiveData<List<Members>>(listOf())
-    val membersList: MutableLiveData<List<Members>>
+    private val _membersList = MutableLiveData<List<Members>>(listOf())
+    val membersList: LiveData<List<Members>>
         get() = _membersList
 
-    val anyGroupsExist = MutableLiveData(false)
+    val hasAnyGroupsInGroupList = MutableLiveData(false)
 
     private fun getGroup(groupId: Int) = groupList.value!!.getGroupFrom(groupId)
+
+    private fun getGroup(memberPrimaryKey: String) = groupList.value!!.getGroupFrom(memberPrimaryKey)
 
     private fun getGroupMembersList(groupId: Int): ArrayList<Members> {
         val group = getGroup(groupId)
@@ -38,10 +39,13 @@ class GroupViewModel @Inject constructor(
     }
 
     fun insertMemberIntoGroup(groupId: Int, memberId: String, memberName: String, checked: Boolean) {
-        val group = getGroup(groupId)
+        val insertedGroup = getGroup(groupId)
         val membersList = getGroupMembersList(groupId)
-        var autoNumberingMemberId = group.autoNumberingMemberId
+        val primaryKeyIdForMembers = getIncrementedPrimaryKeyIdForMembers(insertedGroup)
 
+        val memberPrimaryKey = getMemberPrimaryKey(groupId, primaryKeyIdForMembers)
+
+        var autoNumberingMemberId = insertedGroup.autoNumberingMemberId
         val preciseMemberId: Int =
             if (memberId.isEmpty()) {
                 autoNumberingMemberId++
@@ -51,14 +55,30 @@ class GroupViewModel @Inject constructor(
             }
 
         membersList.add(
-            Members(preciseMemberId, memberName, checked)
+            Members(memberPrimaryKey, preciseMemberId, memberName, checked)
         )
 
-        val updatedGroup = group.copy(members = membersList, autoNumberingMemberId = autoNumberingMemberId)
+        val updatedGroup = insertedGroup.copy(
+            members = membersList,
+            autoNumberingMemberId = autoNumberingMemberId,
+            primaryKeyIdForMembers = primaryKeyIdForMembers
+        )
 
         viewModelScope.launch {
             groupRepository.updateGroup(updatedGroup)
         }
+    }
+
+    private fun getMemberPrimaryKey(groupId: Int, primaryKeyIdForMembers: Int): String {
+        return "${groupId}_${primaryKeyIdForMembers}"
+    }
+
+
+    private fun getIncrementedPrimaryKeyIdForMembers(group: Group): Int {
+        var primaryKeyIdForMembers = group.primaryKeyIdForMembers
+        primaryKeyIdForMembers++
+
+        return primaryKeyIdForMembers
     }
 
     fun updateGroupName(groupId: Int, groupName: String) {
@@ -68,6 +88,22 @@ class GroupViewModel @Inject constructor(
         viewModelScope.launch {
             groupRepository.updateGroup(updatedGroup)
         }
+    }
+
+    fun updateMember(originalMember: Members, updatedMember: Members) {
+        val group = getGroup(originalMember.memberPrimaryKey)
+        /* 同じオブジェクトをListAdapter.DiffUtilに渡すとリストの更新処理が走らないため、
+           型変換を行い、別オブジェクトとしている。*/
+        val members = group.members.toMutableList()
+        val position = members.indexOf(originalMember)
+
+        members[position] = updatedMember
+        val updatedGroup = group.copy(members = members as ArrayList<Members>)
+
+        viewModelScope.launch {
+            groupRepository.updateGroup(updatedGroup)
+        }
+        _membersList.value = members
     }
 
     fun deleteGroup(groupId: Int) {

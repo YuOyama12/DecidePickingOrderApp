@@ -26,8 +26,9 @@
     <string name="what_notification_color_is_help_icon_desc">ヘルプ</string>
     <string name="menu_add_member_cancel_title">キャンセル</string>
     <string name="menu_group_list_rename_title">名前の変更</string>
-    <string name="menu_group_list_delete_title">削除</string>
-    <string name="color_check_box_text">&notificationColor;を適用させる</string>
+    <string name="menu_member_list_change_member_info_title">メンバー情報の変更</string>
+    <string name="menu_list_delete_title">削除</string>
+    <string name="color_check_box_text">&notificationColor;を適用</string>
     <string name="add_button_text">追加</string>
     <string name="add_member_error_message">必須項目が入力されていません</string>
     <string name="add_member_completed">追加しました</string>
@@ -41,5 +42,6 @@
     <string name="delete_completed">削除しました</string>
     <string name="never_show_dialog_again_checkbox_text">このダイアログを再度表示しない</string>
     <string name="can_change_in_setting_text">この設定は設定画面からも変更可能です</string>
+    <string name="change_member_info_dialog_message">変更する情報を書き換えてください</string>
 
 </resources>

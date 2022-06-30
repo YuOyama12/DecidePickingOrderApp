@@ -28,7 +28,7 @@ class MainFragment : Fragment() {
         actionBar?.title = getString(R.string.app_name)
 
         groupViewModel.groupList.observe(viewLifecycleOwner) {
-            groupViewModel.anyGroupsExist.value = it.isNotEmpty()
+            groupViewModel.hasAnyGroupsInGroupList.value = it.isNotEmpty()
         }
 
         return binding.root

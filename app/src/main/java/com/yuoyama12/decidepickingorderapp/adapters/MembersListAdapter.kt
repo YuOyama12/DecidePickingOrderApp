@@ -7,8 +7,11 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.yuoyama12.decidepickingorderapp.data.Members
 import com.yuoyama12.decidepickingorderapp.databinding.ListItemMemberBinding
+import com.yuoyama12.decidepickingorderapp.viewmodels.MembersListViewModel
 
-class MembersListAdapter : ListAdapter<Members, MembersListAdapter.MembersViewHolder>(diffCallback) {
+class MembersListAdapter(
+    private val memberListViewModel: MembersListViewModel
+) : ListAdapter<Members, MembersListAdapter.MembersViewHolder>(diffCallback) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MembersViewHolder {
         val layoutInflater = LayoutInflater.from(parent.context)
@@ -25,10 +28,10 @@ class MembersListAdapter : ListAdapter<Members, MembersListAdapter.MembersViewHo
     companion object{
         val diffCallback = object : DiffUtil.ItemCallback<Members>(){
             override fun areItemsTheSame(oldItem: Members, newItem: Members): Boolean {
-                return oldItem == newItem
+                return oldItem.memberPrimaryKey == newItem.memberPrimaryKey
             }
             override fun areContentsTheSame(oldItem: Members, newItem: Members): Boolean {
-                return oldItem.memberId == newItem.memberId
+                return oldItem == newItem
             }
         }
     }
@@ -42,6 +45,16 @@ class MembersListAdapter : ListAdapter<Members, MembersListAdapter.MembersViewHo
                 listItemMemberId.text = members.memberId.toString()
                 listItemMemberName.text = members.name
                 listItemMemberCheckBox.isChecked = members.isChecked
+            }
+
+            itemView.setOnLongClickListener {
+                memberListViewModel.apply {
+                    this.setLongClickedPrimaryKeyId(members.memberPrimaryKey)
+                    this.setLongClickedMemberId(members.memberId)
+                    this.setLongClickedMemberName(members.name)
+                    this.setLongClickedMemberCheckBox(members.isChecked)
+                }
+                false
             }
 
         }

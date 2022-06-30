@@ -28,10 +28,12 @@ class RenameGroupListDialog : DialogFragment() {
         _binding = DialogGroupListNameBinding
             .inflate(requireActivity().layoutInflater)
 
+        binding.newGroupListName.setText(originalName)
+
         val dialog = requireActivity().let {
             val builder = AlertDialog.Builder(it)
 
-            builder.setTitle(getString(R.string.rename_group_list_dialog_title))
+            builder.setTitle(R.string.rename_group_list_dialog_title)
                 .setView(binding.root)
                 .setPositiveButton(android.R.string.ok) { dialog, _ ->
                     val listName = binding.newGroupListName.text.toString().trim()
@@ -45,8 +47,6 @@ class RenameGroupListDialog : DialogFragment() {
                 .setNegativeButton(android.R.string.cancel) { dialog, _ ->
                     dialog.cancel()
                 }
-
-            binding.newGroupListName.setText(originalName)
 
             builder.create()
 

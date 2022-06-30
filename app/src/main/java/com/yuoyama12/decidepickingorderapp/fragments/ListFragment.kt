@@ -13,11 +13,13 @@ import com.yuoyama12.decidepickingorderapp.adapters.GroupListAdapter
 import com.yuoyama12.decidepickingorderapp.adapters.MembersListAdapter
 import com.yuoyama12.decidepickingorderapp.data.Group
 import com.yuoyama12.decidepickingorderapp.databinding.FragmentListBinding
+import com.yuoyama12.decidepickingorderapp.dialogs.ChangeMemberInfoDialog
 import com.yuoyama12.decidepickingorderapp.dialogs.CreateNewGroupListDialog
 import com.yuoyama12.decidepickingorderapp.dialogs.DeleteConfirmationDialog
 import com.yuoyama12.decidepickingorderapp.dialogs.RenameGroupListDialog
 import com.yuoyama12.decidepickingorderapp.viewmodels.GroupListViewModel
 import com.yuoyama12.decidepickingorderapp.viewmodels.GroupViewModel
+import com.yuoyama12.decidepickingorderapp.viewmodels.MembersListViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -28,6 +30,7 @@ class ListFragment : Fragment() {
 
     private val groupViewModel : GroupViewModel by activityViewModels()
     private val groupListViewModel : GroupListViewModel by activityViewModels()
+    private val membersListViewModel : MembersListViewModel by activityViewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -38,11 +41,11 @@ class ListFragment : Fragment() {
         val groupListAdapter = GroupListAdapter(
             groupListViewModel,
             viewLifecycleOwner,
-            { group -> showMembers(group)  },
+            { group -> showMembers(group) },
             { group -> moveToAddMemberFragment(group)}
         )
 
-        val membersListAdapter = MembersListAdapter()
+        val membersListAdapter = MembersListAdapter(membersListViewModel)
 
         val actionBar = activity?.findViewById<androidx.appcompat.widget.Toolbar>(R.id.action_bar)
         actionBar?.title = getString(R.string.list_action_bar_title)
@@ -51,6 +54,7 @@ class ListFragment : Fragment() {
         registerForContextMenu(binding.groupListRecyclerView)
 
         binding.memberListRecyclerView.adapter = membersListAdapter
+        registerForContextMenu(binding.memberListRecyclerView)
 
         groupViewModel.groupList.observe(viewLifecycleOwner) {
             groupListAdapter.submitList(it)
@@ -81,7 +85,14 @@ class ListFragment : Fragment() {
     ) {
         super.onCreateContextMenu(menu, view, menuInfo)
         val inflater = MenuInflater(requireContext())
-        inflater.inflate(R.menu.menu_group_list_item, menu)
+
+        val menuResourceId =
+            when (view) {
+                binding.memberListRecyclerView -> R.menu.menu_member_list_item
+                else -> R.menu.menu_group_list_item
+            }
+
+        inflater.inflate(menuResourceId, menu)
     }
 
     override fun onContextItemSelected(item: MenuItem): Boolean {
@@ -91,9 +102,18 @@ class ListFragment : Fragment() {
                 dialog.show(parentFragmentManager, null)
                 true
             }
-            R.id.menu_group_list_delete-> {
+            R.id.menu_group_list_delete -> {
                 val dialog = DeleteConfirmationDialog()
                 dialog.show(parentFragmentManager, null)
+                true
+            }
+
+            R.id.menu_member_list_change_member_info -> {
+                val dialog = ChangeMemberInfoDialog()
+                dialog.show(parentFragmentManager, null)
+                true
+            }
+            R.id.menu_member_list_delete -> {
                 true
             }
             else -> super.onContextItemSelected(item)
@@ -106,13 +126,14 @@ class ListFragment : Fragment() {
     }
 
     private fun moveToAddMemberFragment(group: Group) {
+        showMembers(group)
+
         val listName = group.name
         val id: Int = group.groupId
         val action = ListFragmentDirections
             .actionListFragmentToAddMemberFragment(listName, id)
         findNavController().navigate(action)
     }
-
 
     private fun <E> setNoItemNotificationTextState(
         list: List<E>,

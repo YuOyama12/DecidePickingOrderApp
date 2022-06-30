@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
-        android:id="@+id/menu_group_list_rename"
-        android:title="@string/menu_group_list_rename_title" />
+        android:id="@+id/menu_member_list_change_member_info"
+        android:title="@string/menu_member_list_change_member_info_title" />
     <item
-        android:id="@+id/menu_group_list_delete"
+        android:id="@+id/menu_member_list_delete"
         android:title="@string/menu_list_delete_title"/>
 </menu>

@@ -12,11 +12,11 @@ data class Group(
     val groupId: Int = 0,
     val name: String,
     val members: ArrayList<Members> = arrayListOf(),
-    val autoNumberingMemberId: Int = 0
+    val autoNumberingMemberId: Int = 0,
+    val primaryKeyIdForMembers: Int = 0
 )
 
-
-fun List<Group>.getGroupFrom(groupId: Int) : Group{
+fun List<Group>.getGroupFrom(groupId: Int): Group {
     var returnedGroup: Group? = null
     for (group in this) {
         if (group.groupId == groupId) {
@@ -24,7 +24,18 @@ fun List<Group>.getGroupFrom(groupId: Int) : Group{
             break
         }
     }
-    return returnedGroup ?: throw NullPointerException("Can't find any group id!")
+    return returnedGroup ?: throw NullPointerException("Can't find any group from the id!")
 }
 
-
+fun List<Group>.getGroupFrom(memberPrimaryKey: String): Group {
+    var returnedGroup: Group? = null
+    for (group in this) {
+        for (member in group.members) {
+            if (member.memberPrimaryKey == memberPrimaryKey) {
+                returnedGroup = group
+                break
+            }
+        }
+    }
+    return returnedGroup ?: throw NullPointerException("Can't find any group from the member's primary key!")
+}

@@ -31,10 +31,13 @@ class DeleteConfirmationDialog : DialogFragment() {
         _binding = DialogDeleteConfirmationBinding
             .inflate(requireActivity().layoutInflater)
 
+        binding.deleteConfirmationMessage.text =
+            getString(R.string.delete_confirmation_dialog_message, groupName)
+
         val dialog = requireActivity().let {
             val builder = AlertDialog.Builder(it)
 
-            builder.setTitle(getString(R.string.delete_dialog_title))
+            builder.setTitle(R.string.delete_dialog_title)
                 .setView(binding.root)
                 .setPositiveButton(android.R.string.ok) { _, _ ->
                     groupViewModel.deleteGroup(groupId)
@@ -50,8 +53,6 @@ class DeleteConfirmationDialog : DialogFragment() {
                 .setNegativeButton(android.R.string.cancel) { dialog, _ ->
                     dialog.cancel()
                 }
-
-            binding.deleteConfirmationMessage.text = getString(R.string.delete_confirmation_dialog_message, groupName)
 
             builder.create()
 

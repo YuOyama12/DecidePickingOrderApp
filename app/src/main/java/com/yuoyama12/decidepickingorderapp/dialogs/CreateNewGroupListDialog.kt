@@ -25,7 +25,7 @@ class CreateNewGroupListDialog : DialogFragment() {
         val dialog = requireActivity().let {
             val builder = AlertDialog.Builder(it)
 
-            builder.setTitle(getString(R.string.create_new_group_list_dialog_title))
+            builder.setTitle(R.string.create_new_group_list_dialog_title)
                 .setView(binding.root)
                 .setPositiveButton(android.R.string.ok) { dialog, _ ->
                     val listName = binding.newGroupListName.text.toString().trim()

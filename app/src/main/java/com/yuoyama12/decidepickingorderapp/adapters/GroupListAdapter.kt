@@ -37,10 +37,10 @@ class GroupListAdapter(
     companion object{
         val diffCallback = object : DiffUtil.ItemCallback<Group>(){
             override fun areItemsTheSame(oldItem: Group, newItem: Group): Boolean {
-                return oldItem == newItem
+                return oldItem.groupId == newItem.groupId
             }
             override fun areContentsTheSame(oldItem: Group, newItem: Group): Boolean {
-                return oldItem.groupId == newItem.groupId
+                return oldItem == newItem
             }
         }
     }
@@ -61,8 +61,6 @@ class GroupListAdapter(
             binding.listItemGroupName.text = group.name
 
             itemView.apply {
-                isLongClickable = true
-
                 setOnLongClickListener {
                     onItemClicked(group)
                     setSelectedPositionIfPossible(adapterPosition)
@@ -79,6 +77,7 @@ class GroupListAdapter(
             }
 
             binding.addMemberButton.setOnClickListener {
+                setSelectedPositionIfPossible(adapterPosition)
                 buttonClickedAction(group)
             }
         }
