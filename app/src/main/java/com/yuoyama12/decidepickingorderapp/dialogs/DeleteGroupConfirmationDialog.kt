@@ -11,7 +11,7 @@ import com.yuoyama12.decidepickingorderapp.databinding.DialogDeleteConfirmationB
 import com.yuoyama12.decidepickingorderapp.viewmodels.GroupListViewModel
 import com.yuoyama12.decidepickingorderapp.viewmodels.GroupViewModel
 
-class DeleteConfirmationDialog : DialogFragment() {
+class DeleteGroupConfirmationDialog : DialogFragment() {
 
     private var _binding: DialogDeleteConfirmationBinding? = null
     private val binding: DialogDeleteConfirmationBinding
@@ -32,7 +32,7 @@ class DeleteConfirmationDialog : DialogFragment() {
             .inflate(requireActivity().layoutInflater)
 
         binding.deleteConfirmationMessage.text =
-            getString(R.string.delete_confirmation_dialog_message, groupName)
+            getString(R.string.delete_group_confirmation_dialog_message, groupName)
 
         val dialog = requireActivity().let {
             val builder = AlertDialog.Builder(it)

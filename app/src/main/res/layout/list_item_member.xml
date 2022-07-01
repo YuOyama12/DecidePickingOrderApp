@@ -3,6 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:clickable="true"
+    android:focusable="true"
     android:longClickable="true"
     android:background="?android:attr/selectableItemBackground"
     xmlns:app="http://schemas.android.com/apk/res-auto">
@@ -42,10 +43,12 @@
         android:layout_marginHorizontal="@dimen/list_item_padding_margin"
         android:layoutDirection="rtl"
         android:clickable="false"
+        android:focusable="false"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@id/list_item_member_name"/>
 
     <com.google.android.material.divider.MaterialDivider
+        android:id="@+id/list_item_member_divider"
         style="@style/ListItemDivider"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
