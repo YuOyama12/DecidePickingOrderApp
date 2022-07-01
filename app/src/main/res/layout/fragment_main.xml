@@ -14,6 +14,18 @@
         android:layout_height="match_parent"
         tools:context=".fragments.MainFragment">
 
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/no_group_notification"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/no_group_notification_text"
+            android:textAppearance="?attr/textAppearanceSubtitle2"
+            android:gravity="bottom"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toTopOf="@id/start_picking_order_button"/>
+
+
         <com.google.android.material.button.MaterialButton
             android:id="@+id/start_picking_order_button"
             android:layout_width="0dp"

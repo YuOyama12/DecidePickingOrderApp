@@ -9,6 +9,7 @@ import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import com.yuoyama12.decidepickingorderapp.R
 import com.yuoyama12.decidepickingorderapp.databinding.FragmentMainBinding
+import com.yuoyama12.decidepickingorderapp.dialogs.SelectGroupDialog
 import com.yuoyama12.decidepickingorderapp.viewmodels.GroupViewModel
 
 class MainFragment : Fragment() {
@@ -31,6 +32,14 @@ class MainFragment : Fragment() {
             groupViewModel.hasAnyGroupsInGroupList.value = it.isNotEmpty()
         }
 
+        groupViewModel.hasAnyGroupsInGroupList.observe(viewLifecycleOwner) {
+            binding.noGroupNotification.visibility =
+                when (it) {
+                    true -> View.GONE
+                    false -> View.VISIBLE
+                }
+        }
+
         return binding.root
     }
 
@@ -40,6 +49,11 @@ class MainFragment : Fragment() {
         binding.lifecycleOwner = viewLifecycleOwner
 
         binding.apply {
+            startPickingOrderButton.setOnClickListener {
+                val dialog = SelectGroupDialog()
+                dialog.show(parentFragmentManager, null)
+            }
+
             showListButton.setOnClickListener{
                 findNavController().navigate(R.id.action_mainFragment_to_listFragment)
             }
