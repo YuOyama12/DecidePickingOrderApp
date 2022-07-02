@@ -8,6 +8,8 @@ import javax.inject.Singleton
 class GroupRepository @Inject constructor(private val groupDao: GroupDao) {
     fun getAll(): Flow<List<Group>> = groupDao.getAll()
 
+    suspend fun getMembersFrom(groupId: Int): MemberList = groupDao.getMembersFrom(groupId)
+
     suspend fun insertGroup(group: Group) {
         groupDao.insertGroup(group)
     }
@@ -19,4 +21,5 @@ class GroupRepository @Inject constructor(private val groupDao: GroupDao) {
     suspend fun deleteGroup(group: Group) {
         groupDao.deleteGroup(group)
     }
+
 }

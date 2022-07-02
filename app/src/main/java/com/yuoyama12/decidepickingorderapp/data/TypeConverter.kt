@@ -10,7 +10,7 @@ class TypeConverter {
     }
 
     @TypeConverter
-    fun convertStringToMemberList(value: String?): ArrayList<Member>?{
+    fun convertStringToMemberList(value: String?): MemberList?{
         return if (value == null) null
         else Gson().fromJson(value, MemberList::class.java)
     }

@@ -1,6 +1,4 @@
-<!DOCTYPE resources[
-    <!ENTITY notificationColor "直前通知カラー">
-]>
+<!DOCTYPE resources[<!ENTITY notificationColor "直前通知カラー">]>
 
 <resources>
     <string name="app_name">生徒当て順番決めアプリ</string>
@@ -11,6 +9,7 @@
     <string name="show_list_button">リスト一覧表示</string>
     <string name="ascending_order_check_box">番号の小さい順に表示</string>
     <string name="select_group_dialog_title">使用するグループを選択してください</string>
+    <string name="no_member_message">メンバーが存在しません</string>
     <string name="group_list_header">グループリスト一覧</string>
     <string name="create_new_group_list_button">リスト新規作成</string>
     <string name="import_from_excel_button">Excelデータから作成</string>
@@ -18,10 +17,10 @@
     <string name="add_member_button_content_desc">追加</string>
     <string name="member_list_header">選択グループリスト内メンバー一覧</string>
     <string name="optional_member_id_hint">
-        <font size = "25">番号(任意)</font>
+        <font size="25">番号(任意)</font>
     </string>
     <string name="required_member_name_hint">
-        <font size = "25">氏名(必須)</font>
+        <font size="25">氏名(必須)</font>
     </string>
     <string name="explanation_if_number_is_blank">・「番号」部分が空白の場合、自動的に採番されます</string>
     <string name="what_notification_color_is_text">・&notificationColor;とは？</string>

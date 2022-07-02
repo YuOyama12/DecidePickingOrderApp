@@ -13,6 +13,9 @@
         <action
             android:id="@+id/action_mainFragment_to_listFragment"
             app:destination="@id/listFragment" />
+        <action
+            android:id="@+id/action_mainFragment_to_orderDisplayFragment"
+            app:destination="@id/orderDisplayFragment" />
     </fragment>
     <fragment
         android:id="@+id/listFragment"
@@ -40,4 +43,9 @@
             android:name="id"
             app:argType="integer" />
     </fragment>
+    <fragment
+        android:id="@+id/orderDisplayFragment"
+        android:name="com.yuoyama12.decidepickingorderapp.fragments.OrderDisplayFragment"
+        android:label="fragment_order_display"
+        tools:layout="@layout/fragment_order_display" />
 </navigation>

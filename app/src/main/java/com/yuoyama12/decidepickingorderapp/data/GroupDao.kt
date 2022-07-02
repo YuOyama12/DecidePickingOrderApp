@@ -8,6 +8,9 @@ interface GroupDao {
     @Query("SELECT * FROM `Group`")
     fun getAll(): Flow<List<Group>>
 
+    @Query("SELECT members FROM `Group` WHERE group_id = :groupId")
+    suspend fun getMembersFrom(groupId: Int): MemberList
+
     @Insert
     suspend fun insertGroup(group: Group)
 

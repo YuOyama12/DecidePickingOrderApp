@@ -3,38 +3,55 @@ package com.yuoyama12.decidepickingorderapp.dialogs
 import android.app.AlertDialog
 import android.app.Dialog
 import android.os.Bundle
-import android.widget.ArrayAdapter
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.activityViewModels
+import androidx.navigation.fragment.findNavController
+import com.google.android.material.snackbar.Snackbar
 import com.yuoyama12.decidepickingorderapp.R
 import com.yuoyama12.decidepickingorderapp.data.Group
 import com.yuoyama12.decidepickingorderapp.viewmodels.GroupViewModel
+import com.yuoyama12.decidepickingorderapp.viewmodels.OrderViewModel
 
 class SelectGroupDialog : DialogFragment() {
 
     private val groupViewModel: GroupViewModel by activityViewModels()
+    private val orderViewModel: OrderViewModel by activityViewModels()
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         super.onCreateDialog(savedInstanceState)
 
-        var groupNameList = listOf<String>()
-        groupViewModel.groupList.observe(requireParentFragment().viewLifecycleOwner) {
-            groupNameList = getGroupNameListFrom(it)
-        }
+        val groupList = groupViewModel.groupList.value!!
+        val groupNameList = groupList.map { it.name }.toTypedArray()
 
-        val adapter = ArrayAdapter(
-            requireContext(),
-            android.R.layout.select_dialog_singlechoice,
-            groupNameList
-        )
+        var selectedGroup: Group? = null
+
+        val noMemberMsg = getString(R.string.no_member_message)
 
         val dialog = requireActivity().let {
             val builder = AlertDialog.Builder(it)
 
             builder.setTitle(R.string.select_group_dialog_title)
-                .setSingleChoiceItems(adapter,-1) { dialog, position ->
-                    val selectedGroup = adapter.getItem(position).toString()
+                .setSingleChoiceItems(groupNameList, -1) { _, which ->
+                    selectedGroup = groupList[which]
+                }
+                .setPositiveButton(android.R.string.ok) { dialog,_ ->
+                    if (selectedGroup != null) {
 
+                        if (hasNoMember(selectedGroup!!)) {
+                            val view = requireParentFragment().requireView()
+                            Snackbar.make(view, noMemberMsg, Snackbar.LENGTH_SHORT)
+                                .show()
+                            return@setPositiveButton
+                        }
+
+                        orderViewModel.setSelectedGroup(selectedGroup!!)
+                        orderViewModel.createMemberList()
+
+                        requireParentFragment().findNavController()
+                            .navigate(R.id.action_mainFragment_to_orderDisplayFragment)
+                    } else {
+                        dialog.cancel()
+                    }
                 }
 
             builder.create()
@@ -44,12 +61,8 @@ class SelectGroupDialog : DialogFragment() {
         return dialog
     }
 
-    private fun getGroupNameListFrom(groupList: List<Group>): List<String> {
-        val groupNameList = mutableListOf<String>()
-        for (group in groupList) {
-            groupNameList.add(group.name)
-        }
-
-        return groupNameList
+    private fun hasNoMember(group: Group): Boolean {
+        return group.members.isEmpty()
     }
+
 }
