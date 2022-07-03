@@ -18,7 +18,7 @@
         <com.google.android.material.textview.MaterialTextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@{Integer.toString(orderViewModel.memberList[0].memberId)}"
+            android:text="@{Integer.toString(orderViewModel.memberList[orderViewModel.currentItemPosition].memberId)}"
             android:textAppearance="?attr/textAppearanceHeadline4"
             android:paddingBottom="18dp"
             app:layout_constraintBottom_toTopOf="@id/displayed_name"
@@ -29,7 +29,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:maxLines="2"
-            android:text="@{orderViewModel.memberList[0].name}"
+            android:text="@{orderViewModel.memberList[orderViewModel.currentItemPosition].name}"
             android:textAppearance="?attr/textAppearanceHeadline3"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintStart_toStartOf="parent"

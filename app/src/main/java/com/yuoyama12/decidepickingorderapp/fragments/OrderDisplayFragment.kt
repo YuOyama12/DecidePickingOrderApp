@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.activityViewModels
+import com.yuoyama12.decidepickingorderapp.FlickListener
 import com.yuoyama12.decidepickingorderapp.databinding.FragmentOrderDisplayBinding
 import com.yuoyama12.decidepickingorderapp.viewmodels.OrderViewModel
 
@@ -17,6 +18,15 @@ class OrderDisplayFragment : Fragment() {
     private val binding get() = _binding!!
 
     private val orderViewModel: OrderViewModel by activityViewModels()
+
+    private val flickListener: FlickListener.Listener = object : FlickListener.Listener{
+        override fun onFlickToLeft() {
+            orderViewModel.goPreviousItem()
+        }
+        override fun onFlickToRight() {
+            orderViewModel.goNextItem()
+        }
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -32,6 +42,8 @@ class OrderDisplayFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         binding.orderViewModel = orderViewModel
         binding.lifecycleOwner = viewLifecycleOwner
+
+        view.setOnTouchListener(FlickListener(flickListener))
     }
 
     override fun onDestroy() {
