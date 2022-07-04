@@ -44,8 +44,12 @@ class SelectGroupDialog : DialogFragment() {
                             return@setPositiveButton
                         }
 
-                        orderViewModel.setSelectedGroup(selectedGroup!!)
-                        orderViewModel.createMemberList()
+                        if (selectedGroup!! != orderViewModel.selectedGroup ||
+                                orderViewModel.selectedGroup == null) {
+                            orderViewModel.resetCurrentItemPosition()
+                            orderViewModel.setSelectedGroup(selectedGroup!!)
+                            orderViewModel.createMemberList()
+                        }
 
                         requireParentFragment().findNavController()
                             .navigate(R.id.action_mainFragment_to_orderDisplayFragment)

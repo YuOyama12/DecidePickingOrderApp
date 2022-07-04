@@ -1,6 +1,5 @@
 package com.yuoyama12.decidepickingorderapp.viewmodels
 
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -18,19 +17,19 @@ class OrderViewModel @Inject constructor(
 
     val memberList = MutableLiveData<ArrayList<Member>>()
 
-    private var _currentItemPosition = MutableLiveData(0)
-    val currentItemPosition: LiveData<Int>
-        get() = _currentItemPosition
+    val currentItemPosition = MutableLiveData(0)
 
-    private var selectedGroup: Group? = null
+    private var _selectedGroup: Group? = null
+    val selectedGroup: Group?
+        get() = _selectedGroup
 
     fun setSelectedGroup(group: Group) {
-        selectedGroup = group
+        _selectedGroup = group
     }
 
     fun createMemberList() {
         viewModelScope.launch {
-            memberList.value = groupRepository.getMembersFrom(selectedGroup!!.groupId)
+            memberList.value = groupRepository.getMembersFrom(_selectedGroup!!.groupId)
         }
     }
 
@@ -55,6 +54,10 @@ class OrderViewModel @Inject constructor(
     }
 
     private fun changeCurrentItemPosition(position: Int) {
-        _currentItemPosition.value = position
+        currentItemPosition.value = position
+    }
+
+    fun resetCurrentItemPosition() {
+        currentItemPosition.value = 0
     }
 }
