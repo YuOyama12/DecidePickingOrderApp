@@ -7,6 +7,9 @@
         <variable
             name="groupViewModel"
             type="com.yuoyama12.decidepickingorderapp.viewmodels.GroupViewModel" />
+        <variable
+            name="orderViewModel"
+            type="com.yuoyama12.decidepickingorderapp.viewmodels.OrderViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -49,6 +52,7 @@
             android:layout_height="wrap_content"
             android:text="@string/ascending_order_check_box"
             android:textSize="@dimen/main_check_box_text_size"
+            android:checked="@={orderViewModel.ascendingOrderCheckState}"
             app:layout_constraintTop_toBottomOf="@id/start_picking_order_button"
             app:layout_constraintEnd_toEndOf="@id/start_picking_order_button" />
 

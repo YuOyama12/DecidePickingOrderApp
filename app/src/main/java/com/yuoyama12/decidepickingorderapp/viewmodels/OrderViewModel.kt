@@ -15,9 +15,15 @@ class OrderViewModel @Inject constructor(
     private val groupRepository: GroupRepository
 ) : ViewModel() {
 
-    val memberList = MutableLiveData<ArrayList<Member>>()
+    val memberList = MutableLiveData<MutableList<Member>>()
 
     val currentItemPosition = MutableLiveData(0)
+
+    val ascendingOrderCheckState = MutableLiveData(false)
+
+    private var _restoredAscendingOrderCheckState = false
+    val restoredAscendingOrderCheckState: Boolean
+        get() = _restoredAscendingOrderCheckState
 
     private var _selectedGroup: Group? = null
     val selectedGroup: Group?
@@ -28,9 +34,19 @@ class OrderViewModel @Inject constructor(
     }
 
     fun createMemberList() {
+        var createdMemberList: ArrayList<Member>?
+
         viewModelScope.launch {
-            memberList.value = groupRepository.getMembersFrom(_selectedGroup!!.groupId)
+            createdMemberList = groupRepository.getMembersFrom(_selectedGroup!!.groupId)
+
+            memberList.value =
+                if (ascendingOrderCheckState.value == true) {
+                    createdMemberList!!.sortedBy { it.memberId }.toMutableList()
+                } else {
+                    createdMemberList!!.shuffled().toMutableList()
+                }
         }
+        restoreAscendingOrderCheckState()
     }
 
     fun goNextItem() {
@@ -57,7 +73,13 @@ class OrderViewModel @Inject constructor(
         currentItemPosition.value = position
     }
 
+    private fun restoreAscendingOrderCheckState() {
+        _restoredAscendingOrderCheckState = ascendingOrderCheckState.value!!
+    }
+
     fun resetCurrentItemPosition() {
         currentItemPosition.value = 0
     }
+
+
 }

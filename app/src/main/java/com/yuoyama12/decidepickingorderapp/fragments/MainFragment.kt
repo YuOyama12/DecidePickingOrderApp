@@ -11,6 +11,7 @@ import com.yuoyama12.decidepickingorderapp.R
 import com.yuoyama12.decidepickingorderapp.databinding.FragmentMainBinding
 import com.yuoyama12.decidepickingorderapp.dialogs.SelectGroupDialog
 import com.yuoyama12.decidepickingorderapp.viewmodels.GroupViewModel
+import com.yuoyama12.decidepickingorderapp.viewmodels.OrderViewModel
 
 class MainFragment : Fragment() {
 
@@ -18,6 +19,7 @@ class MainFragment : Fragment() {
     private val binding get() = _binding!!
 
     private val groupViewModel: GroupViewModel by activityViewModels()
+    private val orderViewModel: OrderViewModel by activityViewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -46,6 +48,7 @@ class MainFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding.groupViewModel = groupViewModel
+        binding.orderViewModel = orderViewModel
         binding.lifecycleOwner = viewLifecycleOwner
 
         binding.apply {

@@ -45,10 +45,13 @@ class SelectGroupDialog : DialogFragment() {
                         }
 
                         if (selectedGroup!! != orderViewModel.selectedGroup ||
-                                orderViewModel.selectedGroup == null) {
+                            ifAscendingOrderCheckStateChanged() ||
+                            orderViewModel.selectedGroup == null) {
+
                             orderViewModel.resetCurrentItemPosition()
                             orderViewModel.setSelectedGroup(selectedGroup!!)
                             orderViewModel.createMemberList()
+
                         }
 
                         requireParentFragment().findNavController()
@@ -67,6 +70,11 @@ class SelectGroupDialog : DialogFragment() {
 
     private fun hasNoMember(group: Group): Boolean {
         return group.members.isEmpty()
+    }
+
+    private fun ifAscendingOrderCheckStateChanged(): Boolean {
+        return orderViewModel.ascendingOrderCheckState.value !=
+                orderViewModel.restoredAscendingOrderCheckState
     }
 
 }
