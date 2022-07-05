@@ -45,5 +45,7 @@
     <string name="never_show_dialog_again_checkbox_text">このダイアログを再度表示しない</string>
     <string name="can_change_in_setting_text">この設定は設定画面からも変更可能です</string>
     <string name="change_member_info_dialog_message">変更する情報を書き換えてください</string>
+    <string name="excel_dialog_message_title">Excelデータから作成の注意点</string>
+    <string name="excel_dialog_message_about_format">・以下のようなフォーマットで作成することを推奨します</string>
 
 </resources>

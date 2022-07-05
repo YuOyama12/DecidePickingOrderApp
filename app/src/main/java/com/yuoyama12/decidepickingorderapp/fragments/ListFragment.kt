@@ -73,6 +73,11 @@ class ListFragment : Fragment() {
             val dialog = CreateNewGroupListDialog()
             dialog.show(parentFragmentManager, null)
         }
+
+        binding.importFromExcelButton.setOnClickListener {
+            val dialog = CreateFromExcelDataDialog()
+            dialog.show(parentFragmentManager, null)
+        }
     }
 
     override fun onCreateContextMenu(
