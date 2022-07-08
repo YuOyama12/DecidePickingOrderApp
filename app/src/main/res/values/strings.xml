@@ -47,5 +47,6 @@
     <string name="change_member_info_dialog_message">変更する情報を書き換えてください</string>
     <string name="excel_dialog_message_title">Excelデータから作成の注意点</string>
     <string name="excel_dialog_message_about_format">・以下のようなフォーマットで作成することを推奨します</string>
+    <string name="excel_dialog_message_about_file">・xls形式のファイルのみ選択可能です</string>
 
 </resources>

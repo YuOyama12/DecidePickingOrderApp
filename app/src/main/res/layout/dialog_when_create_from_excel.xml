@@ -22,11 +22,21 @@
         app:layout_constraintBottom_toBottomOf="parent">
 
         <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/excel_dialog_message_about_file"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="@string/excel_dialog_message_about_file"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toTopOf="@id/excel_dialog_message_about_format"/>
+
+        <com.google.android.material.textview.MaterialTextView
             android:id="@+id/excel_dialog_message_about_format"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:text="@string/excel_dialog_message_about_format"
-            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/excel_dialog_message_about_file"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintBottom_toTopOf="@id/excel_dialog_format_sample"/>

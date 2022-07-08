@@ -1,11 +1,16 @@
 package com.yuoyama12.decidepickingorderapp.fragments
 
+import android.app.Activity
+import android.content.Intent
 import android.os.Bundle
 import android.view.*
 import androidx.fragment.app.Fragment
 import android.view.View.GONE
 import android.view.View.VISIBLE
 import android.widget.TextView
+import androidx.activity.result.ActivityResult
+import androidx.activity.result.contract.ActivityResultContracts
+import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import com.yuoyama12.decidepickingorderapp.R
@@ -28,6 +33,13 @@ class ListFragment : Fragment() {
     private val groupViewModel : GroupViewModel by activityViewModels()
     private val groupListViewModel : GroupListViewModel by activityViewModels()
     private val memberListViewModel : MemberListViewModel by activityViewModels()
+
+    private val startForResult = registerForActivityResult(ActivityResultContracts.StartActivityForResult()){
+            result: ActivityResult? ->
+        if (result?.resultCode == Activity.RESULT_OK) {
+
+        }
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -69,15 +81,19 @@ class ListFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        CreateFromExcelDataDialog.prepareFragmentResultListener(this) {
+            openFileProvider()
+        }
+
+
         binding.createNewGroupListButton.setOnClickListener {
-            val dialog = CreateNewGroupListDialog()
-            dialog.show(parentFragmentManager, null)
+            showDialog(CreateNewGroupListDialog())
         }
 
         binding.importFromExcelButton.setOnClickListener {
-            val dialog = CreateFromExcelDataDialog()
-            dialog.show(parentFragmentManager, null)
+            showDialog(CreateFromExcelDataDialog())
         }
+
     }
 
     override fun onCreateContextMenu(
@@ -100,24 +116,20 @@ class ListFragment : Fragment() {
     override fun onContextItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
             R.id.menu_group_list_rename -> {
-                val dialog = RenameGroupListDialog()
-                dialog.show(parentFragmentManager, null)
+                showDialog(RenameGroupListDialog())
                 true
             }
             R.id.menu_group_list_delete -> {
-                val dialog = DeleteGroupConfirmationDialog()
-                dialog.show(parentFragmentManager, null)
+                showDialog(DeleteGroupConfirmationDialog())
                 true
             }
 
             R.id.menu_member_list_change_member_info -> {
-                val dialog = ChangeMemberInfoDialog()
-                dialog.show(parentFragmentManager, null)
+                showDialog(ChangeMemberInfoDialog())
                 true
             }
             R.id.menu_member_list_delete -> {
-                val dialog = DeleteMemberConfirmationDialog()
-                dialog.show(parentFragmentManager, null)
+                showDialog(DeleteMemberConfirmationDialog())
                 true
             }
             else -> super.onContextItemSelected(item)
@@ -149,9 +161,22 @@ class ListFragment : Fragment() {
         }
     }
 
+    private fun openFileProvider() {
+        val intent = Intent(Intent.ACTION_OPEN_DOCUMENT).apply {
+            addCategory(Intent.CATEGORY_OPENABLE)
+            type = "application/vnd.ms-excel"
+        }
+        startForResult.launch(intent, null)
+    }
+
+    private fun showDialog(dialogFragment: DialogFragment) {
+        dialogFragment.show(childFragmentManager, null)
+    }
+
     override fun onDestroy() {
         super.onDestroy()
         _binding = null
     }
+
 
 }

@@ -5,6 +5,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import com.yuoyama12.decidepickingorderapp.R
@@ -53,8 +54,7 @@ class MainFragment : Fragment() {
 
         binding.apply {
             startPickingOrderButton.setOnClickListener {
-                val dialog = SelectGroupDialog()
-                dialog.show(parentFragmentManager, null)
+                showDialog(SelectGroupDialog())
             }
 
             showListButton.setOnClickListener{
@@ -62,6 +62,10 @@ class MainFragment : Fragment() {
             }
         }
 
+    }
+
+    private fun showDialog(dialogFragment: DialogFragment) {
+        dialogFragment.show(childFragmentManager, null)
     }
 
     override fun onDestroy() {

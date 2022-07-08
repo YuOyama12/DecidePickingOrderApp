@@ -53,6 +53,7 @@ class SelectGroupDialog : DialogFragment() {
                             orderViewModel.createMemberList()
 
                         }
+                        dialog.cancel()
 
                         requireParentFragment().findNavController()
                             .navigate(R.id.action_mainFragment_to_orderDisplayFragment)
