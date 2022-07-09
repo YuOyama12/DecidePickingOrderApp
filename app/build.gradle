@@ -65,5 +65,10 @@ dependencies {
     implementation "com.google.dagger:hilt-android:$hilt_version"
     kapt "com.google.dagger:hilt-android-compiler:$hilt_version"
 
+    implementation "org.apache.poi:poi:4.0.1"
+    implementation "org.apache.poi:poi-ooxml:4.0.1"
+    implementation 'org.apache.xmlbeans:xmlbeans:3.0.2'
+    implementation "org.apache.poi:poi-ooxml-schemas:1.4"
+
     implementation 'com.google.code.gson:gson:2.9.0'
 }

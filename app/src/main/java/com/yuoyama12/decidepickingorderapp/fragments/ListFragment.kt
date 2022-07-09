@@ -13,12 +13,14 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
+import com.yuoyama12.decidepickingorderapp.ExcelDataProcessor
 import com.yuoyama12.decidepickingorderapp.R
 import com.yuoyama12.decidepickingorderapp.adapters.GroupListAdapter
 import com.yuoyama12.decidepickingorderapp.adapters.MemberListAdapter
 import com.yuoyama12.decidepickingorderapp.data.Group
 import com.yuoyama12.decidepickingorderapp.databinding.FragmentListBinding
 import com.yuoyama12.decidepickingorderapp.dialogs.*
+import com.yuoyama12.decidepickingorderapp.viewmodels.ExcelViewModel
 import com.yuoyama12.decidepickingorderapp.viewmodels.GroupListViewModel
 import com.yuoyama12.decidepickingorderapp.viewmodels.GroupViewModel
 import com.yuoyama12.decidepickingorderapp.viewmodels.MemberListViewModel
@@ -33,11 +35,15 @@ class ListFragment : Fragment() {
     private val groupViewModel : GroupViewModel by activityViewModels()
     private val groupListViewModel : GroupListViewModel by activityViewModels()
     private val memberListViewModel : MemberListViewModel by activityViewModels()
+    private val excelViewModel : ExcelViewModel by activityViewModels()
+
+    private var  _excelDataProcessor: ExcelDataProcessor? = null
+    private val excelDataProcessor get() = _excelDataProcessor!!
 
     private val startForResult = registerForActivityResult(ActivityResultContracts.StartActivityForResult()){
             result: ActivityResult? ->
         if (result?.resultCode == Activity.RESULT_OK) {
-
+            excelDataProcessor.execute(result)
         }
     }
 
@@ -81,10 +87,11 @@ class ListFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        _excelDataProcessor = ExcelDataProcessor(this, requireActivity(), excelViewModel)
+
         CreateFromExcelDataDialog.prepareFragmentResultListener(this) {
             openFileProvider()
         }
-
 
         binding.createNewGroupListButton.setOnClickListener {
             showDialog(CreateNewGroupListDialog())
@@ -176,6 +183,7 @@ class ListFragment : Fragment() {
     override fun onDestroy() {
         super.onDestroy()
         _binding = null
+        _excelDataProcessor = null
     }
 
 
