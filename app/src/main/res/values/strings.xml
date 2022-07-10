@@ -50,6 +50,7 @@
     <string name="excel_dialog_message_about_file">・xls形式のファイルのみ選択可能です</string>
     <string name="excel_dialog_error_title">エラー</string>
     <string name="excel_dialog_no_available_sheet_data">使用できるシートが存在しません</string>
+    <string name="excel_dialog_no_available_column_data">使用できる行が存在しません</string>
     <string name="excel_dialog_not_use_item">使用しない</string>
     <string name="excel_dialog_select_sheet_title">使用するExcelシートの選択(必須)</string>
     <string name="excel_dialog_select_id_title">IDとして使用する行の選択</string>

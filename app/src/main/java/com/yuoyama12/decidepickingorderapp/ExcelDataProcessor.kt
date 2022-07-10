@@ -35,12 +35,25 @@ class ExcelDataProcessor(
         SelectExcelInfoDialog.prepareFragmentResultListener(
             fragment,
             { decideWhichColumnToUseForIdBy(excelViewModel.workbook) },
-            { //TODO: IDとして使用する行選択時の処理をここへ書く。
-                 }
+            { decideWhichColumnToUseForNameBy(excelViewModel.workbook) },
+            {
+                if (excelViewModel.columnAsId.isNotEmpty()){
+                    val contentListForId = getContentList(Excel.EXCEL_ID_COLUMN)
+                    setContentList(Excel.EXCEL_ID_COLUMN, contentListForId)
+                }
+
+                val contentListForName = getContentList(Excel.EXCEL_NAME_COLUMN)
+                setContentList(Excel.EXCEL_NAME_COLUMN, contentListForName)
+
+               //TODO: 得たデータを用いてDBへの挿入処理
+            }
         )
+
     }
 
     fun execute(result: ActivityResult) = runBlocking {
+
+        excelViewModel.resetAll()
 
         val selectedWorkbook =
             withContext(Dispatchers.Default) {
@@ -176,6 +189,94 @@ class ExcelDataProcessor(
         }
 
         return titlesList
+    }
+
+    private fun decideWhichColumnToUseForNameBy(workbook: Workbook) {
+        val sheetName = excelViewModel.sheetName
+        val sheet = workbook.getSheet(sheetName)
+        val titlesAndPositionMap = getTableTitlesAndPosition(sheet)
+
+        val titlesList = getTitlesList(titlesAndPositionMap)
+
+        val columnAsId = excelViewModel.columnAsId
+
+        if (titlesList.contains(columnAsId)){
+            titlesList.remove(columnAsId)
+        }
+
+        if (titlesList.isNotEmpty()) {
+            createSelectExcelInfoDialogFrom(Excel.EXCEL_NAME_COLUMN, titlesList)
+        }else{
+            createErrorDialog(getString(R.string.excel_dialog_no_available_column_data))
+        }
+
+    }
+
+    private fun getContentList(contentType: Excel): ArrayList<String> {
+        val sheetName = excelViewModel.sheetName
+        val sheet = excelViewModel.workbook.getSheet(sheetName)
+        val titlesAndPositionMap = getTableTitlesAndPosition(sheet)
+
+        val selection =
+            when (contentType) {
+                Excel.EXCEL_ID_COLUMN -> excelViewModel.columnAsId
+                Excel.EXCEL_NAME_COLUMN -> excelViewModel.columnAsName
+                else -> {
+                    throw IllegalArgumentException("This argument is inappropriate for contentValue. Currently only \"EXCEL_ID_COLUMN\" or \"EXCEL_NAME_COLUMN\" is supported.")
+                }
+            }
+
+        val contentOwnedRow = getContentOwnedRow(sheet)
+        val selectedPosition: Int = getSelectedContentPosition(selection, titlesAndPositionMap)
+
+        val contentList = arrayListOf<String>()
+
+        //最初のタイトル行を除いた列の番号(firstRowNum)からスタートし、
+        //値が入っている最後の列の番号(lastRowNum)までCellを取っていく。
+        val firstRowNum = contentOwnedRow.rowNum + 1
+        val lastRowNum = sheet.lastRowNum
+
+        for (num in firstRowNum..lastRowNum) {
+            //取得しようとした値が空白の場合、nullが返ってくるため、
+            //NullPointerExceptionをキャッチ
+            val cell: Cell? =
+                try { sheet.getRow(num).getCell(selectedPosition) }
+                catch (e: NullPointerException) { null }
+
+            if (cell?.toString().isNullOrEmpty()){
+                continue
+            }else{
+                val content = getCellValueAsString(cell!!)
+                contentList.add(content)
+            }
+        }
+        return contentList
+    }
+
+    private fun setContentList(contentType: Excel, contentList: ArrayList<String>) {
+        when (contentType) {
+            Excel.EXCEL_ID_COLUMN -> {
+                excelViewModel.setContentListForId(contentList)
+            }
+            Excel.EXCEL_NAME_COLUMN -> {
+                excelViewModel.setContentListForName(contentList)
+            }
+            else -> {
+                throw IllegalArgumentException("This argument is inappropriate for contentValue. Currently only \"EXCEL_ID_COLUMN\" or \"EXCEL_NAME_COLUMN\" is supported.")
+            }
+        }
+    }
+
+    private fun getSelectedContentPosition(selection: String, mapList: ArrayList<Map<String, Any>>): Int {
+        var position = 0
+        for (num in 0..mapList.lastIndex) {
+            val map = mapList[num]
+            if (map["title"] as String == selection) {
+                position = map["position"] as Int
+                break
+            }
+        }
+        return position
     }
 
     private fun createSelectExcelInfoDialogFrom(

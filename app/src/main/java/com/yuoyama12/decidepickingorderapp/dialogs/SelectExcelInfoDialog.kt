@@ -21,11 +21,13 @@ class SelectExcelInfoDialog : DialogFragment() {
         private const val REQUEST_KEY = CLASS_NAME
         private const val RESULT_KEY_SHEET_SELECTED = "${CLASS_NAME}_SHEET_SELECTED"
         private const val RESULT_KEY_ID_SELECTED = "${CLASS_NAME}_ID_SELECTED"
+        private const val RESULT_KEY_NAME_SELECTED = "${CLASS_NAME}_NAME_SELECTED"
 
         fun prepareFragmentResultListener(
             target: Fragment,
             onSheetSelected: () -> Unit,
-            onIdSelected: () -> Unit
+            onIdSelected: () -> Unit,
+            onNameSelected: () -> Unit
         ) {
             SelectExcelInfoDialog().run {
                 target
@@ -36,7 +38,7 @@ class SelectExcelInfoDialog : DialogFragment() {
                         when {
                             bundle.containsKey(RESULT_KEY_SHEET_SELECTED) -> onSheetSelected.invoke()
                             bundle.containsKey(RESULT_KEY_ID_SELECTED) -> onIdSelected.invoke()
-
+                            bundle.containsKey(RESULT_KEY_NAME_SELECTED) -> onNameSelected.invoke()
                         }
                     }
             }
@@ -66,6 +68,7 @@ class SelectExcelInfoDialog : DialogFragment() {
                 }
 
             builder.create()
+
         }
 
         return dialog
@@ -85,6 +88,8 @@ class SelectExcelInfoDialog : DialogFragment() {
                 setFragmentResult(REQUEST_KEY, bundleOf(RESULT_KEY_SHEET_SELECTED to ""))
             Excel.EXCEL_ID_COLUMN ->
                 setFragmentResult(REQUEST_KEY, bundleOf(RESULT_KEY_ID_SELECTED to ""))
+            Excel.EXCEL_NAME_COLUMN ->
+                setFragmentResult(REQUEST_KEY, bundleOf(RESULT_KEY_NAME_SELECTED to ""))
         }
     }
 
@@ -92,7 +97,16 @@ class SelectExcelInfoDialog : DialogFragment() {
         when (excel) {
             Excel.EXCEL_SHEET ->
                 excelViewModel.setSheetName(item)
+            Excel.EXCEL_ID_COLUMN ->
+                excelViewModel.setColumnAsId(getBlankIfNotUseIsSelected(item))
+            Excel.EXCEL_NAME_COLUMN ->
+                excelViewModel.setColumnAsName(item)
         }
+    }
+
+    private fun getBlankIfNotUseIsSelected(item: String): String{
+        return if (item == getString(R.string.excel_dialog_not_use_item)) ""
+        else item
     }
 
     override fun onDismiss(dialog: DialogInterface) {
