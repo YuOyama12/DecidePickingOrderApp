@@ -244,7 +244,7 @@ class ExcelDataProcessor(
                 catch (e: NullPointerException) { null }
 
             if (cell?.toString().isNullOrEmpty()){
-                continue
+                contentList.add("")
             }else{
                 val content = getCellValueAsString(cell!!)
                 contentList.add(content)
