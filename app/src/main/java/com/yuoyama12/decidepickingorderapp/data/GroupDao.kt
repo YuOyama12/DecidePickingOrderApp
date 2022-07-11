@@ -14,6 +14,9 @@ interface GroupDao {
     @Insert
     suspend fun insertGroup(group: Group)
 
+    @Insert
+    suspend fun insertGroupAndReturnId(group: Group): Long
+
     @Update
     suspend fun updateGroup(group: Group)
 

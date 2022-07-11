@@ -45,14 +45,13 @@ class ExcelDataProcessor(
                 val contentListForName = getContentList(Excel.EXCEL_NAME_COLUMN)
                 setContentList(Excel.EXCEL_NAME_COLUMN, contentListForName)
 
-               //TODO: 得たデータを用いてDBへの挿入処理
+                excelViewModel.createNewGroupWithMembers()
             }
         )
 
     }
 
     fun execute(result: ActivityResult) = runBlocking {
-
         excelViewModel.resetAll()
 
         val selectedWorkbook =

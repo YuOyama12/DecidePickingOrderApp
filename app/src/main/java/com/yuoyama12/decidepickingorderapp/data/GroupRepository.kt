@@ -14,6 +14,10 @@ class GroupRepository @Inject constructor(private val groupDao: GroupDao) {
         groupDao.insertGroup(group)
     }
 
+    suspend fun insertGroupAndReturnId(group: Group): Long {
+        return groupDao.insertGroupAndReturnId(group)
+    }
+
     suspend fun updateGroup(group: Group) {
         groupDao.updateGroup(group)
     }
