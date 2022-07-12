@@ -1,5 +1,6 @@
 package com.yuoyama12.decidepickingorderapp.fragments
 
+import android.content.pm.ActivityInfo
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -27,6 +28,8 @@ class MainFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentMainBinding.inflate(inflater, container, false)
+        requireActivity().requestedOrientation =
+            ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED
 
         val actionBar = activity?.findViewById<androidx.appcompat.widget.Toolbar>(R.id.action_bar)
         actionBar?.title = getString(R.string.app_name)

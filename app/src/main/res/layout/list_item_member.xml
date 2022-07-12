@@ -41,7 +41,6 @@
         android:text="@string/color_check_box_text"
         android:textSize="@dimen/add_member_check_box_text_size"
         android:layout_marginHorizontal="@dimen/list_item_padding_margin"
-        android:layoutDirection="rtl"
         android:clickable="false"
         android:focusable="false"
         app:layout_constraintEnd_toEndOf="parent"

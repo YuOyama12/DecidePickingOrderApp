@@ -42,7 +42,7 @@ class ExcelViewModel @Inject constructor (
     private val contentListForName: ArrayList<String>
         get() = _contentListForName
 
-    private var autoNumberingMemberId = 1
+    private var autoNumberingMemberId = 0
     private var  primaryKeyIdForMembers = 1
     private var returnedGroupId = -1
 

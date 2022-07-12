@@ -33,7 +33,7 @@ class OrderDisplayFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentOrderDisplayBinding.inflate(inflater, container, false)
-        activity?.requestedOrientation =
+        requireActivity().requestedOrientation =
             ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE
         return binding.root
     }
@@ -48,10 +48,7 @@ class OrderDisplayFragment : Fragment() {
 
     override fun onDestroy() {
         super.onDestroy()
-        activity?.requestedOrientation =
-            ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED
         _binding = null
     }
-
 
 }
