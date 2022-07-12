@@ -5,7 +5,10 @@ import androidx.lifecycle.viewModelScope
 import com.yuoyama12.decidepickingorderapp.data.Group
 import com.yuoyama12.decidepickingorderapp.data.GroupRepository
 import com.yuoyama12.decidepickingorderapp.data.Member
+import com.yuoyama12.decidepickingorderapp.data.getGroupFrom
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.FlowPreview
+import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 import org.apache.poi.ss.usermodel.Workbook
 import javax.inject.Inject
@@ -67,35 +70,39 @@ class ExcelViewModel @Inject constructor (
         _contentListForName = contentList
     }
 
+    @FlowPreview
     fun createNewGroupWithMembers() {
         viewModelScope.launch {
-            insertGroupAndSetGroupId(sheetName)
+            insertNewGroupAndSetGroupId(sheetName)
 
-            val members = getMembersFromExcel()
+            val groupList = groupRepository.getAll().take(1).flatMapConcat(List<Group>::asFlow).toList()
+            val insertedGroup = groupList.getGroupFrom(returnedGroupId)
 
-            val group = Group(
-                returnedGroupId,
-                sheetName,
+            val members = getMembersFromExcel(insertedGroup)
+
+            val updatedGroup = Group(
+                insertedGroup.groupId,
+                insertedGroup.name,
                 members,
                 autoNumberingMemberId,
                 primaryKeyIdForMembers
             )
 
-            groupRepository.updateGroup(group)
+            groupRepository.updateGroup(updatedGroup)
         }
     }
 
-    private suspend fun insertGroupAndSetGroupId(groupName: String) {
+    private suspend fun insertNewGroupAndSetGroupId(groupName: String) {
         val group = Group(name = groupName)
         //GroupのIDはInt値で設定しているため変換処理が必要。
         returnedGroupId = groupRepository.insertGroupAndReturnId(group).toInt()
     }
 
-    private fun getMembersFromExcel(): ArrayList<Member> {
+    private fun getMembersFromExcel(group: Group): ArrayList<Member> {
         val memberList: ArrayList<Member> = arrayListOf()
 
         for (position in 0..contentListForName.lastIndex) {
-            val memberPrimaryKey = "${returnedGroupId}_${primaryKeyIdForMembers}"
+            val memberPrimaryKey = "${group.groupId}_${primaryKeyIdForMembers}"
             val memberId = getPreciseMemberId(contentListForId[position])
             val memberName = contentListForName[position]
 
