@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="preference_action_bar_title">設定</string>
+    <string name="show_delete_confirmation_dialog_preference_key">showDeleteConfirmationDialog</string>
+    <string name="show_delete_confirmation_dialog_preference_title">リスト削除確認ダイアログの非表示</string>
+    
+    
+</resources>

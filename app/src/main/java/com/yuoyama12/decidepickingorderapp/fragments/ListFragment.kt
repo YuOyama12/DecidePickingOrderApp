@@ -13,11 +13,14 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
+import androidx.preference.PreferenceManager
+import com.google.android.material.snackbar.Snackbar
 import com.yuoyama12.decidepickingorderapp.ExcelDataProcessor
 import com.yuoyama12.decidepickingorderapp.R
 import com.yuoyama12.decidepickingorderapp.adapters.GroupListAdapter
 import com.yuoyama12.decidepickingorderapp.adapters.MemberListAdapter
 import com.yuoyama12.decidepickingorderapp.data.Group
+import com.yuoyama12.decidepickingorderapp.data.Member
 import com.yuoyama12.decidepickingorderapp.databinding.FragmentListBinding
 import com.yuoyama12.decidepickingorderapp.dialogs.*
 import com.yuoyama12.decidepickingorderapp.viewmodels.ExcelViewModel
@@ -127,7 +130,16 @@ class ListFragment : Fragment() {
                 true
             }
             R.id.menu_group_list_delete -> {
-                showDialog(DeleteGroupConfirmationDialog())
+                if (notShowDialogOnPreference()){
+                    groupViewModel.deleteGroup(groupListViewModel.longClickedGroupId)
+
+                    groupViewModel.resetMemberList()
+                    groupListViewModel.resetSelectedPosition()
+
+                    showDeleteCompleteMessage()
+                } else {
+                    showDialog(DeleteGroupConfirmationDialog())
+                }
                 true
             }
 
@@ -136,7 +148,19 @@ class ListFragment : Fragment() {
                 true
             }
             R.id.menu_member_list_delete -> {
-                showDialog(DeleteMemberConfirmationDialog())
+                if (notShowDialogOnPreference()){
+                    val memberPrimaryKey = memberListViewModel.longClickedMemberPrimaryKey
+                    val memberId = memberListViewModel.longClickedMemberId
+                    val memberName = memberListViewModel.longClickedMemberName
+                    val checkState = memberListViewModel.longClickedMemberCheckBox
+
+                    val member = Member(memberPrimaryKey, memberId, memberName, checkState)
+                    groupViewModel.deleteMember(memberPrimaryKey, member)
+
+                    showDeleteCompleteMessage()
+                } else {
+                    showDialog(DeleteMemberConfirmationDialog())
+                }
                 true
             }
             else -> super.onContextItemSelected(item)
@@ -176,8 +200,23 @@ class ListFragment : Fragment() {
         startForResult.launch(intent, null)
     }
 
+    private fun notShowDialogOnPreference(): Boolean {
+        val sharedPref = PreferenceManager.getDefaultSharedPreferences(requireContext())
+        return sharedPref.getBoolean(
+            getString(R.string.show_delete_confirmation_dialog_preference_key),
+            false
+        )
+    }
+
     private fun showDialog(dialogFragment: DialogFragment) {
         dialogFragment.show(childFragmentManager, null)
+    }
+
+    private fun showDeleteCompleteMessage() {
+        val deleteCompletedMsg = getString(R.string.delete_completed)
+        val view = requireParentFragment().requireView()
+        Snackbar.make(view, deleteCompletedMsg, Snackbar.LENGTH_SHORT)
+            .show()
     }
 
     override fun onDestroy() {

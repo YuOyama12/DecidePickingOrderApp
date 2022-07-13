@@ -16,6 +16,9 @@
         <action
             android:id="@+id/action_mainFragment_to_orderDisplayFragment"
             app:destination="@id/orderDisplayFragment" />
+        <action
+            android:id="@+id/action_mainFragment_to_generalPreferenceFragment"
+            app:destination="@id/generalPreferenceFragment" />
     </fragment>
     <fragment
         android:id="@+id/listFragment"
@@ -48,4 +51,8 @@
         android:name="com.yuoyama12.decidepickingorderapp.fragments.OrderDisplayFragment"
         android:label="fragment_order_display"
         tools:layout="@layout/fragment_order_display" />
+    <fragment
+        android:id="@+id/generalPreferenceFragment"
+        android:name="com.yuoyama12.decidepickingorderapp.preference.GeneralPreferenceFragment"
+        android:label="GeneralPreferenceFragment" />
 </navigation>

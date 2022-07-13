@@ -2,10 +2,8 @@ package com.yuoyama12.decidepickingorderapp.fragments
 
 import android.content.pm.ActivityInfo
 import android.os.Bundle
+import android.view.*
 import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
@@ -22,6 +20,11 @@ class MainFragment : Fragment() {
 
     private val groupViewModel: GroupViewModel by activityViewModels()
     private val orderViewModel: OrderViewModel by activityViewModels()
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setHasOptionsMenu(true)
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -67,6 +70,16 @@ class MainFragment : Fragment() {
 
     }
 
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        super.onCreateOptionsMenu(menu, inflater)
+        inflater.inflate(R.menu.menu_main, menu)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        findNavController().navigate(R.id.action_mainFragment_to_generalPreferenceFragment)
+        return super.onOptionsItemSelected(item)
+    }
+
     private fun showDialog(dialogFragment: DialogFragment) {
         dialogFragment.show(childFragmentManager, null)
     }
@@ -75,6 +88,5 @@ class MainFragment : Fragment() {
         super.onDestroy()
         _binding = null
     }
-
 
 }

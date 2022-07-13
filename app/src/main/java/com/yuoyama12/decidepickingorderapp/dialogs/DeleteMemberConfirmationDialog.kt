@@ -7,6 +7,8 @@ import android.view.View
 import androidx.core.content.res.ResourcesCompat
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.activityViewModels
+import androidx.preference.PreferenceManager
+import com.google.android.material.checkbox.MaterialCheckBox
 import com.google.android.material.snackbar.Snackbar
 import com.yuoyama12.decidepickingorderapp.R
 import com.yuoyama12.decidepickingorderapp.data.Member
@@ -67,6 +69,8 @@ class DeleteMemberConfirmationDialog : DialogFragment() {
                     Snackbar.make(view, deleteCompletedMsg, Snackbar.LENGTH_SHORT)
                         .show()
 
+                    setPreferenceIfChecked(binding.neverShowDialogAgainCheckbox)
+
                 }
                 .setNegativeButton(android.R.string.cancel) { dialog, _ ->
                     dialog.cancel()
@@ -77,5 +81,19 @@ class DeleteMemberConfirmationDialog : DialogFragment() {
         } ?: throw  IllegalStateException("Activity cannot be null")
 
         return dialog
+    }
+
+    private fun setPreferenceIfChecked(checkbox: MaterialCheckBox) {
+        if (!checkbox.isChecked) {
+            return
+        } else {
+            val sharedPref = PreferenceManager.getDefaultSharedPreferences(requireContext())
+            val editor = sharedPref.edit()
+            editor.putBoolean(
+                getString(R.string.show_delete_confirmation_dialog_preference_key),
+                true
+            ).apply()
+        }
+
     }
 }
