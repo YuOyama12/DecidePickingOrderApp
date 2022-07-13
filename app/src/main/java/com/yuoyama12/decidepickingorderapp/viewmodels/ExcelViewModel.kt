@@ -103,7 +103,14 @@ class ExcelViewModel @Inject constructor (
 
         for (position in 0..contentListForName.lastIndex) {
             val memberPrimaryKey = "${group.groupId}_${primaryKeyIdForMembers}"
-            val memberId = getPreciseMemberId(contentListForId[position])
+            //IDを「使用しない」場合に起こる例外の対応。
+            val memberId = getPreciseMemberId(
+                try {
+                    contentListForId[position]
+                } catch (e: IndexOutOfBoundsException) {
+                    ""
+                }
+            )
             val memberName = contentListForName[position]
 
             primaryKeyIdForMembers++
