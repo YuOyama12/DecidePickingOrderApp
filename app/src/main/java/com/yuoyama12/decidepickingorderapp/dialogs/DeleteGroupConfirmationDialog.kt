@@ -3,32 +3,49 @@ package com.yuoyama12.decidepickingorderapp.dialogs
 import android.app.AlertDialog
 import android.app.Dialog
 import android.os.Bundle
+import androidx.core.os.bundleOf
 import androidx.fragment.app.DialogFragment
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
-import androidx.preference.PreferenceManager
+import androidx.fragment.app.setFragmentResult
 import com.google.android.material.checkbox.MaterialCheckBox
-import com.google.android.material.snackbar.Snackbar
 import com.yuoyama12.decidepickingorderapp.R
 import com.yuoyama12.decidepickingorderapp.databinding.DialogDeleteConfirmationBinding
+import com.yuoyama12.decidepickingorderapp.preference.GeneralPreferenceFragment
 import com.yuoyama12.decidepickingorderapp.viewmodels.GroupListViewModel
-import com.yuoyama12.decidepickingorderapp.viewmodels.GroupViewModel
 
+private const val CLASS_NAME = "DeleteGroupConfirmationDialog"
 class DeleteGroupConfirmationDialog : DialogFragment() {
 
     private var _binding: DialogDeleteConfirmationBinding? = null
     private val binding: DialogDeleteConfirmationBinding
         get() = _binding!!
 
-    private val groupViewModel: GroupViewModel by activityViewModels()
     private val groupListViewModel: GroupListViewModel by activityViewModels()
+
+    companion object {
+        private const val REQUEST_KEY = CLASS_NAME
+        private const val RESULT_KEY_OK_CLICKED = "${CLASS_NAME}_OK_CLICKED"
+
+        fun prepareFragmentResultListener(
+            target: Fragment,
+            onPositiveButtonClicked: () -> Unit
+        ) {
+            DeleteGroupConfirmationDialog().run {
+                target.childFragmentManager
+                    .setFragmentResultListener(REQUEST_KEY, target.viewLifecycleOwner) { requestKey, _ ->
+                        if (requestKey != REQUEST_KEY) return@setFragmentResultListener
+
+                        onPositiveButtonClicked.invoke()
+                    }
+            }
+        }
+    }
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         super.onCreateDialog(savedInstanceState)
 
         val groupName = groupListViewModel.longClickedGroupName
-        val groupId = groupListViewModel.longClickedGroupId
-
-        val deleteCompletedMsg = getString(R.string.delete_completed)
 
         _binding = DialogDeleteConfirmationBinding
             .inflate(requireActivity().layoutInflater)
@@ -42,17 +59,9 @@ class DeleteGroupConfirmationDialog : DialogFragment() {
             builder.setTitle(R.string.delete_dialog_title)
                 .setView(binding.root)
                 .setPositiveButton(android.R.string.ok) { _, _ ->
-                    groupViewModel.deleteGroup(groupId)
-
-                    groupViewModel.resetMemberList()
-                    groupListViewModel.resetSelectedPosition()
-
-                    val view = requireParentFragment().requireView()
-                    Snackbar.make(view, deleteCompletedMsg, Snackbar.LENGTH_SHORT)
-                        .show()
+                    setFragmentResult(REQUEST_KEY, bundleOf(RESULT_KEY_OK_CLICKED to ""))
 
                     setPreferenceIfChecked(binding.neverShowDialogAgainCheckbox)
-
                 }
                 .setNegativeButton(android.R.string.cancel) { dialog, _ ->
                     dialog.cancel()
@@ -69,13 +78,13 @@ class DeleteGroupConfirmationDialog : DialogFragment() {
         if (!checkbox.isChecked) {
             return
         } else {
-            val sharedPref = PreferenceManager.getDefaultSharedPreferences(requireContext())
+            val sharedPref = GeneralPreferenceFragment.getSharedPreference(requireContext())
             val editor = sharedPref.edit()
             editor.putBoolean(
                 getString(R.string.show_delete_confirmation_dialog_preference_key),
                 true
             ).apply()
         }
-
     }
+
 }

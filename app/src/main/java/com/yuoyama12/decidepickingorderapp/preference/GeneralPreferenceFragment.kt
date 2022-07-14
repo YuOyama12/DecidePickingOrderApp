@@ -1,10 +1,19 @@
 package com.yuoyama12.decidepickingorderapp.preference
 
+import android.content.Context
+import android.content.SharedPreferences
 import android.os.Bundle
 import androidx.preference.PreferenceFragmentCompat
+import androidx.preference.PreferenceManager
 import com.yuoyama12.decidepickingorderapp.R
 
 class GeneralPreferenceFragment : PreferenceFragmentCompat() {
+
+    companion object {
+        fun getSharedPreference(context: Context): SharedPreferences {
+            return PreferenceManager.getDefaultSharedPreferences(context)
+        }
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

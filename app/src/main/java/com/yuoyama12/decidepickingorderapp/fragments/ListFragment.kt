@@ -96,6 +96,14 @@ class ListFragment : Fragment() {
             openFileProvider()
         }
 
+        DeleteGroupConfirmationDialog.prepareFragmentResultListener(this) {
+            deleteGroup()
+        }
+
+        DeleteMemberConfirmationDialog.prepareFragmentResultListener(this) {
+            deleteMember()
+        }
+
         binding.createNewGroupListButton.setOnClickListener {
             showDialog(CreateNewGroupListDialog())
         }
@@ -131,12 +139,7 @@ class ListFragment : Fragment() {
             }
             R.id.menu_group_list_delete -> {
                 if (notShowDialogOnPreference()){
-                    groupViewModel.deleteGroup(groupListViewModel.longClickedGroupId)
-
-                    groupViewModel.resetMemberList()
-                    groupListViewModel.resetSelectedPosition()
-
-                    showDeleteCompleteMessage()
+                    deleteGroup()
                 } else {
                     showDialog(DeleteGroupConfirmationDialog())
                 }
@@ -149,15 +152,7 @@ class ListFragment : Fragment() {
             }
             R.id.menu_member_list_delete -> {
                 if (notShowDialogOnPreference()){
-                    val memberPrimaryKey = memberListViewModel.longClickedMemberPrimaryKey
-                    val memberId = memberListViewModel.longClickedMemberId
-                    val memberName = memberListViewModel.longClickedMemberName
-                    val checkState = memberListViewModel.longClickedMemberCheckBox
-
-                    val member = Member(memberPrimaryKey, memberId, memberName, checkState)
-                    groupViewModel.deleteMember(memberPrimaryKey, member)
-
-                    showDeleteCompleteMessage()
+                    deleteMember()
                 } else {
                     showDialog(DeleteMemberConfirmationDialog())
                 }
@@ -210,6 +205,29 @@ class ListFragment : Fragment() {
 
     private fun showDialog(dialogFragment: DialogFragment) {
         dialogFragment.show(childFragmentManager, null)
+    }
+
+    private fun deleteGroup() {
+        val groupId = groupListViewModel.longClickedGroupId
+
+        groupViewModel.deleteGroup(groupId)
+
+        groupViewModel.resetMemberList()
+        groupListViewModel.resetSelectedPosition()
+
+        showDeleteCompleteMessage()
+    }
+
+    private fun deleteMember() {
+        val memberPrimaryKey = memberListViewModel.longClickedMemberPrimaryKey
+        val memberId = memberListViewModel.longClickedMemberId
+        val memberName = memberListViewModel.longClickedMemberName
+        val checkState = memberListViewModel.longClickedMemberCheckBox
+
+        val member = Member(memberPrimaryKey, memberId, memberName, checkState)
+        groupViewModel.deleteMember(memberPrimaryKey, member)
+
+        showDeleteCompleteMessage()
     }
 
     private fun showDeleteCompleteMessage() {
