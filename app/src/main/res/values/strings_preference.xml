@@ -3,6 +3,19 @@
     <string name="preference_action_bar_title">設定</string>
     <string name="show_delete_confirmation_dialog_preference_key">showDeleteConfirmationDialog</string>
     <string name="show_delete_confirmation_dialog_preference_title">リスト削除確認ダイアログの非表示</string>
-    
-    
+    <string name="operate_when_flick_input_title">順番表示画面でのフリック時操作</string>
+    <string name="operate_when_flick_input_key">OperateWhenFlickInput</string>
+    <string-array name="operate_when_flick_input_array">
+        <item>左方向: 前へ戻る / 右方向: 次へ進む</item>
+        <item>左方向: 次へ進む / 右方向: 前へ戻る</item>
+    </string-array>
+    <string name="operate_when_flick_input_left_back_value">left_back_right_next</string>
+    <string name="operate_when_flick_input_left_next_value">left_next_right_back</string>
+    <string-array name="operate_when_flick_input_array_value">
+        <item>@string/operate_when_flick_input_left_back_value</item>
+        <item>@string/operate_when_flick_input_left_next_value</item>
+    </string-array>
+
+
+
 </resources>

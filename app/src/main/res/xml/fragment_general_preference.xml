@@ -7,4 +7,13 @@
         android:title="@string/show_delete_confirmation_dialog_preference_title"
         app:iconSpaceReserved="false"
         app:allowDividerAbove="true"/>
+    <ListPreference
+        android:defaultValue="@string/operate_when_flick_input_left_back_value"
+        android:key="@string/operate_when_flick_input_key"
+        android:title="@string/operate_when_flick_input_title"
+        android:entries="@array/operate_when_flick_input_array"
+        android:entryValues="@array/operate_when_flick_input_array_value"
+        app:useSimpleSummaryProvider="true"
+        app:iconSpaceReserved="false"
+        app:allowDividerAbove="true"/>
 </PreferenceScreen>

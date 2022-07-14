@@ -8,7 +8,9 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.activityViewModels
 import com.yuoyama12.decidepickingorderapp.FlickListener
+import com.yuoyama12.decidepickingorderapp.R
 import com.yuoyama12.decidepickingorderapp.databinding.FragmentOrderDisplayBinding
+import com.yuoyama12.decidepickingorderapp.preference.GeneralPreferenceFragment
 import com.yuoyama12.decidepickingorderapp.viewmodels.OrderViewModel
 
 
@@ -21,10 +23,18 @@ class OrderDisplayFragment : Fragment() {
 
     private val flickListener: FlickListener.Listener = object : FlickListener.Listener{
         override fun onFlickToLeft() {
-            orderViewModel.goPreviousItem()
+            if (isFlipHorizontal()) {
+                orderViewModel.goNextItem()
+            } else {
+                orderViewModel.goPreviousItem()
+            }
         }
         override fun onFlickToRight() {
-            orderViewModel.goNextItem()
+            if (isFlipHorizontal()) {
+                orderViewModel.goPreviousItem()
+            } else {
+                orderViewModel.goNextItem()
+            }
         }
     }
 
@@ -44,6 +54,19 @@ class OrderDisplayFragment : Fragment() {
         binding.lifecycleOwner = viewLifecycleOwner
 
         view.setOnTouchListener(FlickListener(flickListener))
+    }
+
+    private fun isFlipHorizontal(): Boolean {
+        val sharedPref = GeneralPreferenceFragment.getSharedPreference(requireContext())
+        val value: String? = sharedPref.getString(
+            getString(R.string.operate_when_flick_input_key),
+            getString(R.string.operate_when_flick_input_left_back_value)
+        )
+        return when (value) {
+            getString(R.string.operate_when_flick_input_left_back_value) -> false
+            getString(R.string.operate_when_flick_input_left_next_value) -> true
+            else -> false
+        }
     }
 
     override fun onDestroy() {
