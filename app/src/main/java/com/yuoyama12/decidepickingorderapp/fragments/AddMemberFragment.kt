@@ -2,6 +2,7 @@ package com.yuoyama12.decidepickingorderapp.fragments
 
 import android.os.Bundle
 import android.view.*
+import android.widget.LinearLayout
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
@@ -10,6 +11,7 @@ import com.google.android.material.snackbar.Snackbar
 import com.yuoyama12.decidepickingorderapp.R
 import com.yuoyama12.decidepickingorderapp.databinding.FragmentAddMemberBinding
 import com.yuoyama12.decidepickingorderapp.viewmodels.GroupViewModel
+
 
 class AddMemberFragment : Fragment() {
 
@@ -63,18 +65,39 @@ class AddMemberFragment : Fragment() {
             groupViewModel.insertMemberIntoGroup(groupId, memberId, memberName, isChecked)
 
             groupViewModel.groupList.observe(viewLifecycleOwner) {
-                val message = getString(R.string.add_member_completed)
-                Snackbar.make(binding.root, message, Snackbar.LENGTH_SHORT).show()
-
                 groupViewModel.setMemberListBy(groupId)
             }
+
+            val message = getString(R.string.add_member_completed)
+            showSnackBarBelowActionbar(message)
 
             resetAllInputFields()
 
         } else {
             val message = getString(R.string.add_member_error_message)
-            Snackbar.make(binding.root, message, Snackbar.LENGTH_SHORT).show()
+            showSnackBarBelowActionbar(message)
         }
+    }
+
+    private fun showSnackBarBelowActionbar(message: String) {
+        val snackBar = Snackbar.make(binding.root, message, Snackbar.LENGTH_SHORT)
+        val snackBarView = snackBar.view
+        val snackBarLayoutParams = snackBarView.layoutParams
+
+        val layoutParams = LinearLayout.LayoutParams(
+            snackBarLayoutParams.width,
+            snackBarLayoutParams.height
+        )
+
+        val actionBar = requireActivity().findViewById<androidx.appcompat.widget.Toolbar>(R.id.action_bar)
+
+        with(layoutParams) {
+            this.setMargins(0, actionBar.height + 3, 0, 0)
+            this.gravity = Gravity.CENTER_HORIZONTAL
+        }
+
+        snackBarView.layoutParams = layoutParams
+        snackBar.show()
     }
 
     private fun resetAllInputFields() {
