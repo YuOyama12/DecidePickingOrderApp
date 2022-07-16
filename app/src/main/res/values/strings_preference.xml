@@ -3,8 +3,8 @@
     <string name="preference_action_bar_title">設定</string>
     <string name="show_delete_confirmation_dialog_preference_key">showDeleteConfirmationDialog</string>
     <string name="show_delete_confirmation_dialog_preference_title">リスト削除確認ダイアログの非表示</string>
+    <string name="operate_when_flick_input_key">operateWhenFlickInput</string>
     <string name="operate_when_flick_input_title">順番表示画面でのフリック時操作</string>
-    <string name="operate_when_flick_input_key">OperateWhenFlickInput</string>
     <string-array name="operate_when_flick_input_array">
         <item>左方向: 前へ戻る / 右方向: 次へ進む</item>
         <item>左方向: 次へ進む / 右方向: 前へ戻る</item>
@@ -15,7 +15,20 @@
         <item>@string/operate_when_flick_input_left_back_value</item>
         <item>@string/operate_when_flick_input_left_next_value</item>
     </string-array>
-
-
+    <string name="displayed_member_element_key">displayedMemberElement</string>
+    <string name="displayed_member_element_title">順番表示画面での表示するメンバー情報</string>
+    <string-array name="displayed_member_element_array">
+        <item>番号と名前</item>
+        <item>番号のみ</item>
+        <item>名前のみ</item>
+    </string-array>
+    <string name="displayed_member_element_both_id_and_name">both_id_and_name</string>
+    <string name="displayed_member_element_id_only">id_only</string>
+    <string name="displayed_member_element_name_only">name_only</string>
+    <string-array name="displayed_member_element_array_value">
+        <item>@string/displayed_member_element_both_id_and_name</item>
+        <item>@string/displayed_member_element_id_only</item>
+        <item>@string/displayed_member_element_name_only</item>
+    </string-array>
 
 </resources>

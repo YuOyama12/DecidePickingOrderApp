@@ -33,4 +33,18 @@
         <item name="dividerThickness">2dp</item>
     </style>
 
+    <style name="OrderDisplayedMainInfo" parent="android:Widget">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:maxLines">2</item>
+        <item name="android:textAppearance">?attr/textAppearanceHeadline3</item>
+    </style>
+
+    <style name="OrderDisplayedSubInfo" parent="android:Widget">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textAppearance">?attr/textAppearanceHeadline4</item>
+        <item name="android:paddingBottom">18dp</item>
+    </style>
+
 </resources>

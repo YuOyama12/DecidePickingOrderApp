@@ -13,7 +13,6 @@ import com.yuoyama12.decidepickingorderapp.databinding.FragmentOrderDisplayBindi
 import com.yuoyama12.decidepickingorderapp.preference.GeneralPreferenceFragment
 import com.yuoyama12.decidepickingorderapp.viewmodels.OrderViewModel
 
-
 class OrderDisplayFragment : Fragment() {
 
     private var _binding : FragmentOrderDisplayBinding? = null
@@ -45,6 +44,9 @@ class OrderDisplayFragment : Fragment() {
         _binding = FragmentOrderDisplayBinding.inflate(inflater, container, false)
         requireActivity().requestedOrientation =
             ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE
+
+        setDisplayedMemberInfoByPreference()
+
         return binding.root
     }
 
@@ -63,9 +65,32 @@ class OrderDisplayFragment : Fragment() {
             getString(R.string.operate_when_flick_input_left_back_value)
         )
         return when (value) {
-            getString(R.string.operate_when_flick_input_left_back_value) -> false
             getString(R.string.operate_when_flick_input_left_next_value) -> true
             else -> false
+        }
+    }
+
+    private fun setDisplayedMemberInfoByPreference() {
+        val sharedPref = GeneralPreferenceFragment.getSharedPreference(requireContext())
+        val selectedMemberInfoPreference =
+            sharedPref.getString(
+                getString(R.string.displayed_member_element_key),
+                getString(R.string.displayed_member_element_both_id_and_name)
+            )
+
+        when (selectedMemberInfoPreference) {
+            getString(R.string.displayed_member_element_name_only) -> {
+                binding.displayedSubId.visibility = View.GONE
+            }
+            getString(R.string.displayed_member_element_id_only) -> {
+                binding.displayedName.visibility = View.GONE
+                binding.displayedSubId.visibility = View.GONE
+                binding.displayedMainId.visibility = View.VISIBLE
+            }
+            else -> {
+                binding.displayedName.visibility = View.VISIBLE
+                binding.displayedSubId.visibility = View.VISIBLE
+            }
         }
     }
 

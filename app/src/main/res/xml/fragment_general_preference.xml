@@ -1,12 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
+
     <CheckBoxPreference
         android:defaultValue="false"
         android:key="@string/show_delete_confirmation_dialog_preference_key"
         android:title="@string/show_delete_confirmation_dialog_preference_title"
         app:iconSpaceReserved="false"
         app:allowDividerAbove="true"/>
+
+    <ListPreference
+        android:defaultValue="@string/displayed_member_element_both_id_and_name"
+        android:key="@string/displayed_member_element_key"
+        android:title="@string/displayed_member_element_title"
+        android:entries="@array/displayed_member_element_array"
+        android:entryValues="@array/displayed_member_element_array_value"
+        app:useSimpleSummaryProvider="true"
+        app:iconSpaceReserved="false"
+        app:allowDividerAbove="true"/>
+
     <ListPreference
         android:defaultValue="@string/operate_when_flick_input_left_back_value"
         android:key="@string/operate_when_flick_input_key"
@@ -16,4 +28,5 @@
         app:useSimpleSummaryProvider="true"
         app:iconSpaceReserved="false"
         app:allowDividerAbove="true"/>
+
 </PreferenceScreen>
