@@ -29,4 +29,10 @@
         app:iconSpaceReserved="false"
         app:allowDividerAbove="true"/>
 
+    <Preference
+        android:key="@string/license_key"
+        android:title="@string/license_title"
+        app:iconSpaceReserved="false"
+        app:allowDividerAbove="true"/>
+
 </PreferenceScreen>

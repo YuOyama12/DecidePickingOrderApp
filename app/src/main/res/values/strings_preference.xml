@@ -30,5 +30,7 @@
         <item>@string/displayed_member_element_id_only</item>
         <item>@string/displayed_member_element_name_only</item>
     </string-array>
+    <string name="license_key">license</string>
+    <string name="license_title">ライセンス</string>
 
 </resources>
