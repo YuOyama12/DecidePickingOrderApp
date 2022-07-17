@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:paddingHorizontal="10dp">
+
+    <ImageView
+        android:id="@+id/color_1"
+        style="@style/Color_Circle"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <ImageView
+        android:id="@+id/color_2"
+        style="@style/Color_Circle"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toEndOf="@id/color_1" />
+
+    <ImageView
+        android:id="@+id/color_3"
+        style="@style/Color_Circle"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toEndOf="@id/color_2"/>
+
+    <ImageView
+        android:id="@+id/color_4"
+        style="@style/Color_Circle"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toEndOf="@id/color_3"/>
+
+    <ImageView
+        android:id="@+id/color_5"
+        style="@style/Color_Circle"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toEndOf="@id/color_4"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -2,37 +2,66 @@
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <CheckBoxPreference
-        android:defaultValue="false"
-        android:key="@string/show_delete_confirmation_dialog_preference_key"
-        android:title="@string/show_delete_confirmation_dialog_preference_title"
-        app:iconSpaceReserved="false"
-        app:allowDividerAbove="true"/>
+    <PreferenceCategory
+        app:key="@string/list_category_key"
+        app:title="@string/list_category_title"
+        app:iconSpaceReserved="false">
 
-    <ListPreference
-        android:defaultValue="@string/displayed_member_element_both_id_and_name"
-        android:key="@string/displayed_member_element_key"
-        android:title="@string/displayed_member_element_title"
-        android:entries="@array/displayed_member_element_array"
-        android:entryValues="@array/displayed_member_element_array_value"
-        app:useSimpleSummaryProvider="true"
-        app:iconSpaceReserved="false"
-        app:allowDividerAbove="true"/>
+        <CheckBoxPreference
+            android:defaultValue="false"
+            android:key="@string/show_delete_confirmation_dialog_preference_key"
+            android:title="@string/show_delete_confirmation_dialog_preference_title"
+            app:iconSpaceReserved="false" />
 
-    <ListPreference
-        android:defaultValue="@string/operate_when_flick_input_left_back_value"
-        android:key="@string/operate_when_flick_input_key"
-        android:title="@string/operate_when_flick_input_title"
-        android:entries="@array/operate_when_flick_input_array"
-        android:entryValues="@array/operate_when_flick_input_array_value"
-        app:useSimpleSummaryProvider="true"
-        app:iconSpaceReserved="false"
-        app:allowDividerAbove="true"/>
+    </PreferenceCategory>
 
-    <Preference
-        android:key="@string/license_key"
-        android:title="@string/license_title"
+    <PreferenceCategory
+        app:key="@string/order_display_preference_category_key"
+        app:title="@string/order_display_preference_category_title"
         app:iconSpaceReserved="false"
-        app:allowDividerAbove="true"/>
+        app:allowDividerAbove="false">
+
+        <ListPreference
+            android:defaultValue="@string/displayed_member_element_both_id_and_name"
+            android:key="@string/displayed_member_element_key"
+            android:title="@string/displayed_member_element_title"
+            android:entries="@array/displayed_member_element_array"
+            android:entryValues="@array/displayed_member_element_array_value"
+            app:useSimpleSummaryProvider="true"
+            app:iconSpaceReserved="false" />
+
+        <ListPreference
+            android:defaultValue="@string/operate_when_flick_input_left_back_value"
+            android:key="@string/operate_when_flick_input_key"
+            android:title="@string/operate_when_flick_input_title"
+            android:entries="@array/operate_when_flick_input_array"
+            android:entryValues="@array/operate_when_flick_input_array_value"
+            app:useSimpleSummaryProvider="true"
+            app:iconSpaceReserved="false"
+            app:allowDividerAbove="true"/>
+
+        <Preference
+            android:key="@string/color_selector_header_key"
+            android:title="@string/color_selector_header_title"
+            android:selectable="false"
+            app:iconSpaceReserved="false"
+            app:allowDividerAbove="true"/>
+        <com.yuoyama12.decidepickingorderapp.preference.ColorSelectorPreference
+            android:key="@string/color_selector_preference_key"
+            android:selectable="false" />
+
+    </PreferenceCategory>
+
+    <PreferenceCategory
+        app:key="@string/about_this_app_category_key"
+        app:title="@string/about_this_app_category_title"
+        app:iconSpaceReserved="false">
+
+        <Preference
+            android:key="@string/license_key"
+            android:title="@string/license_title"
+            app:iconSpaceReserved="false" />
+
+    </PreferenceCategory>
 
 </PreferenceScreen>

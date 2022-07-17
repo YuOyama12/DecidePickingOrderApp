@@ -1,10 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="preference_action_bar_title">設定</string>
+    <string name="list_category_key">ListCategory</string>
+    <string name="list_category_title">リスト一覧表示画面について</string>
     <string name="show_delete_confirmation_dialog_preference_key">showDeleteConfirmationDialog</string>
     <string name="show_delete_confirmation_dialog_preference_title">リスト削除確認ダイアログの非表示</string>
+    <string name="order_display_preference_category_key">orderDisplayPreferenceCategory</string>
+    <string name="order_display_preference_category_title">順番表示画面について</string>
     <string name="operate_when_flick_input_key">operateWhenFlickInput</string>
-    <string name="operate_when_flick_input_title">順番表示画面でのフリック時操作</string>
+    <string name="operate_when_flick_input_title">画面内でのフリック時の操作</string>
     <string-array name="operate_when_flick_input_array">
         <item>左方向: 前へ戻る / 右方向: 次へ進む</item>
         <item>左方向: 次へ進む / 右方向: 前へ戻る</item>
@@ -16,7 +20,7 @@
         <item>@string/operate_when_flick_input_left_next_value</item>
     </string-array>
     <string name="displayed_member_element_key">displayedMemberElement</string>
-    <string name="displayed_member_element_title">順番表示画面での表示するメンバー情報</string>
+    <string name="displayed_member_element_title">画面内での表示するメンバー情報</string>
     <string-array name="displayed_member_element_array">
         <item>番号と名前</item>
         <item>番号のみ</item>
@@ -30,6 +34,11 @@
         <item>@string/displayed_member_element_id_only</item>
         <item>@string/displayed_member_element_name_only</item>
     </string-array>
+    <string name="color_selector_header_key">ColorSelectorHeader</string>
+    <string name="color_selector_header_title">画面内でのマーカーの色</string>
+    <string name="color_selector_preference_key">ColorSelectorPreference</string>
+    <string name="about_this_app_category_key">aboutThisAppCategory</string>
+    <string name="about_this_app_category_title">このアプリについて</string>
     <string name="license_key">license</string>
     <string name="license_title">ライセンス</string>
 

@@ -47,4 +47,14 @@
         <item name="android:paddingBottom">18dp</item>
     </style>
 
+    <style name="Color_Circle" parent="android:Widget">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:background">@drawable/circle</item>
+        <item name="android:src">@drawable/circle_border</item>
+        <item name="android:scaleType">center</item>
+        <item name="android:layout_marginStart">6dp</item>
+        <item name="android:contentDescription">Color palette</item>
+    </style>
+
 </resources>

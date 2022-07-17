@@ -6,8 +6,6 @@ import android.os.Bundle
 import androidx.preference.Preference
 import androidx.preference.PreferenceFragmentCompat
 import androidx.preference.PreferenceManager
-import com.google.android.material.dialog.MaterialAlertDialogBuilder
-import com.larswerkman.licenseview.LicenseView
 import com.yuoyama12.decidepickingorderapp.R
 import com.yuoyama12.decidepickingorderapp.dialogs.LicenseDialog
 
