@@ -9,4 +9,10 @@
     <color name="light_gray">#80D1D1D1</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+    <!--ColorCircle用のデフォルトカラー↓-->
+    <color name="light_blue">#6CC6FF</color>
+    <color name="light_green">#7CFE78</color>
+    <color name="light_yellow">#FFF583</color>
+    <color name="light_pink">#FF83CA</color>
+    <color name="light_purple">#A96CF6</color>
 </resources>

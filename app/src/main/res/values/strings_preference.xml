@@ -37,6 +37,7 @@
     <string name="color_selector_header_key">ColorSelectorHeader</string>
     <string name="color_selector_header_title">画面内でのマーカーの色</string>
     <string name="color_selector_preference_key">ColorSelectorPreference</string>
+    <string name="color_selector_dialog_title">色を選んでください</string>
     <string name="about_this_app_category_key">aboutThisAppCategory</string>
     <string name="about_this_app_category_title">このアプリについて</string>
     <string name="license_key">license</string>
