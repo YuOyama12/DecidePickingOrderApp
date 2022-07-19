@@ -3,6 +3,7 @@ package com.yuoyama12.decidepickingorderapp.preference
 import android.content.Context
 import android.content.SharedPreferences
 import android.os.Bundle
+import androidx.preference.CheckBoxPreference
 import androidx.preference.Preference
 import androidx.preference.PreferenceFragmentCompat
 import androidx.preference.PreferenceManager
@@ -12,9 +13,8 @@ import com.yuoyama12.decidepickingorderapp.dialogs.LicenseDialog
 class GeneralPreferenceFragment : PreferenceFragmentCompat() {
 
     companion object {
-        fun getSharedPreference(context: Context): SharedPreferences {
-            return PreferenceManager.getDefaultSharedPreferences(context)
-        }
+        fun getSharedPreference(context: Context): SharedPreferences =
+            PreferenceManager.getDefaultSharedPreferences(context)
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -26,13 +26,32 @@ class GeneralPreferenceFragment : PreferenceFragmentCompat() {
     override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
         setPreferencesFromResource(R.xml.fragment_general_preference, rootKey)
 
+        val notificationColorCheckBox = findPreference<CheckBoxPreference>(getString(R.string.use_of_notification_color_key))
+        val notificationColor = findPreference<NotificationColorPreference>(getString(R.string.notification_color_selector_preference_key))
+
+        notificationColorCheckBox?.apply {
+            notificationColor?.isVisible = this.isChecked
+
+            setOnPreferenceChangeListener { _, newValue ->
+                notificationColor?.isVisible = newValue as Boolean
+                true
+            }
+        }
+
         val licensePreference = findPreference<Preference>(getString(R.string.license_key))
-        licensePreference?.setOnPreferenceClickListener {
+        showLicenseDialog(licensePreference)
+
+    }
+
+
+    private fun showLicenseDialog(preference: Preference?) {
+        preference?.setOnPreferenceClickListener {
             val dialog = LicenseDialog()
             dialog.show(childFragmentManager, null)
 
             true
         }
     }
+
 
 }

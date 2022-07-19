@@ -27,6 +27,15 @@
         <item name="android:textSize">@dimen/add_member_check_box_text_size</item>
     </style>
 
+    <style name="HelpIcon" parent="android:Widget">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_gravity">center_vertical</item>
+        <item name="android:src">@drawable/ic_help</item>
+        <item name="android:elevation">6dp</item>
+        <item name="android:stateListAnimator">@null</item>
+    </style>
+
     <style name="ListItemDivider" parent="android:Widget">
         <item name="android:layout_width">0dp</item>
         <item name="android:layout_height">wrap_content</item>

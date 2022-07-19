@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:paddingHorizontal="@dimen/color_circle_padding_horizontal"
+    android:paddingBottom="@dimen/color_circle_padding_bottom">
+
+    <ImageView
+            android:id="@+id/notification_color"
+            style="@style/Color_Circle"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/what_notification_color_is"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="end"
+        android:text="@string/what_notification_color_is_text"
+        android:textSize="12sp"
+        android:textColor="@color/black"
+        app:layout_constraintEnd_toStartOf="@id/notification_color_help"
+        app:layout_constraintBottom_toBottomOf="@id/notification_color_help"/>
+
+    <ImageView
+        android:id="@+id/notification_color_help"
+        style="@style/HelpIcon"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:contentDescription="@string/help_icon_desc" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

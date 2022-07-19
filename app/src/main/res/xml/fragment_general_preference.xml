@@ -48,7 +48,20 @@
             app:allowDividerAbove="true"/>
         <com.yuoyama12.decidepickingorderapp.preference.ColorSelectorPreference
             android:key="@string/color_selector_preference_key"
-            android:selectable="false" />
+            android:selectable="false"
+            app:allowDividerBelow="true" />
+
+        <CheckBoxPreference
+            app:iconSpaceReserved="false"
+            android:defaultValue="false"
+            android:key="@string/use_of_notification_color_key"
+            android:title="@string/use_of_notification_color_title"
+            app:allowDividerAbove="true"
+            app:allowDividerBelow="false"/>
+        <com.yuoyama12.decidepickingorderapp.preference.NotificationColorPreference
+            android:selectable="false"
+            app:key="@string/notification_color_selector_preference_key"
+            app:allowDividerAbove="false" />
 
     </PreferenceCategory>
 

@@ -24,7 +24,7 @@
     </string>
     <string name="explanation_if_number_is_blank">・「番号」部分が空白の場合、自動的に採番されます</string>
     <string name="what_notification_color_is_text">・&notificationColor;とは？</string>
-    <string name="what_notification_color_is_help_icon_desc">ヘルプ</string>
+    <string name="help_icon_desc">ヘルプ</string>
     <string name="menu_add_member_cancel_title">キャンセル</string>
     <string name="menu_group_list_rename_title">名前の変更</string>
     <string name="menu_member_list_change_member_info_title">メンバー情報の変更</string>

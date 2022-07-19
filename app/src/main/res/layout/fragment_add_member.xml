@@ -30,18 +30,11 @@
 
     <ImageView
         android:id="@+id/notification_color_help"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_vertical"
-        android:src="@drawable/ic_help"
-        android:elevation="@dimen/add_member_image_elevation"
-        android:stateListAnimator="@null"
-        android:clickable="true"
-        android:focusable="true"
+        style="@style/HelpIcon"
         app:layout_constraintStart_toEndOf="@id/what_notification_color_is"
         app:layout_constraintTop_toTopOf="@id/what_notification_color_is"
         app:layout_constraintBottom_toBottomOf="@id/what_notification_color_is"
-        android:contentDescription="@string/what_notification_color_is_help_icon_desc" />
+        android:contentDescription="@string/help_icon_desc" />
 
 
     <com.google.android.material.textfield.TextInputLayout
