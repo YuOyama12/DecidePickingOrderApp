@@ -12,8 +12,17 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:paddingHorizontal="20dp"
+        android:paddingHorizontal="@dimen/order_display_padding_horizontal"
         tools:context=".fragments.OrderDisplayFragment">
+
+        <ImageView
+            android:id="@+id/color_marker"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/color_marker"
+            android:translationY="@dimen/order_display_color_marker_translationY"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <com.google.android.material.textview.MaterialTextView
             android:id="@+id/displayed_sub_id"
@@ -36,6 +45,7 @@
             style="@style/OrderDisplayedMainInfo"
             android:text="@{Integer.toString(orderViewModel.memberList[orderViewModel.currentItemPosition].memberId)}"
             android:visibility="gone"
+            android:gravity="center"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"

@@ -12,8 +12,17 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:paddingHorizontal="80dp"
+        android:paddingHorizontal="@dimen/order_display_padding_horizontal"
         tools:context=".fragments.OrderDisplayFragment">
+
+        <ImageView
+            android:id="@+id/color_marker"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/color_marker"
+            android:translationY="-2dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <com.google.android.material.textview.MaterialTextView
             android:id="@+id/displayed_sub_id"
@@ -29,17 +38,20 @@
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent" />
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_marginHorizontal="@dimen/order_display_view_layout_margin_horizontal" />
 
         <com.google.android.material.textview.MaterialTextView
             android:id="@+id/displayed_main_id"
             style="@style/OrderDisplayedMainInfo"
             android:text="@{Integer.toString(orderViewModel.memberList[orderViewModel.currentItemPosition].memberId)}"
             android:visibility="gone"
+            android:gravity="center"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent" />
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_marginHorizontal="@dimen/order_display_view_layout_margin_horizontal" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
