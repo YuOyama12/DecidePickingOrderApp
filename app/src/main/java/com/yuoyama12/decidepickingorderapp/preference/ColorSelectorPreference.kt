@@ -1,16 +1,14 @@
 package com.yuoyama12.decidepickingorderapp.preference
 
 import android.content.Context
-import android.content.res.Configuration.ORIENTATION_PORTRAIT
 import android.os.Build
 import android.util.AttributeSet
 import android.view.View
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.preference.Preference
 import androidx.preference.PreferenceViewHolder
-import com.flask.colorpicker.ColorPickerView
-import com.flask.colorpicker.builder.ColorPickerDialogBuilder
 import com.yuoyama12.decidepickingorderapp.R
+import com.yuoyama12.decidepickingorderapp.dialogs.ColorPickerDialog
 
 private const val COLOR_CIRCLE_ID_HEADER = "color_"
 class ColorSelectorPreference @JvmOverloads constructor(
@@ -32,7 +30,7 @@ class ColorSelectorPreference @JvmOverloads constructor(
 
     private fun setViews(holder: PreferenceViewHolder) {
         val colorCircleCount = holder.itemView.findViewById<ConstraintLayout>(holder.itemView.id).childCount
-        val colorCircleList: ArrayList<View> = getColorCircleList(holder,colorCircleCount)
+        val colorCircleList: ArrayList<View> = getColorCircleList(holder, colorCircleCount)
 
         colorCircleList.forEach { colorCircle ->
             val circleNumber = (colorCircleList.indexOf(colorCircle)) + 1
@@ -40,7 +38,7 @@ class ColorSelectorPreference @JvmOverloads constructor(
             colorCircle.background.setTint(getRestoredOrDefaultColor(keyForSharedPref))
 
             colorCircle.setOnClickListener {
-                createColorSelectorDialog(it, circleNumber)
+                createColorSelectorDialog(it, keyForSharedPref)
             }
         }
 
@@ -87,47 +85,11 @@ class ColorSelectorPreference @JvmOverloads constructor(
         }
     }
 
-    private fun createColorSelectorDialog(imageView: View, number: Int){
-        var selectedColor: Int? = null
+    private fun createColorSelectorDialog(imageView: View, keyForSharedPref: String){
+        val dialog = ColorPickerDialog(context)
+            .createDetermineColorDialog(imageView, keyForSharedPref)
 
-        ColorPickerDialogBuilder
-            .with(context)
-            .setTitle(context.getString(R.string.color_selector_dialog_title))
-            .wheelType(ColorPickerView.WHEEL_TYPE.FLOWER)
-            .density(10)
-            .setOnColorSelectedListener {
-                selectedColor = it
-            }
-            .setOnColorChangedListener {
-                selectedColor = it
-            }
-            .setPositiveButton(android.R.string.ok){ dialog,_,_ ->
-                if (selectedColor != null){
-                    imageView.background.setTint(selectedColor!!)
-                    val keyForSharedPref = COLOR_CIRCLE_ID_HEADER + number.toString()
-
-                    setColorDataInSharedPreference(keyForSharedPref, selectedColor!!)
-                }
-
-                dialog.dismiss()
-            }
-            .setNegativeButton(android.R.string.cancel){ dialog,_ ->
-                dialog.dismiss()
-            }
-            .showColorPreview(isOrientationPortrait())
-            .showAlphaSlider(false)
-            .build()
-            .show()
-    }
-
-    private fun isOrientationPortrait(): Boolean {
-        val orientation = context.resources.configuration.orientation
-        return orientation == ORIENTATION_PORTRAIT
-    }
-
-    private fun setColorDataInSharedPreference(key: String, color: Int) {
-            val editor = sharedPreference.edit()
-            editor.putInt(key, color).apply()
+        dialog.show()
     }
 
 }

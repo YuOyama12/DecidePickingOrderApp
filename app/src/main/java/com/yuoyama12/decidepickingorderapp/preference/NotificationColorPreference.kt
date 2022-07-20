@@ -1,15 +1,13 @@
 package com.yuoyama12.decidepickingorderapp.preference
 
 import android.content.Context
-import android.content.res.Configuration
 import android.os.Build
 import android.util.AttributeSet
 import android.view.View
 import androidx.preference.Preference
 import androidx.preference.PreferenceViewHolder
-import com.flask.colorpicker.ColorPickerView
-import com.flask.colorpicker.builder.ColorPickerDialogBuilder
 import com.yuoyama12.decidepickingorderapp.R
+import com.yuoyama12.decidepickingorderapp.dialogs.ColorPickerDialog
 
 class NotificationColorPreference @JvmOverloads constructor(
     context: Context,
@@ -52,46 +50,12 @@ class NotificationColorPreference @JvmOverloads constructor(
     private fun getDefaultColor(): Int = R.color.white
 
     private fun createColorPickerDialog(imageView: View){
-        var selectedColor: Int? = null
+        val keyForSharedPref = getString(R.string.notification_color_selector_preference_key)
 
-        ColorPickerDialogBuilder
-            .with(context)
-            .setTitle(getString(R.string.color_selector_dialog_title))
-            .wheelType(ColorPickerView.WHEEL_TYPE.FLOWER)
-            .density(10)
-            .setOnColorSelectedListener {
-                selectedColor = it
-            }
-            .setOnColorChangedListener {
-                selectedColor = it
-            }
-            .setPositiveButton(android.R.string.ok){ dialog,_,_ ->
-                if (selectedColor != null){
-                    imageView.background.setTint(selectedColor!!)
-                    val keyForSharedPref = getString(R.string.notification_color_selector_preference_key)
+        val dialog = ColorPickerDialog(context)
+            .createDetermineColorDialog(imageView, keyForSharedPref)
 
-                    setColorDataInSharedPreference(keyForSharedPref, selectedColor!!)
-                }
-
-                dialog.dismiss()
-            }
-            .setNegativeButton(android.R.string.cancel){ dialog,_ ->
-                dialog.dismiss()
-            }
-            .showColorPreview(isOrientationPortrait())
-            .showAlphaSlider(false)
-            .build()
-            .show()
-    }
-
-    private fun isOrientationPortrait(): Boolean {
-        val orientation = context.resources.configuration.orientation
-        return orientation == Configuration.ORIENTATION_PORTRAIT
-    }
-
-    private fun setColorDataInSharedPreference(key: String, color: Int) {
-        val editor = sharedPreference.edit()
-        editor.putInt(key, color).apply()
+        dialog.show()
     }
 
     private fun getString(id: Int, vararg: Any? = null): String{
@@ -101,8 +65,6 @@ class NotificationColorPreference @JvmOverloads constructor(
             context.getString(id,vararg)
         }
     }
-
-
 
 
 }
