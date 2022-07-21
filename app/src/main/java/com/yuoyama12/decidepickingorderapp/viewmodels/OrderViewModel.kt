@@ -19,11 +19,17 @@ class OrderViewModel @Inject constructor(
 
     val currentItemPosition = MutableLiveData(0)
 
+    val colorsListForColorMarker = MutableLiveData<ArrayList<Int>>()
+
     val ascendingOrderCheckState = MutableLiveData(false)
 
     private var _restoredAscendingOrderCheckState = false
     val restoredAscendingOrderCheckState: Boolean
         get() = _restoredAscendingOrderCheckState
+
+    private var _restoredColorList = arrayListOf<Int>()
+    val restoredColorList: ArrayList<Int>
+        get() = _restoredColorList
 
     private var _selectedGroup: Group? = null
     val selectedGroup: Group?
@@ -47,6 +53,41 @@ class OrderViewModel @Inject constructor(
                 }
         }
         restoreAscendingOrderCheckState()
+    }
+
+    fun createColorsListForColorMarker(colorList: ArrayList<Int>) {
+        val colorsList = getColorsListForColorMarker(colorList)
+        colorsListForColorMarker.value = colorsList
+    }
+
+    private fun getColorsListForColorMarker(colorList: ArrayList<Int>): ArrayList<Int> {
+        val memberList = memberList.value!!
+        val colorsListForColorMarker = arrayListOf<Int>()
+        var previousColor = 0
+
+        for (member in memberList){
+            var color = colorList.random()
+            while (color == previousColor
+                && hasNotAllTheSameColors(colorList)){
+                color = colorList.random()
+            }
+
+            colorsListForColorMarker.add(color)
+
+            previousColor = color
+        }
+
+        return colorsListForColorMarker
+    }
+
+    private fun hasNotAllTheSameColors(colorList: ArrayList<Int>): Boolean {
+        val firstColor = colorList[0]
+        for(color in colorList){
+            if (color != firstColor){
+                return true
+            }
+        }
+        return false
     }
 
     fun goNextItem() {
@@ -77,9 +118,16 @@ class OrderViewModel @Inject constructor(
         _restoredAscendingOrderCheckState = ascendingOrderCheckState.value!!
     }
 
+    fun restoreColorList(colorList: ArrayList<Int>) {
+        _restoredColorList = colorList
+    }
+
     fun resetCurrentItemPosition() {
         currentItemPosition.value = 0
     }
 
+    fun resetColorList() {
+        _restoredColorList = arrayListOf()
+    }
 
 }

@@ -20,6 +20,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@drawable/color_marker"
+            android:background="@{orderViewModel.colorsListForColorMarker[orderViewModel.currentItemPosition]}"
             android:translationY="@dimen/order_display_color_marker_translationY"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />

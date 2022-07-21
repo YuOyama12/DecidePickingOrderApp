@@ -66,5 +66,7 @@ class NotificationColorPreference @JvmOverloads constructor(
         }
     }
 
+    fun getNotificationColor(): Int =
+        getRestoredOrDefaultColor(getString(R.string.notification_color_selector_preference_key))
 
 }

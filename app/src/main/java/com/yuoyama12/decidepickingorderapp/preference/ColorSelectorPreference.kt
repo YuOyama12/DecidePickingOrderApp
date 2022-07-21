@@ -11,6 +11,7 @@ import com.yuoyama12.decidepickingorderapp.R
 import com.yuoyama12.decidepickingorderapp.dialogs.ColorPickerDialog
 
 private const val COLOR_CIRCLE_ID_HEADER = "color_"
+private const val COLOR_CIRCLE_SIZE = 5
 class ColorSelectorPreference @JvmOverloads constructor(
     context: Context,
     attrs: AttributeSet? = null,
@@ -29,8 +30,8 @@ class ColorSelectorPreference @JvmOverloads constructor(
     }
 
     private fun setViews(holder: PreferenceViewHolder) {
-        val colorCircleCount = holder.itemView.findViewById<ConstraintLayout>(holder.itemView.id).childCount
-        val colorCircleList: ArrayList<View> = getColorCircleList(holder, colorCircleCount)
+        val colorCircleSize = holder.itemView.findViewById<ConstraintLayout>(holder.itemView.id).childCount
+        val colorCircleList: ArrayList<View> = getColorCircleList(holder, colorCircleSize)
 
         colorCircleList.forEach { colorCircle ->
             val circleNumber = (colorCircleList.indexOf(colorCircle)) + 1
@@ -90,6 +91,16 @@ class ColorSelectorPreference @JvmOverloads constructor(
             .createDetermineColorDialog(imageView, keyForSharedPref)
 
         dialog.show()
+    }
+
+    fun getColorList(): ArrayList<Int>{
+        val list = arrayListOf<Int>()
+        for (number in 1..COLOR_CIRCLE_SIZE){
+            val key = COLOR_CIRCLE_ID_HEADER + number.toString()
+            val color = getRestoredOrDefaultColor(key)
+            list.add(color)
+        }
+        return list
     }
 
 }

@@ -10,7 +10,9 @@ import androidx.fragment.app.activityViewModels
 import com.yuoyama12.decidepickingorderapp.FlickListener
 import com.yuoyama12.decidepickingorderapp.R
 import com.yuoyama12.decidepickingorderapp.databinding.FragmentOrderDisplayBinding
+import com.yuoyama12.decidepickingorderapp.preference.ColorSelectorPreference
 import com.yuoyama12.decidepickingorderapp.preference.GeneralPreferenceFragment
+import com.yuoyama12.decidepickingorderapp.preference.NotificationColorPreference
 import com.yuoyama12.decidepickingorderapp.viewmodels.OrderViewModel
 
 class OrderDisplayFragment : Fragment() {
@@ -46,6 +48,7 @@ class OrderDisplayFragment : Fragment() {
             ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE
 
         setDisplayedMemberInfoByPreference()
+        createColorMarker()
 
         return binding.root
     }
@@ -56,6 +59,7 @@ class OrderDisplayFragment : Fragment() {
         binding.lifecycleOwner = viewLifecycleOwner
 
         view.setOnTouchListener(FlickListener(flickListener))
+
     }
 
     private fun isFlipHorizontal(): Boolean {
@@ -93,6 +97,16 @@ class OrderDisplayFragment : Fragment() {
             }
         }
     }
+
+    private fun createColorMarker() {
+        val colorList = ColorSelectorPreference(requireContext()).getColorList()
+        val notificationColor = NotificationColorPreference(requireContext()).getNotificationColor()
+        if (colorList != orderViewModel.restoredColorList) {
+            orderViewModel.restoreColorList(colorList)
+            orderViewModel.createColorsListForColorMarker(colorList)
+        }
+    }
+
 
     override fun onDestroy() {
         super.onDestroy()
