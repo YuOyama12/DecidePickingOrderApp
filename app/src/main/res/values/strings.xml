@@ -7,7 +7,7 @@
     <string name="no_group_notification_text">選択可能なグループが存在しません\nリスト一覧表示画面より作成してください</string>
     <string name="start_picking_order_button">順番決め開始</string>
     <string name="show_list_button">リスト一覧表示</string>
-    <string name="ascending_order_check_box">番号の小さい順に表示</string>
+    <string name="ascending_order_check_box">番号の昇順に表示</string>
     <string name="select_group_dialog_title">使用するグループを選択してください</string>
     <string name="no_member_message">メンバーが存在しません</string>
     <string name="group_list_header">グループリスト一覧</string>

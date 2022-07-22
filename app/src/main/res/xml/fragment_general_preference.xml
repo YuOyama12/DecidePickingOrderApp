@@ -53,7 +53,7 @@
 
         <CheckBoxPreference
             app:iconSpaceReserved="false"
-            android:defaultValue="false"
+            android:defaultValue="true"
             android:key="@string/use_of_notification_color_key"
             android:title="@string/use_of_notification_color_title"
             app:allowDividerAbove="true"

@@ -100,13 +100,31 @@ class OrderDisplayFragment : Fragment() {
 
     private fun createColorMarker() {
         val colorList = ColorSelectorPreference(requireContext()).getColorList()
-        val notificationColor = NotificationColorPreference(requireContext()).getNotificationColor()
-        if (colorList != orderViewModel.restoredColorList) {
-            orderViewModel.restoreColorList(colorList)
-            orderViewModel.createColorsListForColorMarker(colorList)
+        var notificationColor : Int? = null
+
+        if (isUseOfNotificationColorChecked()){
+            notificationColor = NotificationColorPreference(requireContext()).getNotificationColor()
         }
+
+        if (colorList != orderViewModel.restoredColorList ||
+              notificationColor != orderViewModel.restoredNotificationColor ) {
+
+            with(orderViewModel){
+                restoreColorList(colorList)
+                restoreNotificationColor(notificationColor)
+                createColorsListForColorMarker(colorList, notificationColor)
+            }
+        }
+
     }
 
+    private fun isUseOfNotificationColorChecked(): Boolean {
+        val sharedPref = GeneralPreferenceFragment.getSharedPreference(requireContext())
+        return sharedPref
+            .getBoolean(getString(R.string.use_of_notification_color_key), true)
+
+
+    }
 
     override fun onDestroy() {
         super.onDestroy()

@@ -31,9 +31,14 @@ class OrderViewModel @Inject constructor(
     val restoredColorList: ArrayList<Int>
         get() = _restoredColorList
 
+    private var _restoredNotificationColor: Int? = null
+    val restoredNotificationColor: Int?
+        get() = _restoredNotificationColor
+
     private var _selectedGroup: Group? = null
     val selectedGroup: Group?
         get() = _selectedGroup
+
 
     fun setSelectedGroup(group: Group) {
         _selectedGroup = group
@@ -49,26 +54,59 @@ class OrderViewModel @Inject constructor(
                 if (ascendingOrderCheckState.value == true) {
                     createdMemberList!!.sortedBy { it.memberId }.toMutableList()
                 } else {
-                    createdMemberList!!.shuffled().toMutableList()
+                    getShuffledMemberList(
+                        createdMemberList!!,
+                        hasNotAllChecked(createdMemberList!!)
+                    )
                 }
         }
         restoreAscendingOrderCheckState()
     }
 
-    fun createColorsListForColorMarker(colorList: ArrayList<Int>) {
+    private fun getShuffledMemberList(
+        memberList: ArrayList<Member>,
+        canAvoidComingCheckedMemberFirst: Boolean
+    ): MutableList<Member> {
+        var shuffledMemberList: MutableList<Member>
+
+        do {
+            shuffledMemberList = memberList.shuffled().toMutableList()
+        } while (canAvoidComingCheckedMemberFirst && shuffledMemberList[0].isChecked)
+
+        return shuffledMemberList
+    }
+
+    private fun hasNotAllChecked(memberList: ArrayList<Member>): Boolean {
+        for (member in memberList) {
+            if (!member.isChecked)
+                return true
+        }
+        return false
+    }
+
+    fun createColorsListForColorMarker(
+        colorList: ArrayList<Int>,
+        notificationColor: Int?
+    ) {
         val colorsList = getColorsListForColorMarker(colorList)
+
+        if (notificationColor != null) {
+            colorsList.insertNotificationColor(notificationColor)
+        }
+
         colorsListForColorMarker.value = colorsList
     }
 
-    private fun getColorsListForColorMarker(colorList: ArrayList<Int>): ArrayList<Int> {
-        val memberList = memberList.value!!
+    private fun getColorsListForColorMarker(
+        colorList: ArrayList<Int>
+    ): ArrayList<Int> {
         val colorsListForColorMarker = arrayListOf<Int>()
         var previousColor = 0
 
-        for (member in memberList){
+        for (member in memberList.value!!){
             var color = colorList.random()
-            while (color == previousColor
-                && hasNotAllTheSameColors(colorList)){
+            while (color == previousColor &&
+                hasNotAllTheSameColors(colorList)){
                 color = colorList.random()
             }
 
@@ -88,6 +126,24 @@ class OrderViewModel @Inject constructor(
             }
         }
         return false
+    }
+
+    private fun ArrayList<Int>.insertNotificationColor(notificationColor: Int) {
+        for (index in 0..this.lastIndex) {
+            if (isCheckedOnNextIndex(index)) {
+                this[index] = notificationColor
+            }
+        }
+    }
+
+    private fun isCheckedOnNextIndex(index: Int): Boolean {
+        val nextIndex = index + 1
+
+        return if (memberList.value!!.lastIndex < nextIndex) {
+            memberList.value!![0].isChecked
+        } else {
+            memberList.value!![nextIndex].isChecked
+        }
     }
 
     fun goNextItem() {
@@ -118,6 +174,10 @@ class OrderViewModel @Inject constructor(
         _restoredAscendingOrderCheckState = ascendingOrderCheckState.value!!
     }
 
+    fun restoreNotificationColor(color: Int?) {
+        _restoredNotificationColor = color
+    }
+
     fun restoreColorList(colorList: ArrayList<Int>) {
         _restoredColorList = colorList
     }
@@ -130,4 +190,6 @@ class OrderViewModel @Inject constructor(
         _restoredColorList = arrayListOf()
     }
 
+
 }
+

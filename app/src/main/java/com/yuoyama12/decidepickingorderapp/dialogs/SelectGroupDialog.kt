@@ -48,11 +48,12 @@ class SelectGroupDialog : DialogFragment() {
                             ifAscendingOrderCheckStateChanged() ||
                             orderViewModel.selectedGroup == null) {
 
-                            orderViewModel.resetColorList()
-                            orderViewModel.resetCurrentItemPosition()
-                            orderViewModel.setSelectedGroup(selectedGroup!!)
-                            orderViewModel.createMemberList()
-
+                            with(orderViewModel) {
+                                resetColorList()
+                                resetCurrentItemPosition()
+                                setSelectedGroup(selectedGroup!!)
+                                createMemberList()
+                            }
                         }
                         dialog.cancel()
 
