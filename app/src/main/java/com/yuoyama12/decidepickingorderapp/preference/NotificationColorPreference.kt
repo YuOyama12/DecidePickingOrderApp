@@ -4,10 +4,14 @@ import android.content.Context
 import android.os.Build
 import android.util.AttributeSet
 import android.view.View
+import androidx.fragment.app.findFragment
 import androidx.preference.Preference
+import androidx.preference.PreferenceFragmentCompat
 import androidx.preference.PreferenceViewHolder
 import com.yuoyama12.decidepickingorderapp.R
 import com.yuoyama12.decidepickingorderapp.dialogs.ColorPickerDialog
+import com.yuoyama12.decidepickingorderapp.dialogs.InformationDialog
+import com.yuoyama12.decidepickingorderapp.fragments.removeBulletPoint
 
 class NotificationColorPreference @JvmOverloads constructor(
     context: Context,
@@ -28,6 +32,16 @@ class NotificationColorPreference @JvmOverloads constructor(
 
     private fun setViews(holder: PreferenceViewHolder) {
         val notificationColorCircle = holder.findViewById(R.id.notification_color)
+        val helpIcon = holder.findViewById(R.id.notification_color_help)
+
+        helpIcon.setOnClickListener {
+            val childFragmentManager = holder.itemView.findFragment<PreferenceFragmentCompat>().childFragmentManager
+            val title = getString(R.string.what_notification_color_is_text).removeBulletPoint()
+
+            InformationDialog
+                .create(title, R.layout.dialog_about_notification_color)
+                .show(childFragmentManager, null)
+        }
 
         notificationColorCircle.apply {
             background.setTint(getRestoredOrDefaultColor(getString(R.string.notification_color_selector_preference_key)))

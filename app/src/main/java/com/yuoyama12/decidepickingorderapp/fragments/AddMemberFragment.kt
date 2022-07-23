@@ -10,6 +10,7 @@ import androidx.navigation.fragment.navArgs
 import com.google.android.material.snackbar.Snackbar
 import com.yuoyama12.decidepickingorderapp.R
 import com.yuoyama12.decidepickingorderapp.databinding.FragmentAddMemberBinding
+import com.yuoyama12.decidepickingorderapp.dialogs.InformationDialog
 import com.yuoyama12.decidepickingorderapp.viewmodels.GroupViewModel
 
 
@@ -41,6 +42,14 @@ class AddMemberFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        binding.notificationColorHelp.setOnClickListener {
+            val title = getString(R.string.what_notification_color_is_text).removeBulletPoint()
+
+            InformationDialog
+                .create(title, R.layout.dialog_about_notification_color)
+                .show(childFragmentManager, null)
+        }
+
         binding.addButton.setOnClickListener {
             insertMemberIntoGroup(args.id)
         }
@@ -111,3 +120,13 @@ class AddMemberFragment : Fragment() {
         _binding = null
     }
 }
+
+fun String.removeBulletPoint(): String {
+    return if (this.first() == '・' || this.first() == '･') {
+        this.substring(1)
+    } else {
+        this
+    }
+}
+
+
