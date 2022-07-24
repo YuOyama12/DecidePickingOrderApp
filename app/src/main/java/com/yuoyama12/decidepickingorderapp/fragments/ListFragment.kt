@@ -198,7 +198,7 @@ class ListFragment : Fragment() {
     private fun notShowDialogOnPreference(): Boolean {
         val sharedPref = PreferenceManager.getDefaultSharedPreferences(requireContext())
         return sharedPref.getBoolean(
-            getString(R.string.show_delete_confirmation_dialog_preference_key),
+            getString(R.string.not_show_delete_confirmation_dialog_key),
             false
         )
     }

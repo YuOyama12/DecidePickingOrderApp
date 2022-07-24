@@ -4,8 +4,8 @@
     <string name="preference_action_bar_title">設定</string>
     <string name="list_category_key">ListCategory</string>
     <string name="list_category_title">リスト一覧表示画面について</string>
-    <string name="show_delete_confirmation_dialog_preference_key">showDeleteConfirmationDialog</string>
-    <string name="show_delete_confirmation_dialog_preference_title">リスト削除確認ダイアログの非表示</string>
+    <string name="not_show_delete_confirmation_dialog_key">notShowDeleteConfirmationDialog</string>
+    <string name="not_show_delete_confirmation_dialog_title">リスト削除確認ダイアログの非表示</string>
     <string name="order_display_preference_category_key">orderDisplayPreferenceCategory</string>
     <string name="order_display_preference_category_title">順番表示画面について</string>
     <string name="operate_when_flick_input_key">operateWhenFlickInput</string>
@@ -35,6 +35,8 @@
         <item>@string/displayed_member_element_id_only</item>
         <item>@string/displayed_member_element_name_only</item>
     </string-array>
+    <string name="not_show_marker_key">notShowMarker</string>
+    <string name="not_show_marker_title">マーカーの非表示</string>
     <string name="color_selector_header_key">colorSelectorHeader</string>
     <string name="color_selector_header_title">画面内でのマーカーの色</string>
     <string name="color_selector_preference_key">colorSelectorPreference</string>

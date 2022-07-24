@@ -9,8 +9,8 @@
 
         <CheckBoxPreference
             android:defaultValue="false"
-            android:key="@string/show_delete_confirmation_dialog_preference_key"
-            android:title="@string/show_delete_confirmation_dialog_preference_title"
+            android:key="@string/not_show_delete_confirmation_dialog_key"
+            android:title="@string/not_show_delete_confirmation_dialog_title"
             app:iconSpaceReserved="false" />
 
     </PreferenceCategory>
@@ -39,6 +39,12 @@
             app:useSimpleSummaryProvider="true"
             app:iconSpaceReserved="false"
             app:allowDividerAbove="true"/>
+
+        <CheckBoxPreference
+            android:defaultValue="false"
+            android:key="@string/not_show_marker_key"
+            android:title="@string/not_show_marker_title"
+            app:iconSpaceReserved="false" />
 
         <Preference
             android:key="@string/color_selector_header_key"

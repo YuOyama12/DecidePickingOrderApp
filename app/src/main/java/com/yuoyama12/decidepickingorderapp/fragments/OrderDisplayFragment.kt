@@ -1,5 +1,6 @@
 package com.yuoyama12.decidepickingorderapp.fragments
 
+import android.content.SharedPreferences
 import android.content.pm.ActivityInfo
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -47,7 +48,9 @@ class OrderDisplayFragment : Fragment() {
         requireActivity().requestedOrientation =
             ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE
 
-        setDisplayedMemberInfoByPreference()
+        val sharedPref = GeneralPreferenceFragment.getSharedPreference(requireContext())
+        setVisibilityOfColorMarker(sharedPref)
+        setDisplayedMemberInfoByPreference(sharedPref)
         createColorMarker()
 
         return binding.root
@@ -74,8 +77,14 @@ class OrderDisplayFragment : Fragment() {
         }
     }
 
-    private fun setDisplayedMemberInfoByPreference() {
-        val sharedPref = GeneralPreferenceFragment.getSharedPreference(requireContext())
+    private fun setVisibilityOfColorMarker(sharedPref: SharedPreferences) {
+        when (sharedPref.getBoolean(getString(R.string.not_show_marker_key), false)) {
+            true -> binding.colorMarker.visibility = View.INVISIBLE
+            false -> binding.colorMarker.visibility = View.VISIBLE
+        }
+    }
+
+    private fun setDisplayedMemberInfoByPreference(sharedPref: SharedPreferences) {
         val selectedMemberInfoPreference =
             sharedPref.getString(
                 getString(R.string.displayed_member_element_key),

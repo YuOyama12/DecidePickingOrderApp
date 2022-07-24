@@ -80,7 +80,7 @@ class DeleteMemberConfirmationDialog : DialogFragment() {
                 .setPositiveButton(android.R.string.ok) { _, _ ->
                     setFragmentResult(REQUEST_KEY, bundleOf(RESULT_KEY_OK_CLICKED to ""))
 
-                    setPreferenceIfChecked(binding.neverShowDialogAgainCheckbox)
+                    setCheckStateInPreference(binding.neverShowDialogAgainCheckbox)
 
                 }
                 .setNegativeButton(android.R.string.cancel) { dialog, _ ->
@@ -94,14 +94,14 @@ class DeleteMemberConfirmationDialog : DialogFragment() {
         return dialog
     }
 
-    private fun setPreferenceIfChecked(checkbox: MaterialCheckBox) {
+    private fun setCheckStateInPreference(checkbox: MaterialCheckBox) {
         if (!checkbox.isChecked) {
             return
         } else {
             val sharedPref = GeneralPreferenceFragment.getSharedPreference(requireContext())
             val editor = sharedPref.edit()
             editor.putBoolean(
-                getString(R.string.show_delete_confirmation_dialog_preference_key),
+                getString(R.string.not_show_delete_confirmation_dialog_key),
                 true
             ).apply()
         }
