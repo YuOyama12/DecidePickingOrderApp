@@ -35,6 +35,7 @@ class MainFragment : Fragment() {
             ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED
 
         val actionBar = activity?.findViewById<androidx.appcompat.widget.Toolbar>(R.id.action_bar)
+        actionBar?.visibility = View.VISIBLE
         actionBar?.title = getString(R.string.app_name)
 
         groupViewModel.groupList.observe(viewLifecycleOwner) {

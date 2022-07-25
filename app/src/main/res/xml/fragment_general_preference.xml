@@ -44,7 +44,8 @@
             android:defaultValue="false"
             android:key="@string/not_show_marker_key"
             android:title="@string/not_show_marker_title"
-            app:iconSpaceReserved="false" />
+            app:iconSpaceReserved="false"
+            app:allowDividerAbove="true" />
 
         <Preference
             android:key="@string/color_selector_header_key"

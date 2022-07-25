@@ -48,6 +48,9 @@ class OrderDisplayFragment : Fragment() {
         requireActivity().requestedOrientation =
             ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE
 
+        val actionBar = activity?.findViewById<androidx.appcompat.widget.Toolbar>(R.id.action_bar)
+        actionBar?.visibility = View.GONE
+
         val sharedPref = GeneralPreferenceFragment.getSharedPreference(requireContext())
         setVisibilityOfColorMarker(sharedPref)
         setDisplayedMemberInfoByPreference(sharedPref)
@@ -131,8 +134,6 @@ class OrderDisplayFragment : Fragment() {
         val sharedPref = GeneralPreferenceFragment.getSharedPreference(requireContext())
         return sharedPref
             .getBoolean(getString(R.string.use_of_notification_color_key), true)
-
-
     }
 
     override fun onDestroy() {
