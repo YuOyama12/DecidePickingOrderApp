@@ -3,7 +3,7 @@
 <resources>
     <string name="preference_action_bar_title">設定</string>
     <string name="list_category_key">ListCategory</string>
-    <string name="list_category_title">リスト一覧表示画面について</string>
+    <string name="list_category_title">グループ一覧画面について</string>
     <string name="not_show_delete_confirmation_dialog_key">notShowDeleteConfirmationDialog</string>
     <string name="not_show_delete_confirmation_dialog_title">リスト削除確認ダイアログの非表示</string>
     <string name="order_display_preference_category_key">orderDisplayPreferenceCategory</string>

@@ -19,7 +19,6 @@
         android:gravity="end"
         android:text="@string/what_notification_color_is_text"
         android:textSize="12sp"
-        android:textColor="@color/black"
         app:layout_constraintEnd_toStartOf="@id/notification_color_help"
         app:layout_constraintBottom_toBottomOf="@id/notification_color_help"/>
 

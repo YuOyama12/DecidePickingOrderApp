@@ -75,7 +75,7 @@ class ExcelViewModel @Inject constructor (
         viewModelScope.launch {
             insertNewGroupAndSetGroupId(sheetName)
 
-            val groupList = groupRepository.getAll().take(1).flatMapConcat(List<Group>::asFlow).toList()
+            val groupList = groupRepository.getGroups().take(1).flatMapConcat(List<Group>::asFlow).toList()
             val insertedGroup = groupList.getGroupFrom(returnedGroupId)
 
             val members = getMembersFromExcel(insertedGroup)

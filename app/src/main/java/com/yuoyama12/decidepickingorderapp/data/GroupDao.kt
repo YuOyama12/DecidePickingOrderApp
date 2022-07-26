@@ -6,7 +6,7 @@ import kotlinx.coroutines.flow.Flow
 @Dao
 interface GroupDao {
     @Query("SELECT * FROM `Group`")
-    fun getAll(): Flow<List<Group>>
+    fun getGroups(): Flow<List<Group>>
 
     @Query("SELECT members FROM `Group` WHERE group_id = :groupId")
     suspend fun getMembersFrom(groupId: Int): MemberList
