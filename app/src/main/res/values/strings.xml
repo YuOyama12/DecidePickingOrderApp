@@ -10,6 +10,20 @@
     <string name="ascending_order_check_box">番号の昇順に表示</string>
     <string name="select_group_dialog_title">使用するグループを選択してください</string>
     <string name="no_member_message">メンバーが存在しません</string>
+    <string name="menu_list_sort_group_list">グループの並べ替え</string>
+    <string-array name="array_sort_group_list">
+        <item>作成日時が古い順</item>
+        <item>作成日時が新しい順</item>
+        <item>五十音順</item>
+    </string-array>
+    <string name="menu_list_sort_member_list">メンバーの並べ替え</string>
+    <string-array name="array_sort_member_list">
+        <item>作成日時が古い順</item>
+        <item>作成日時が新しい順</item>
+        <item>番号の昇順</item>
+        <item>番号の降順</item>
+        <item>五十音順</item>
+    </string-array>
     <string name="group_list_header">グループ一覧</string>
     <string name="create_new_group_list_button">グループ新規作成</string>
     <string name="import_from_excel_button">Excelデータから作成</string>
@@ -57,5 +71,4 @@
     <string name="excel_dialog_select_sheet_title">使用するExcelシートの選択(必須)</string>
     <string name="excel_dialog_select_id_title">IDとして使用する行の選択</string>
     <string name="excel_dialog_select_name_title">名前として使用する行の選択(必須)</string>
-
 </resources>

@@ -50,6 +50,11 @@ class ListFragment : Fragment() {
         }
     }
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setHasOptionsMenu(true)
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -111,7 +116,27 @@ class ListFragment : Fragment() {
         binding.importFromExcelButton.setOnClickListener {
             showDialog(CreateFromExcelDataDialog())
         }
+    }
 
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        super.onCreateOptionsMenu(menu, inflater)
+        inflater.inflate(R.menu.menu_list, menu)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return when (item.itemId) {
+            R.id.sort_group_list -> {
+                val groupSortingMethods = resources.getStringArray(R.array.array_sort_group_list)
+                showSortDialog(SortObject.GROUP, groupSortingMethods)
+                true
+            }
+            R.id.sort_member_list -> {
+                val memberSortingMethods = resources.getStringArray(R.array.array_sort_member_list)
+                showSortDialog(SortObject.MEMBER, memberSortingMethods)
+                true
+            }
+            else -> super.onOptionsItemSelected(item)
+        }
     }
 
     override fun onCreateContextMenu(
@@ -160,6 +185,11 @@ class ListFragment : Fragment() {
             }
             else -> super.onContextItemSelected(item)
         }
+    }
+
+    private fun showSortDialog(sortObject: SortObject, sortingMethods: Array<String>) {
+        val dialog = SortDialog.create(sortObject, sortingMethods)
+        dialog.show(childFragmentManager, null)
     }
 
     private fun showMembers(group: Group) {
