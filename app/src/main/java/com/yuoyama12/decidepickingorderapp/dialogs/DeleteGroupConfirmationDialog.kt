@@ -11,7 +11,7 @@ import androidx.fragment.app.setFragmentResult
 import com.google.android.material.checkbox.MaterialCheckBox
 import com.yuoyama12.decidepickingorderapp.R
 import com.yuoyama12.decidepickingorderapp.databinding.DialogDeleteConfirmationBinding
-import com.yuoyama12.decidepickingorderapp.preference.GeneralPreferenceFragment
+import com.yuoyama12.decidepickingorderapp.preference.GeneralPreferencesFragment
 import com.yuoyama12.decidepickingorderapp.viewmodels.GroupListViewModel
 
 private const val CLASS_NAME = "DeleteGroupConfirmationDialog"
@@ -78,7 +78,7 @@ class DeleteGroupConfirmationDialog : DialogFragment() {
         if (!checkbox.isChecked) {
             return
         } else {
-            val sharedPref = GeneralPreferenceFragment.getSharedPreference(requireContext())
+            val sharedPref = GeneralPreferencesFragment.getSharedPreference(requireContext())
             val editor = sharedPref.edit()
             editor.putBoolean(
                 getString(R.string.not_show_delete_confirmation_dialog_key),

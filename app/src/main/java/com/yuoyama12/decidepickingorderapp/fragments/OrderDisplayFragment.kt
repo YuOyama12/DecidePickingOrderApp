@@ -12,7 +12,7 @@ import com.yuoyama12.decidepickingorderapp.FlickListener
 import com.yuoyama12.decidepickingorderapp.R
 import com.yuoyama12.decidepickingorderapp.databinding.FragmentOrderDisplayBinding
 import com.yuoyama12.decidepickingorderapp.preference.ColorSelectorPreference
-import com.yuoyama12.decidepickingorderapp.preference.GeneralPreferenceFragment
+import com.yuoyama12.decidepickingorderapp.preference.GeneralPreferencesFragment
 import com.yuoyama12.decidepickingorderapp.preference.NotificationColorPreference
 import com.yuoyama12.decidepickingorderapp.viewmodels.OrderViewModel
 
@@ -51,7 +51,7 @@ class OrderDisplayFragment : Fragment() {
         val actionBar = activity?.findViewById<androidx.appcompat.widget.Toolbar>(R.id.action_bar)
         actionBar?.visibility = View.GONE
 
-        val sharedPref = GeneralPreferenceFragment.getSharedPreference(requireContext())
+        val sharedPref = GeneralPreferencesFragment.getSharedPreference(requireContext())
         setVisibilityOfColorMarker(sharedPref)
         setDisplayedMemberInfoByPreference(sharedPref)
         createColorMarker()
@@ -69,7 +69,7 @@ class OrderDisplayFragment : Fragment() {
     }
 
     private fun isFlipHorizontal(): Boolean {
-        val sharedPref = GeneralPreferenceFragment.getSharedPreference(requireContext())
+        val sharedPref = GeneralPreferencesFragment.getSharedPreference(requireContext())
         val value: String? = sharedPref.getString(
             getString(R.string.operate_when_flick_input_key),
             getString(R.string.operate_when_flick_input_left_back_value)
@@ -131,7 +131,7 @@ class OrderDisplayFragment : Fragment() {
     }
 
     private fun isUseOfNotificationColorChecked(): Boolean {
-        val sharedPref = GeneralPreferenceFragment.getSharedPreference(requireContext())
+        val sharedPref = GeneralPreferencesFragment.getSharedPreference(requireContext())
         return sharedPref
             .getBoolean(getString(R.string.use_of_notification_color_key), true)
     }

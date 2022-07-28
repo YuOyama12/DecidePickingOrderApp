@@ -5,7 +5,13 @@ import android.app.Dialog
 import android.os.Bundle
 import android.widget.ArrayAdapter
 import androidx.fragment.app.DialogFragment
-import com.yuoyama12.decidepickingorderapp.preference.GeneralPreferenceFragment
+import androidx.lifecycle.lifecycleScope
+import com.yuoyama12.decidepickingorderapp.preference.datastore.SortingPreferencesDataStoreRepository
+import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.flow.first
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.runBlocking
+import javax.inject.Inject
 
 private const val SORTING_METHODS_BUNDLE_KEY = "sortMethods"
 private const val SORT_OBJECT_BUNDLE_KEY = "sortObject"
@@ -16,7 +22,11 @@ enum class SortObject {
     GROUP,
     MEMBER
 }
+
+@AndroidEntryPoint
 class SortDialog : DialogFragment() {
+
+    @Inject lateinit var sortingPreferencesDataStoreRepository: SortingPreferencesDataStoreRepository
 
     companion object {
         fun create(sortObject: SortObject, sortingMethods: Array<String>): SortDialog {
@@ -28,6 +38,11 @@ class SortDialog : DialogFragment() {
                 arguments = bundle
             }
         }
+
+        object Group {
+            const val SORT_BY_CREATION_TIME_LATEST_FIRST = 1
+            const val SORT_BY_ALPHABETICAL_ORDER = 2
+        }
     }
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
@@ -36,7 +51,9 @@ class SortDialog : DialogFragment() {
         val sortObject = arguments?.getSerializable(SORT_OBJECT_BUNDLE_KEY) as SortObject
         val sortingMethodList = arguments?.getStringArray(SORTING_METHODS_BUNDLE_KEY) as Array<*>
 
-        val defaultSelectedPosition = getDefaultSelectedPosition(sortObject)
+        val defaultSelectedPosition = runBlocking {
+            getDefaultSelectedPosition(sortObject)
+        }
 
         val adapter = ArrayAdapter(requireContext(),
             android.R.layout.select_dialog_singlechoice,
@@ -46,9 +63,11 @@ class SortDialog : DialogFragment() {
             val builder = AlertDialog.Builder(it)
 
             builder.setSingleChoiceItems(adapter, defaultSelectedPosition) { dialog, position ->
-                restoreInSharedPref(position, sortObject)
-                dialog.dismiss()
+                lifecycleScope.launch{
+                    restoreInDataStore(position, sortObject)
+                    dialog.dismiss()
                 }
+            }
 
             builder.create()
 
@@ -57,24 +76,22 @@ class SortDialog : DialogFragment() {
         return dialog
     }
 
-    private fun getDefaultSelectedPosition(sortObject: SortObject): Int {
-        val sharedPref = GeneralPreferenceFragment.getSharedPreference(requireContext())
-
+    private suspend fun getDefaultSelectedPosition(sortObject: SortObject): Int {
         return when (sortObject) {
-            SortObject.GROUP -> sharedPref.getInt(GROUP_SORTING_PREF_KEY, 0)
-            SortObject.MEMBER -> sharedPref.getInt(MEMBER_SORTING_PREF_KEY, 0)
-        }
+            SortObject.GROUP -> sortingPreferencesDataStoreRepository.getGroupSortingId()
+            SortObject.MEMBER -> sortingPreferencesDataStoreRepository.getMemberSortingId()
+        }.first()
     }
 
-    private fun restoreInSharedPref(id: Int, sortObject: SortObject) {
-        val sharedPref = GeneralPreferenceFragment.getSharedPreference(requireContext())
-
-        sharedPref.edit().apply {
-            when (sortObject) {
-                SortObject.GROUP -> putInt(GROUP_SORTING_PREF_KEY, id)
-                SortObject.MEMBER -> putInt(MEMBER_SORTING_PREF_KEY, id)
+    private suspend fun restoreInDataStore(id: Int, sortObject: SortObject) {
+        when (sortObject) {
+            SortObject.GROUP -> {
+                sortingPreferencesDataStoreRepository.setGroupSortingId(id)
             }
-        }.apply()
+            SortObject.MEMBER -> {
+                sortingPreferencesDataStoreRepository.setMemberSortingId(id)
+            }
+        }
     }
 
 }

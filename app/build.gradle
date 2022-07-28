@@ -75,6 +75,8 @@ dependencies {
     def preference_version = "1.2.0"
     implementation "androidx.preference:preference-ktx:$preference_version"
 
+    implementation "androidx.datastore:datastore-preferences:1.0.0"
+
     implementation 'com.github.QuadFlask:colorpicker:0.0.15'
 
     implementation 'com.larswerkman:LicenseView:1.1'

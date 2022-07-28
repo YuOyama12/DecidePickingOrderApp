@@ -53,6 +53,6 @@
         tools:layout="@layout/fragment_order_display" />
     <fragment
         android:id="@+id/generalPreferenceFragment"
-        android:name="com.yuoyama12.decidepickingorderapp.preference.GeneralPreferenceFragment"
+        android:name="com.yuoyama12.decidepickingorderapp.preference.GeneralPreferencesFragment"
         android:label="GeneralPreferenceFragment" />
 </navigation>

@@ -7,7 +7,7 @@ import androidx.appcompat.app.AlertDialog
 import com.flask.colorpicker.ColorPickerView
 import com.flask.colorpicker.builder.ColorPickerDialogBuilder
 import com.yuoyama12.decidepickingorderapp.R
-import com.yuoyama12.decidepickingorderapp.preference.GeneralPreferenceFragment
+import com.yuoyama12.decidepickingorderapp.preference.GeneralPreferencesFragment
 
 class ColorPickerDialog(private val context: Context) {
 
@@ -53,7 +53,7 @@ class ColorPickerDialog(private val context: Context) {
     }
 
     private fun setColorDataInSharedPreference(key: String, color: Int) {
-        val sharedPreference = GeneralPreferenceFragment.getSharedPreference(context)
+        val sharedPreference = GeneralPreferencesFragment.getSharedPreference(context)
         val editor = sharedPreference.edit()
         editor.putInt(key, color).apply()
     }

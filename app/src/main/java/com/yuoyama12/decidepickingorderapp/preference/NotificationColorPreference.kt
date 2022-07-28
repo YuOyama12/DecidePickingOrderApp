@@ -23,7 +23,7 @@ class NotificationColorPreference @JvmOverloads constructor(
         layoutResource = R.layout.preference_notification_color_selector
     }
 
-    private val sharedPreference = GeneralPreferenceFragment.getSharedPreference(context)
+    private val sharedPreference = GeneralPreferencesFragment.getSharedPreference(context)
 
     override fun onBindViewHolder(holder: PreferenceViewHolder) {
         super.onBindViewHolder(holder)

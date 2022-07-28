@@ -10,7 +10,7 @@ import androidx.preference.PreferenceManager
 import com.yuoyama12.decidepickingorderapp.R
 import com.yuoyama12.decidepickingorderapp.dialogs.LicenseDialog
 
-class GeneralPreferenceFragment : PreferenceFragmentCompat() {
+class GeneralPreferencesFragment : PreferenceFragmentCompat() {
 
     companion object {
         fun getSharedPreference(context: Context): SharedPreferences =

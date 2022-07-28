@@ -14,6 +14,11 @@ class GroupRepository @Inject constructor(private val groupDao: GroupDao) {
             groups.sortedBy { it.name }
         }
 
+    fun getGroupsSortedByCreationTimeLatestFirst(): Flow<List<Group>> =
+        groupDao.getGroups().map { group ->
+            group.sortedBy { it.groupId }.reversed()
+        }
+
     suspend fun getMembersFrom(groupId: Int): MemberList = groupDao.getMembersFrom(groupId)
 
     suspend fun insertGroup(group: Group) {

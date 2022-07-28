@@ -5,16 +5,33 @@ import com.yuoyama12.decidepickingorderapp.data.Group
 import com.yuoyama12.decidepickingorderapp.data.GroupRepository
 import com.yuoyama12.decidepickingorderapp.data.Member
 import com.yuoyama12.decidepickingorderapp.data.getGroupFrom
+import com.yuoyama12.decidepickingorderapp.dialogs.SortDialog.Companion.Group.SORT_BY_ALPHABETICAL_ORDER
+import com.yuoyama12.decidepickingorderapp.dialogs.SortDialog.Companion.Group.SORT_BY_CREATION_TIME_LATEST_FIRST
+import com.yuoyama12.decidepickingorderapp.preference.datastore.SortingPreferencesDataStoreRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.flatMapLatest
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
+@ExperimentalCoroutinesApi
 @HiltViewModel
 class GroupViewModel @Inject constructor(
-    private val groupRepository: GroupRepository
+    private val groupRepository: GroupRepository,
+    sortingPreferencesDataStoreRepository: SortingPreferencesDataStoreRepository,
 ) : ViewModel() {
 
-    val groupList = groupRepository.getGroups().asLiveData()
+    private val sortingIdOfGroupList: Flow<Int> =
+        sortingPreferencesDataStoreRepository.getGroupSortingId()
+
+    val groupList = sortingIdOfGroupList.flatMapLatest { id ->
+        when(id) {
+            SORT_BY_CREATION_TIME_LATEST_FIRST -> groupRepository.getGroupsSortedByCreationTimeLatestFirst()
+            SORT_BY_ALPHABETICAL_ORDER -> groupRepository.getGroupsSortedByName()
+            else -> groupRepository.getGroups()
+        }
+    }.asLiveData()
 
     private val _memberList = MutableLiveData<List<Member>>(listOf())
     val memberList: LiveData<List<Member>>
