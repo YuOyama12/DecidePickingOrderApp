@@ -87,6 +87,7 @@ class ListFragment : Fragment() {
         groupViewModel.memberList.observe(viewLifecycleOwner) {
             setNoItemNotificationTextState(it, binding.memberListNoItemText)
             memberListAdapter.submitList(it)
+            groupViewModel.setCurrentDisplayedMemberList(it)
         }
 
         return binding.root

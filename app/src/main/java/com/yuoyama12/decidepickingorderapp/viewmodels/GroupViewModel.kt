@@ -5,17 +5,20 @@ import com.yuoyama12.decidepickingorderapp.data.Group
 import com.yuoyama12.decidepickingorderapp.data.GroupRepository
 import com.yuoyama12.decidepickingorderapp.data.Member
 import com.yuoyama12.decidepickingorderapp.data.getGroupFrom
-import com.yuoyama12.decidepickingorderapp.dialogs.SortDialog.Companion.Group.SORT_BY_ALPHABETICAL_ORDER
-import com.yuoyama12.decidepickingorderapp.dialogs.SortDialog.Companion.Group.SORT_BY_CREATION_TIME_LATEST_FIRST
+import com.yuoyama12.decidepickingorderapp.dialogs.SortDialog.Companion.SORT_BY_GROUP_ALPHABETICAL_ORDER
+import com.yuoyama12.decidepickingorderapp.dialogs.SortDialog.Companion.SORT_BY_GROUP_CREATION_TIME_LATEST_FIRST
+import com.yuoyama12.decidepickingorderapp.dialogs.SortDialog.Companion.SORT_BY_MEMBER_ALPHABETICAL_ORDER
+import com.yuoyama12.decidepickingorderapp.dialogs.SortDialog.Companion.SORT_BY_MEMBER_CREATION_TIME_LATEST_FIRST
+import com.yuoyama12.decidepickingorderapp.dialogs.SortDialog.Companion.SORT_BY_MEMBER_ID_IN_ASCENDING_ORDER
+import com.yuoyama12.decidepickingorderapp.dialogs.SortDialog.Companion.SORT_BY_MEMBER_ID_IN_DESCENDING_ORDER
 import com.yuoyama12.decidepickingorderapp.preference.datastore.SortingPreferencesDataStoreRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.ExperimentalCoroutinesApi
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.flatMapLatest
-import kotlinx.coroutines.launch
+import kotlinx.coroutines.*
+import kotlinx.coroutines.flow.*
 import javax.inject.Inject
 
-@ExperimentalCoroutinesApi
+
+private const val DELIMITER_FOR_MEMBER_PRIMARY_KEY = "_"
 @HiltViewModel
 class GroupViewModel @Inject constructor(
     private val groupRepository: GroupRepository,
@@ -27,15 +30,50 @@ class GroupViewModel @Inject constructor(
 
     val groupList = sortingIdOfGroupList.flatMapLatest { id ->
         when(id) {
-            SORT_BY_CREATION_TIME_LATEST_FIRST -> groupRepository.getGroupsSortedByCreationTimeLatestFirst()
-            SORT_BY_ALPHABETICAL_ORDER -> groupRepository.getGroupsSortedByName()
+            SORT_BY_GROUP_CREATION_TIME_LATEST_FIRST -> groupRepository.getGroupsSortedByCreationTimeLatestFirst()
+            SORT_BY_GROUP_ALPHABETICAL_ORDER -> groupRepository.getGroupsSortedByName()
             else -> groupRepository.getGroups()
         }
     }.asLiveData()
 
+    private val sortingIdOfMemberList: Flow<Int> =
+        sortingPreferencesDataStoreRepository.getMemberSortingId()
+
     private val _memberList = MutableLiveData<List<Member>>(listOf())
     val memberList: LiveData<List<Member>>
-        get() = _memberList
+        get() = _memberList.map { member ->
+            member.applySort()
+        }
+
+    private fun List<Member>.applySort(): List<Member> {
+        val id = runBlocking { sortingIdOfMemberList.first() }
+        return when (id) {
+            SORT_BY_MEMBER_CREATION_TIME_LATEST_FIRST -> {
+                sortedBy {
+                    it.memberPrimaryKey
+                        .substringAfterLast(DELIMITER_FOR_MEMBER_PRIMARY_KEY).toInt()
+                }.reversed()
+            }
+            SORT_BY_MEMBER_ID_IN_ASCENDING_ORDER -> {
+                sortedBy { it.memberId }
+            }
+            SORT_BY_MEMBER_ID_IN_DESCENDING_ORDER -> {
+                sortedBy { it.memberId }.reversed()
+            }
+            SORT_BY_MEMBER_ALPHABETICAL_ORDER -> {
+                sortedBy { it.name }
+            }
+            else -> {
+                sortedBy {
+                    it.memberPrimaryKey
+                        .substringAfterLast(DELIMITER_FOR_MEMBER_PRIMARY_KEY).toInt()
+                }
+            }
+        }
+    }
+
+    //LiveDataであるMemberListにこのクラス内で参照する際に使用
+    private var currentDisplayedMemberList: List<Member>? = listOf()
 
     val hasAnyGroupsInGroupList = MutableLiveData(false)
 
@@ -87,7 +125,9 @@ class GroupViewModel @Inject constructor(
     }
 
     private fun getMemberPrimaryKey(groupId: Int, primaryKeyIdForMembers: Int): String {
-        return "${groupId}_${primaryKeyIdForMembers}"
+        return "$groupId" +
+                DELIMITER_FOR_MEMBER_PRIMARY_KEY +
+                "$primaryKeyIdForMembers"
     }
 
 
@@ -152,5 +192,14 @@ class GroupViewModel @Inject constructor(
         _memberList.value = listOf()
     }
 
+    fun setCurrentDisplayedMemberList(memberList: List<Member>?) {
+        currentDisplayedMemberList = memberList
+    }
+
+    fun reloadMemberList() {
+        _memberList.value = currentDisplayedMemberList ?: listOf()
+    }
 
 }
+
+

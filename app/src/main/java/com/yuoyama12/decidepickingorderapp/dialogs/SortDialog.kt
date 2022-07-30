@@ -5,8 +5,10 @@ import android.app.Dialog
 import android.os.Bundle
 import android.widget.ArrayAdapter
 import androidx.fragment.app.DialogFragment
+import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
 import com.yuoyama12.decidepickingorderapp.preference.datastore.SortingPreferencesDataStoreRepository
+import com.yuoyama12.decidepickingorderapp.viewmodels.GroupViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
@@ -28,6 +30,8 @@ class SortDialog : DialogFragment() {
 
     @Inject lateinit var sortingPreferencesDataStoreRepository: SortingPreferencesDataStoreRepository
 
+    val groupViewModel: GroupViewModel by activityViewModels()
+
     companion object {
         fun create(sortObject: SortObject, sortingMethods: Array<String>): SortDialog {
             return SortDialog().apply {
@@ -39,10 +43,13 @@ class SortDialog : DialogFragment() {
             }
         }
 
-        object Group {
-            const val SORT_BY_CREATION_TIME_LATEST_FIRST = 1
-            const val SORT_BY_ALPHABETICAL_ORDER = 2
-        }
+        const val SORT_BY_GROUP_CREATION_TIME_LATEST_FIRST = 1
+        const val SORT_BY_GROUP_ALPHABETICAL_ORDER = 2
+
+        const val SORT_BY_MEMBER_CREATION_TIME_LATEST_FIRST = 1
+        const val SORT_BY_MEMBER_ID_IN_ASCENDING_ORDER = 2
+        const val SORT_BY_MEMBER_ID_IN_DESCENDING_ORDER = 3
+        const val SORT_BY_MEMBER_ALPHABETICAL_ORDER = 4
     }
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
@@ -63,8 +70,13 @@ class SortDialog : DialogFragment() {
             val builder = AlertDialog.Builder(it)
 
             builder.setSingleChoiceItems(adapter, defaultSelectedPosition) { dialog, position ->
-                lifecycleScope.launch{
+                lifecycleScope.launch {
                     restoreInDataStore(position, sortObject)
+
+                    if (sortObject == SortObject.MEMBER) {
+                        groupViewModel.reloadMemberList()
+                    }
+
                     dialog.dismiss()
                 }
             }
