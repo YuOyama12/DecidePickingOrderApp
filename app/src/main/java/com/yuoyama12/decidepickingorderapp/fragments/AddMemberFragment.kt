@@ -27,9 +27,6 @@ class AddMemberFragment : Fragment() {
         super.onCreate(savedInstanceState)
 
         setHasOptionsMenu(true)
-
-        val actionBar = activity?.findViewById<androidx.appcompat.widget.Toolbar>(R.id.action_bar)
-        actionBar?.title = getString(R.string.add_member_action_bar_title, args.listName)
     }
 
     override fun onCreateView(
@@ -58,6 +55,9 @@ class AddMemberFragment : Fragment() {
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         super.onCreateOptionsMenu(menu, inflater)
         inflater.inflate(R.menu.menu_add_member, menu)
+        
+        val actionBar = activity?.findViewById<androidx.appcompat.widget.Toolbar>(R.id.action_bar)
+        actionBar?.title = getString(R.string.add_member_action_bar_title, args.listName)
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {

@@ -69,9 +69,6 @@ class ListFragment : Fragment() {
 
         val memberListAdapter = MemberListAdapter(memberListViewModel)
 
-        val actionBar = activity?.findViewById<androidx.appcompat.widget.Toolbar>(R.id.action_bar)
-        actionBar?.title = getString(R.string.list_action_bar_title)
-
         binding.groupListRecyclerView.adapter = groupListAdapter
         registerForContextMenu(binding.groupListRecyclerView)
 
@@ -121,6 +118,9 @@ class ListFragment : Fragment() {
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         super.onCreateOptionsMenu(menu, inflater)
         inflater.inflate(R.menu.menu_list, menu)
+
+        val actionBar = activity?.findViewById<androidx.appcompat.widget.Toolbar>(R.id.action_bar)
+        actionBar?.title = getString(R.string.list_action_bar_title)
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
