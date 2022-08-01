@@ -7,6 +7,7 @@ import android.widget.ArrayAdapter
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
+import com.yuoyama12.decidepickingorderapp.R
 import com.yuoyama12.decidepickingorderapp.preference.datastore.SortingPreferencesDataStoreRepository
 import com.yuoyama12.decidepickingorderapp.viewmodels.GroupViewModel
 import dagger.hilt.android.AndroidEntryPoint
@@ -62,6 +63,11 @@ class SortDialog : DialogFragment() {
             getDefaultSelectedPosition(sortObject)
         }
 
+        val title = when (sortObject) {
+            SortObject.GROUP -> getString(R.string.menu_list_sort_group_list)
+            SortObject.MEMBER -> getString(R.string.menu_list_sort_member_list)
+        }
+
         val adapter = ArrayAdapter(requireContext(),
             android.R.layout.select_dialog_singlechoice,
             sortingMethodList)
@@ -69,7 +75,8 @@ class SortDialog : DialogFragment() {
         val dialog = requireActivity().let {
             val builder = AlertDialog.Builder(it)
 
-            builder.setSingleChoiceItems(adapter, defaultSelectedPosition) { dialog, position ->
+            builder.setTitle(title)
+                .setSingleChoiceItems(adapter, defaultSelectedPosition) { dialog, position ->
                 lifecycleScope.launch {
                     restoreInDataStore(position, sortObject)
 
