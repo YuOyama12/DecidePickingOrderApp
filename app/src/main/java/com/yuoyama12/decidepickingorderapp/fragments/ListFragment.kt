@@ -63,7 +63,6 @@ class ListFragment : Fragment() {
 
         val groupListAdapter = GroupListAdapter(
             groupListViewModel,
-            viewLifecycleOwner,
             { group -> showMembers(group) },
             { group -> moveToAddMemberFragment(group)}
         )
@@ -244,7 +243,7 @@ class ListFragment : Fragment() {
         groupViewModel.deleteGroup(groupId)
 
         groupViewModel.resetMemberList()
-        groupListViewModel.resetSelectedPosition()
+        groupListViewModel.resetSelectedStateInfo()
 
         showDeleteCompleteMessage()
     }
