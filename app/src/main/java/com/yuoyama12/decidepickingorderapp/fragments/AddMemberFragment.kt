@@ -8,6 +8,7 @@ import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.google.android.material.snackbar.Snackbar
+import com.yuoyama12.decidepickingorderapp.MainActivity
 import com.yuoyama12.decidepickingorderapp.R
 import com.yuoyama12.decidepickingorderapp.databinding.FragmentAddMemberBinding
 import com.yuoyama12.decidepickingorderapp.dialogs.InformationDialog
@@ -54,15 +55,13 @@ class AddMemberFragment : Fragment() {
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         super.onCreateOptionsMenu(menu, inflater)
-        inflater.inflate(R.menu.menu_add_member, menu)
         
-        val actionBar = activity?.findViewById<androidx.appcompat.widget.Toolbar>(R.id.action_bar)
-        actionBar?.title = getString(R.string.add_member_action_bar_title, args.listName)
-    }
+        val actionBar = MainActivity.getActionBar(requireActivity())
+        actionBar.title = getString(R.string.add_member_action_bar_title, args.listName)
 
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        findNavController().navigate(R.id.action_addMemberFragment_to_listFragment)
-        return super.onOptionsItemSelected(item)
+        MainActivity.createNavigationIcon(actionBar) {
+            findNavController().navigate(R.id.action_addMemberFragment_to_listFragment)
+        }
     }
 
     private fun insertMemberIntoGroup(groupId: Int) {
@@ -98,7 +97,7 @@ class AddMemberFragment : Fragment() {
             snackBarLayoutParams.height
         )
 
-        val actionBar = requireActivity().findViewById<androidx.appcompat.widget.Toolbar>(R.id.action_bar)
+        val actionBar = MainActivity.getActionBar(requireActivity())
 
         with(layoutParams) {
             this.setMargins(0, actionBar.height + 3, 0, 0)

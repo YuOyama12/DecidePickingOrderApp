@@ -3,10 +3,14 @@ package com.yuoyama12.decidepickingorderapp.preference
 import android.content.Context
 import android.content.SharedPreferences
 import android.os.Bundle
+import android.view.Menu
+import android.view.MenuInflater
+import androidx.navigation.fragment.findNavController
 import androidx.preference.CheckBoxPreference
 import androidx.preference.Preference
 import androidx.preference.PreferenceFragmentCompat
 import androidx.preference.PreferenceManager
+import com.yuoyama12.decidepickingorderapp.MainActivity
 import com.yuoyama12.decidepickingorderapp.R
 import com.yuoyama12.decidepickingorderapp.dialogs.LicenseDialog
 
@@ -19,8 +23,7 @@ class GeneralPreferencesFragment : PreferenceFragmentCompat() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        val actionBar = activity?.findViewById<androidx.appcompat.widget.Toolbar>(R.id.action_bar)
-        actionBar?.title = getString(R.string.preference_action_bar_title)
+        setHasOptionsMenu(true)
     }
 
     override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
@@ -43,6 +46,15 @@ class GeneralPreferencesFragment : PreferenceFragmentCompat() {
 
     }
 
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        super.onCreateOptionsMenu(menu, inflater)
+        val actionBar = MainActivity.getActionBar(requireActivity())
+        actionBar.title = getString(R.string.preference_action_bar_title)
+
+        MainActivity.createNavigationIcon(actionBar) {
+            findNavController().navigate(R.id.action_generalPreferenceFragment_to_mainFragment)
+        }
+    }
 
     private fun showLicenseDialog(preference: Preference?) {
         preference?.setOnPreferenceClickListener {

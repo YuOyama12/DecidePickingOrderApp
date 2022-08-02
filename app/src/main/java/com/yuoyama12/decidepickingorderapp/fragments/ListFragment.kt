@@ -16,6 +16,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.preference.PreferenceManager
 import com.google.android.material.snackbar.Snackbar
 import com.yuoyama12.decidepickingorderapp.ExcelDataProcessor
+import com.yuoyama12.decidepickingorderapp.MainActivity
 import com.yuoyama12.decidepickingorderapp.R
 import com.yuoyama12.decidepickingorderapp.adapters.GroupListAdapter
 import com.yuoyama12.decidepickingorderapp.adapters.MemberListAdapter
@@ -119,8 +120,12 @@ class ListFragment : Fragment() {
         super.onCreateOptionsMenu(menu, inflater)
         inflater.inflate(R.menu.menu_list, menu)
 
-        val actionBar = activity?.findViewById<androidx.appcompat.widget.Toolbar>(R.id.action_bar)
-        actionBar?.title = getString(R.string.list_action_bar_title)
+        val actionBar = MainActivity.getActionBar(requireActivity())
+        actionBar.title = getString(R.string.list_action_bar_title)
+
+        MainActivity.createNavigationIcon(actionBar) {
+            findNavController().navigate(R.id.action_listFragment_to_mainFragment)
+        }
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {

@@ -7,6 +7,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
+import com.yuoyama12.decidepickingorderapp.MainActivity
 import com.yuoyama12.decidepickingorderapp.R
 import com.yuoyama12.decidepickingorderapp.databinding.FragmentMainBinding
 import com.yuoyama12.decidepickingorderapp.dialogs.SelectGroupDialog
@@ -34,9 +35,10 @@ class MainFragment : Fragment() {
         requireActivity().requestedOrientation =
             ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED
 
-        val actionBar = activity?.findViewById<androidx.appcompat.widget.Toolbar>(R.id.action_bar)
-        actionBar?.visibility = View.VISIBLE
-        actionBar?.title = getString(R.string.app_name)
+        val actionBar = MainActivity.getActionBar(requireActivity())
+        actionBar.visibility = View.VISIBLE
+        actionBar.title = getString(R.string.app_name)
+        actionBar.navigationIcon = null
 
         groupViewModel.groupList.observe(viewLifecycleOwner) {
             groupViewModel.hasAnyGroupsInGroupList.value = it.isNotEmpty()
