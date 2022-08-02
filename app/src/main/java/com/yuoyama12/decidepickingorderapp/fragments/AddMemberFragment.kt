@@ -60,7 +60,7 @@ class AddMemberFragment : Fragment() {
         actionBar.title = getString(R.string.add_member_action_bar_title, args.listName)
 
         MainActivity.createNavigationIcon(actionBar) {
-            findNavController().navigate(R.id.action_addMemberFragment_to_listFragment)
+            findNavController().popBackStack()
         }
     }
 

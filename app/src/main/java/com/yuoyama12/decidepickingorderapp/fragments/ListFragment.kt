@@ -124,7 +124,7 @@ class ListFragment : Fragment() {
         actionBar.title = getString(R.string.list_action_bar_title)
 
         MainActivity.createNavigationIcon(actionBar) {
-            findNavController().navigate(R.id.action_listFragment_to_mainFragment)
+            findNavController().popBackStack()
         }
     }
 

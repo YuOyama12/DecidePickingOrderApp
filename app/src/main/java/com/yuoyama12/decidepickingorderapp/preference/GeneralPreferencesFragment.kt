@@ -52,7 +52,7 @@ class GeneralPreferencesFragment : PreferenceFragmentCompat() {
         actionBar.title = getString(R.string.preference_action_bar_title)
 
         MainActivity.createNavigationIcon(actionBar) {
-            findNavController().navigate(R.id.action_generalPreferenceFragment_to_mainFragment)
+            findNavController().popBackStack()
         }
     }
 

@@ -8,6 +8,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.activityViewModels
+import androidx.navigation.fragment.findNavController
 import com.yuoyama12.decidepickingorderapp.FlickListener
 import com.yuoyama12.decidepickingorderapp.R
 import com.yuoyama12.decidepickingorderapp.databinding.FragmentOrderDisplayBinding
@@ -65,6 +66,10 @@ class OrderDisplayFragment : Fragment() {
         binding.lifecycleOwner = viewLifecycleOwner
 
         view.setOnTouchListener(FlickListener(flickListener))
+
+        binding.closeButton.setOnClickListener {
+            findNavController().popBackStack()
+        }
 
     }
 

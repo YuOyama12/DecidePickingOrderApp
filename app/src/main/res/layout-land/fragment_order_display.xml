@@ -12,7 +12,6 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:paddingHorizontal="@dimen/order_display_padding_horizontal"
         tools:context=".fragments.OrderDisplayFragment">
 
         <ImageView
@@ -22,13 +21,25 @@
             android:src="@drawable/color_marker"
             android:background="@{orderViewModel.colorsListForColorMarker[orderViewModel.currentItemPosition]}"
             android:translationY="-2dp"
+            android:layout_marginHorizontal="@dimen/order_display_padding_horizontal"
             app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/close_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="8dp"
+            android:contentDescription="@string/order_display_close_button_desc"
+            android:src="@drawable/ic_close"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
         <com.google.android.material.textview.MaterialTextView
             android:id="@+id/displayed_sub_id"
             style="@style/OrderDisplayedSubInfo"
             android:text="@{Integer.toString(orderViewModel.memberList[orderViewModel.currentItemPosition].memberId)}"
+            android:paddingHorizontal="@dimen/order_display_padding_horizontal"
             app:layout_constraintBottom_toTopOf="@id/displayed_name"
             app:layout_constraintStart_toStartOf="@id/displayed_name" />
 
@@ -36,6 +47,7 @@
             android:id="@+id/displayed_name"
             style="@style/OrderDisplayedMainInfo"
             android:text="@{orderViewModel.memberList[orderViewModel.currentItemPosition].name}"
+            android:paddingHorizontal="@dimen/order_display_padding_horizontal"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -48,6 +60,7 @@
             android:text="@{Integer.toString(orderViewModel.memberList[orderViewModel.currentItemPosition].memberId)}"
             android:visibility="gone"
             android:gravity="center"
+            android:paddingHorizontal="@dimen/order_display_padding_horizontal"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
