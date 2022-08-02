@@ -2,7 +2,7 @@ package com.yuoyama12.decidepickingorderapp.fragments
 
 import android.os.Bundle
 import android.view.*
-import android.widget.LinearLayout
+import android.widget.FrameLayout
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
@@ -13,7 +13,6 @@ import com.yuoyama12.decidepickingorderapp.R
 import com.yuoyama12.decidepickingorderapp.databinding.FragmentAddMemberBinding
 import com.yuoyama12.decidepickingorderapp.dialogs.InformationDialog
 import com.yuoyama12.decidepickingorderapp.viewmodels.GroupViewModel
-
 
 class AddMemberFragment : Fragment() {
 
@@ -26,7 +25,6 @@ class AddMemberFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
         setHasOptionsMenu(true)
     }
 
@@ -92,7 +90,7 @@ class AddMemberFragment : Fragment() {
         val snackBarView = snackBar.view
         val snackBarLayoutParams = snackBarView.layoutParams
 
-        val layoutParams = LinearLayout.LayoutParams(
+        val layoutParams = FrameLayout.LayoutParams(
             snackBarLayoutParams.width,
             snackBarLayoutParams.height
         )

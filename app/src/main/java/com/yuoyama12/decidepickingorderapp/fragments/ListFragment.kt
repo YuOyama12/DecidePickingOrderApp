@@ -2,6 +2,7 @@ package com.yuoyama12.decidepickingorderapp.fragments
 
 import android.app.Activity
 import android.content.Intent
+import android.content.res.Configuration
 import android.os.Bundle
 import android.view.*
 import androidx.fragment.app.Fragment
@@ -92,6 +93,16 @@ class ListFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        if (resources.configuration.orientation == Configuration.ORIENTATION_PORTRAIT &&
+                resources.getBoolean(R.bool.hasTabletSize)) {
+            val layoutParams = binding.groupListRecyclerView.layoutParams
+            val defaultHeight = resources.getDimension(R.dimen.list_group_list_layout_height).toInt()
+
+            layoutParams.height = defaultHeight * 2
+
+            binding.groupListRecyclerView.layoutParams = layoutParams
+        }
 
         _excelDataProcessor = ExcelDataProcessor(this, requireActivity(), excelViewModel)
 
