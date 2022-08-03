@@ -2,7 +2,7 @@
 
 <resources>
     <string name="app_name">生徒当て順番決めアプリ</string>
-    <string name="action_bar_navigation_icon_back_desc">キャンセル</string>
+    <string name="action_bar_navigation_icon_back_desc">戻る</string>
     <string name="list_action_bar_title">グループ・メンバー一覧</string>
     <string name="add_member_action_bar_title">%sのメンバー追加</string>
     <string name="no_group_notification_text">選択可能なグループが存在しません\nグループ一覧画面より作成してください</string>
