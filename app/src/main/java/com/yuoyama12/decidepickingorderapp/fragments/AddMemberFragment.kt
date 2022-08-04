@@ -23,6 +23,8 @@ class AddMemberFragment : Fragment() {
 
     private val args: AddMemberFragmentArgs by navArgs()
 
+    private var snackBar: Snackbar? = null
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setHasOptionsMenu(true)
@@ -86,24 +88,27 @@ class AddMemberFragment : Fragment() {
     }
 
     private fun showSnackBarBelowActionbar(message: String) {
-        val snackBar = Snackbar.make(binding.root, message, Snackbar.LENGTH_SHORT)
-        val snackBarView = snackBar.view
-        val snackBarLayoutParams = snackBarView.layoutParams
+        snackBar = Snackbar.make(binding.root, message, Snackbar.LENGTH_SHORT)
 
-        val layoutParams = FrameLayout.LayoutParams(
-            snackBarLayoutParams.width,
-            snackBarLayoutParams.height
-        )
+        if (snackBar != null) {
+            val snackBarView = snackBar!!.view
+            val snackBarLayoutParams = snackBarView.layoutParams
 
-        val actionBar = MainActivity.getActionBar(requireActivity())
+            val layoutParams = FrameLayout.LayoutParams(
+                snackBarLayoutParams.width,
+                snackBarLayoutParams.height
+            )
 
-        with(layoutParams) {
-            this.setMargins(0, actionBar.height + 3, 0, 0)
-            this.gravity = Gravity.CENTER_HORIZONTAL
+            val actionBar = MainActivity.getActionBar(requireActivity())
+
+            with(layoutParams) {
+                this.setMargins(0, actionBar.height + 3, 0, 0)
+                this.gravity = Gravity.CENTER_HORIZONTAL
+            }
+
+            snackBarView.layoutParams = layoutParams
+            snackBar!!.show()
         }
-
-        snackBarView.layoutParams = layoutParams
-        snackBar.show()
     }
 
     private fun resetAllInputFields() {
@@ -114,6 +119,9 @@ class AddMemberFragment : Fragment() {
 
     override fun onDestroy() {
         super.onDestroy()
+        snackBar?.let {
+            if (it.isShown) it.dismiss()
+        }
         _binding = null
     }
 }
