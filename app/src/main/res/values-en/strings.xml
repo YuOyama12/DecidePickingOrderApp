@@ -1,0 +1,76 @@
+<!DOCTYPE resources[<!ENTITY notificationColor "Notification Color">]>
+
+<resources>
+    <string name="app_name">DecidePickingOrderApp</string>
+    <string name="action_bar_navigation_icon_back_desc">Back</string>
+    <string name="list_action_bar_title">Groups and Members List</string>
+    <string name="add_member_action_bar_title">Add a Member Of %s</string>
+    <string name="no_group_notification_text">There are no available group lists.\nYou need to create a new one.</string>
+    <string name="start_picking_order_button">Randomize</string>
+    <string name="show_list_button">Group list</string>
+    <string name="ascending_order_check_box">Put in ascending order by ID numbers</string>
+    <string name="select_group_dialog_title">Select a group</string>
+    <string name="no_member_message">There are no members in it.</string>
+    <string name="menu_list_sort_list">Sort</string>
+    <string name="menu_list_sort_group_list">Sort groups</string>
+    <string-array name="array_sort_group_list">
+        <item>Creation time oldest first</item>
+        <item>Creation time latest first</item>
+        <item>Alphabetical order</item>
+    </string-array>
+    <string name="menu_list_sort_member_list">Sort members</string>
+    <string-array name="array_sort_member_list">
+        <item>Creation time oldest first</item>
+        <item>Creation time latest first</item>
+        <item>Asc order by ID numbers</item>
+        <item>Desc order by ID numbers</item>
+        <item>Alphabetical order</item>
+    </string-array>
+    <string name="group_list_header">Group List</string>
+    <string name="create_new_group_list_button">Create a group</string>
+    <string name="import_from_excel_button">import from excel</string>
+    <string name="add_member_button_text">+</string>
+    <string name="add_member_button_content_desc">Add</string>
+    <string name="member_list_header">Members in The Selected Group</string>
+    <string name="optional_member_id_hint">
+        <font size="25">ID number (optional)</font>
+    </string>
+    <string name="required_member_name_hint">
+        <font size="25">Name (required)</font>
+    </string>
+    <string name="explanation_if_number_is_blank">･If the "ID number" is blank, it will be numbered automatically.</string>
+    <string name="what_notification_color_is_text">･What is &notificationColor;?</string>
+    <string name="help_icon_desc">help</string>
+    <string name="information_dialog_notification_color_msg">While the order displayed, the color of the marker on the screen changes to the preset color when the member who the marker is applied to comes in just before.</string>
+    <string name="information_dialog_notification_color_msg_setting">Color and marker display settings can be changed from the settings screen.</string>
+    <string name="menu_group_list_rename_title">Rename</string>
+    <string name="menu_member_list_change_member_info_title">Modify the member info</string>
+    <string name="menu_list_delete_title">Delete</string>
+    <string name="color_check_box_text">Apply &notificationColor;</string>
+    <string name="add_button_text">Add</string>
+    <string name="add_member_error_message">"Name" is required</string>
+    <string name="add_member_completed">Added the member!</string>
+    <string name="create_new_group_list_dialog_title">Create new group</string>
+    <string name="delete_dialog_title">Delete Confirmation</string>
+    <string name="rename_group_list_dialog_title">Rename the group</string>
+    <string name="group_list_name_dialog_hint">New group name</string>
+    <string name="group_list_no_item_text">No groups</string>
+    <string name="member_list_no_item_text">No members</string>
+    <string name="delete_group_confirmation_dialog_message">Delete %s?</string>
+    <string name="delete_member_confirmation_dialog_message">Delete it？</string>
+    <string name="delete_completed">Deleted!</string>
+    <string name="never_show_dialog_again_checkbox_text">Don\'t ask again.</string>
+    <string name="can_change_in_setting_text">It can be changed from the settings screen.</string>
+    <string name="change_member_info_dialog_message">Modify the information that you want to change</string>
+    <string name="order_display_close_button_desc">CLOSE</string>
+    <string name="excel_dialog_message_title">Note</string>
+    <string name="excel_dialog_message_about_format">･It is recommended that the following layout be used.</string>
+    <string name="excel_dialog_message_about_file">･You can choose only xls file formats.</string>
+    <string name="excel_dialog_error_title">Error</string>
+    <string name="excel_dialog_no_available_sheet_data">No available sheets</string>
+    <string name="excel_dialog_no_available_column_data">No available columns</string>
+    <string name="excel_dialog_not_use_item">Not use</string>
+    <string name="excel_dialog_select_sheet_title">Select the Excel sheet (required) </string>
+    <string name="excel_dialog_select_id_title">Select the column used as ID numbers</string>
+    <string name="excel_dialog_select_name_title">Select the column used as names (required)</string>
+</resources>
