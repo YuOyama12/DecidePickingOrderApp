@@ -1,18 +1,18 @@
-<!DOCTYPE resources[<!ENTITY notificationColor "直前通知カラー">]>
+<!DOCTYPE resources[<!ENTITY notificationColor "Notification Color">]>
 
 <resources>
-    <string name="preference_action_bar_title">設定</string>
+    <string name="preference_action_bar_title">Settings</string>
     <string name="list_category_key">ListCategory</string>
-    <string name="list_category_title">グループ一覧画面について</string>
+    <string name="list_category_title">About Groups and Members List</string>
     <string name="not_show_delete_confirmation_dialog_key">notShowDeleteConfirmationDialog</string>
-    <string name="not_show_delete_confirmation_dialog_title">リスト削除確認ダイアログの非表示</string>
+    <string name="not_show_delete_confirmation_dialog_title">Do not display delete confirmation dialog</string>
     <string name="order_display_preference_category_key">orderDisplayPreferenceCategory</string>
-    <string name="order_display_preference_category_title">順番表示画面について</string>
+    <string name="order_display_preference_category_title">About Picking Order Display Screen</string>
     <string name="operate_when_flick_input_key">operateWhenFlickInput</string>
-    <string name="operate_when_flick_input_title">画面内でのフリック時の操作</string>
+    <string name="operate_when_flick_input_title">Movement direction when swiping</string>
     <string-array name="operate_when_flick_input_array">
-        <item>左方向: 前へ戻る / 右方向: 次へ進む</item>
-        <item>左方向: 次へ進む / 右方向: 前へ戻る</item>
+        <item>Left: Prev / Right: Next</item>
+        <item>Left: Next / Right: Prev</item>
     </string-array>
     <string name="operate_when_flick_input_left_back_value">left_back_right_next</string>
     <string name="operate_when_flick_input_left_next_value">left_next_right_back</string>
@@ -21,11 +21,11 @@
         <item>@string/operate_when_flick_input_left_next_value</item>
     </string-array>
     <string name="displayed_member_element_key">displayedMemberElement</string>
-    <string name="displayed_member_element_title">画面内での表示するメンバー情報</string>
+    <string name="displayed_member_element_title">Displayed members\' information</string>
     <string-array name="displayed_member_element_array">
-        <item>番号と名前</item>
-        <item>番号のみ</item>
-        <item>名前のみ</item>
+        <item>ID number &amp; name</item>
+        <item>ID number only</item>
+        <item>name only</item>
     </string-array>
     <string name="displayed_member_element_both_id_and_name">both_id_and_name</string>
     <string name="displayed_member_element_id_only">id_only</string>
@@ -36,17 +36,17 @@
         <item>@string/displayed_member_element_name_only</item>
     </string-array>
     <string name="not_show_marker_key">notShowMarker</string>
-    <string name="not_show_marker_title">マーカーの非表示</string>
+    <string name="not_show_marker_title">Hide Color marker</string>
     <string name="color_selector_header_key">colorSelectorHeader</string>
-    <string name="color_selector_header_title">画面内でのマーカーの色</string>
+    <string name="color_selector_header_title">Colors of Color marker</string>
     <string name="color_selector_preference_key">colorSelectorPreference</string>
-    <string name="color_selector_dialog_title">色を選んでください</string>
+    <string name="color_selector_dialog_title">Select colors</string>
     <string name="use_of_notification_color_key">useOfNotificationColor</string>
-    <string name="use_of_notification_color_title">&notificationColor;の使用</string>
+    <string name="use_of_notification_color_title">Use of &notificationColor;</string>
     <string name="notification_color_selector_preference_key">notificationColorSelectorPreference</string>
     <string name="about_this_app_category_key">aboutThisAppCategory</string>
-    <string name="about_this_app_category_title">このアプリについて</string>
+    <string name="about_this_app_category_title">About this app</string>
     <string name="license_key">license</string>
-    <string name="license_title">ライセンス</string>
+    <string name="license_title">Licenses</string>
 
 </resources>

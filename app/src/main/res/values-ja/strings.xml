@@ -1,0 +1,76 @@
+<!DOCTYPE resources[<!ENTITY notificationColor "直前通知カラー">]>
+
+<resources>
+    <string name="app_name">生徒当て順番決めアプリ</string>
+    <string name="action_bar_navigation_icon_back_desc">戻る</string>
+    <string name="list_action_bar_title">グループ・メンバー一覧</string>
+    <string name="add_member_action_bar_title">%sのメンバー追加</string>
+    <string name="no_group_notification_text">選択可能なグループが存在しません\nグループ一覧画面より作成してください</string>
+    <string name="start_picking_order_button">順番決め開始</string>
+    <string name="show_list_button">グループ一覧</string>
+    <string name="ascending_order_check_box">番号の昇順に表示</string>
+    <string name="select_group_dialog_title">使用するグループを選択してください</string>
+    <string name="no_member_message">メンバーが存在しません</string>
+    <string name="menu_list_sort_list">並べ替え</string>
+    <string name="menu_list_sort_group_list">グループの並べ替え</string>
+    <string-array name="array_sort_group_list">
+        <item>作成日時が古い順</item>
+        <item>作成日時が新しい順</item>
+        <item>五十音順</item>
+    </string-array>
+    <string name="menu_list_sort_member_list">メンバーの並べ替え</string>
+    <string-array name="array_sort_member_list">
+        <item>作成日時が古い順</item>
+        <item>作成日時が新しい順</item>
+        <item>番号の昇順</item>
+        <item>番号の降順</item>
+        <item>五十音順</item>
+    </string-array>
+    <string name="group_list_header">グループ一覧</string>
+    <string name="create_new_group_list_button">グループ新規作成</string>
+    <string name="import_from_excel_button">Excelデータから作成</string>
+    <string name="add_member_button_text">+</string>
+    <string name="add_member_button_content_desc">追加</string>
+    <string name="member_list_header">選択グループ内メンバー一覧</string>
+    <string name="optional_member_id_hint">
+        <font size="25">番号(任意)</font>
+    </string>
+    <string name="required_member_name_hint">
+        <font size="25">氏名(必須)</font>
+    </string>
+    <string name="explanation_if_number_is_blank">・「番号」部分が空白の場合、自動的に採番されます</string>
+    <string name="what_notification_color_is_text">・&notificationColor;とは？</string>
+    <string name="help_icon_desc">ヘルプ</string>
+    <string name="information_dialog_notification_color_msg">順番表示画面において、適用されたメンバーが直前に来ると、画面上にあるマーカーの色があらかじめ設定された色に変わり知らせてくれます</string>
+    <string name="information_dialog_notification_color_msg_setting">色及びマーカーの表示設定は設定画面から変更可能です</string>
+    <string name="menu_group_list_rename_title">名前の変更</string>
+    <string name="menu_member_list_change_member_info_title">メンバー情報の変更</string>
+    <string name="menu_list_delete_title">削除</string>
+    <string name="color_check_box_text">&notificationColor;を適用</string>
+    <string name="add_button_text">追加</string>
+    <string name="add_member_error_message">必須項目が入力されていません</string>
+    <string name="add_member_completed">追加しました</string>
+    <string name="create_new_group_list_dialog_title">グループ新規作成</string>
+    <string name="delete_dialog_title">削除確認</string>
+    <string name="rename_group_list_dialog_title">グループの名前変更</string>
+    <string name="group_list_name_dialog_hint">グループ名を入力</string>
+    <string name="group_list_no_item_text">グループが存在しません</string>
+    <string name="member_list_no_item_text">メンバーが存在しません</string>
+    <string name="delete_group_confirmation_dialog_message">%sを削除しますか？</string>
+    <string name="delete_member_confirmation_dialog_message">以下を削除しますか？</string>
+    <string name="delete_completed">削除しました</string>
+    <string name="never_show_dialog_again_checkbox_text">このダイアログを再度表示しない</string>
+    <string name="can_change_in_setting_text">この設定は設定画面からも変更可能です</string>
+    <string name="change_member_info_dialog_message">変更する情報を書き換えてください</string>
+    <string name="order_display_close_button_desc">閉じる</string>
+    <string name="excel_dialog_message_title">Excelデータから作成の注意点</string>
+    <string name="excel_dialog_message_about_format">・以下のようなフォーマットで作成することを推奨します</string>
+    <string name="excel_dialog_message_about_file">・xls形式のファイルのみ選択可能です</string>
+    <string name="excel_dialog_error_title">エラー</string>
+    <string name="excel_dialog_no_available_sheet_data">使用できるシートが存在しません</string>
+    <string name="excel_dialog_no_available_column_data">使用できる行が存在しません</string>
+    <string name="excel_dialog_not_use_item">使用しない</string>
+    <string name="excel_dialog_select_sheet_title">使用するExcelシートの選択(必須)</string>
+    <string name="excel_dialog_select_id_title">IDとして使用する行の選択</string>
+    <string name="excel_dialog_select_name_title">名前として使用する行の選択(必須)</string>
+</resources>
