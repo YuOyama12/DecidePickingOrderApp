@@ -9,18 +9,23 @@ Google Play ストアで公開中：[生徒当て順番決めアプリ](https://
 ## 簡単な使い方紹介
 
 1. 「グループ一覧」ボタンよりグループ・メンバー一覧画面へ移動
+
    ![screenShot01](https://user-images.githubusercontent.com/94959504/186300304-bc29cf10-1eb5-468f-9334-61d70717773e.PNG)
 2. 「グループ新規作成」ボタンよりグループを作成した後、各項目にある「＋」ボタンよりグループ内のメンバーを追加。
+
    ![screenShot02](https://user-images.githubusercontent.com/94959504/186300307-eb35a1d7-6155-465c-842d-7343525149b0.PNG)
 3. 最初の画面に戻り、「順番決め開始」ボタンより順番表示画面へ移動。フリック操作により表示されるメンバーを切り替えることが可能。（見やすさの観点から横向き表示のみ対応。）
+
    ![screenShot03](https://user-images.githubusercontent.com/94959504/186300308-bcfc0bf1-6e6b-4c7a-b26e-5fc3d7d6bdb4.PNG)
 
 ## 主な使用技術・ライブラリ等
 - Kotlin
 - Android Jetpack
+  - Fragment
   - Room
   - viewModel
   - Navigation
+  - Preferences
   - DataStore
   - View Binding
   - Data Binding
