@@ -10,6 +10,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import com.yuoyama12.decidepickingorderapp.FlickListener
+import com.yuoyama12.decidepickingorderapp.MainActivity
 import com.yuoyama12.decidepickingorderapp.R
 import com.yuoyama12.decidepickingorderapp.databinding.FragmentOrderDisplayBinding
 import com.yuoyama12.decidepickingorderapp.preference.ColorSelectorPreference
@@ -51,6 +52,8 @@ class OrderDisplayFragment : Fragment() {
 
         val actionBar = activity?.findViewById<androidx.appcompat.widget.Toolbar>(R.id.action_bar)
         actionBar?.visibility = View.GONE
+        val toolBarSpacePaddingView = activity?.let { MainActivity.getToolBarSpacePaddingView(it) }
+        toolBarSpacePaddingView?.visibility = View.GONE
 
         val sharedPref = GeneralPreferencesFragment.getSharedPreference(requireContext())
         setVisibilityOfColorMarker(sharedPref)
