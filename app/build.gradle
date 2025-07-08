@@ -7,13 +7,13 @@ plugins {
 }
 
 android {
-    compileSdk 34
+    compileSdk 35
     namespace = "com.yuoyama12.decidepickingorderapp"
 
     defaultConfig {
         applicationId "com.yuoyama12.decidepickingorderapp"
         minSdk 21
-        targetSdk 34
+        targetSdk 35
         versionCode 4
         versionName "1.2.1"
 
