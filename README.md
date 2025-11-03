@@ -38,7 +38,7 @@ Google Play ストアで公開中：[生徒当て順番決めアプリ](https://
 - Apache POI([license](https://www.apache.org/licenses/LICENSE-2.0))
 
 ## 動作対象端末
-- Android8, 9, 10
+- Android8, 9, 10, 15
 
 ## 搭載した機能
 - 画面の向きがPortraitかLandscapeかで、レイアウトを一部変更し表示する機能
